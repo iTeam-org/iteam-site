@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Bienvenue sur Progdupeupl, une communauté de passionnés d'informatique et notamment de programmation. Ce site permet non seulement de se former à la programmation, mais également de discuter entre membres pour progresser, découvrir des astuces, partager, aider, en bref : échanger de façon utile sur le monde de l'informatique." />
+{% endblock %}
+
+{# Content #}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-4 columns">
+        <div class="home-app-title">
+            <h2>
+                <a href="{% url "pdp.tutorial.views.index" %}">
+                    Tutoriels
+                </a>
+            </h2>
+        </div>
+        <div class="row">
+            {% cache 120 home-tutorials %}
+            <div class="large-12 columns">
+                data
+            </div>
+            {% endcache %}
+        </div>
+    </div>
+    <div class="large-8 columns">
+        <div class="home-app-title">
+            <h2>
+                <a href="{% url "pdp.forum.views.index" %}">
+                    Forums
+                </a>
+            </h2>
+        </div>
+        <div class="row">
+            {% cache 120 home-forums user.username %}
+            <div class="large-6 columns">
+                data
+            </div>
+            <div class="large-6 columns">
+                data
+            </div>
+            {% endcache %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

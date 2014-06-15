@@ -1,0 +1,64 @@
+{% extends "news/base.html" %}
+
+{% load staticfiles %}
+
+{% block title_page %}
+    Liste de news
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+
+            <div class="row">
+                <div class="large-8 columns">
+                    <h1>
+                        Liste des news
+                        <br />
+                        <small>
+                            L'actualité de l'iTeam
+                        </small>
+                    </h1>
+                </div>
+                <div class="large-4 columns">
+                    <div class="headline-actions">
+                        <a href="#" class="button">
+                            Rédigez une news
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                {% if data %}
+                    {% for news in data %}
+                        <div class="row collapse">
+                            <div class="small-2 column" style="text-align: center;">
+                                <a href="view/{{ news.id }}">
+                                        <img src="{% static "img/tux.png" %}" alt="" width="50" />
+                                </a>
+                            </div>
+                            <div class="small-10 column" style="padding-left: 5px;">
+                                <a href="view/{{ news.id }}">{{ news.title }}</a>
+                                <p>Ecrit avec amour par {{ news.author }}.</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No news are available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "misc/pagination.part.html" %}
+
+
+{% endblock %}

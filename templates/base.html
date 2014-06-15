@@ -1,0 +1,104 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>{% block title_app %}Accueil{% endblock %} &#183; {% block title_page %}{% endblock %} &#183; iTeam.org</title>
+
+    <meta charset="utf-8" />
+    {% block meta %}{% endblock %}
+    
+    <!--<link href="{% static "stylesheets/_normalize.css" %}" rel="stylesheet" type="text/css" />!-->
+    <link href="{% static "stylesheets/app.css" %}" media="screen, projector, print" rel="stylesheet" type="text/css" />
+
+    <!--[if IE]>
+        <link href="{% static "/stylesheets/ie.css" %}" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+
+    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}" />
+</head>
+
+<body>
+    {#  Top bar #}
+    <nav class="top-bar" data-topbar>
+        <!-- Title -->
+        <ul class="title-area">
+            <li class="name">
+                <h1>
+                    <a href="/">
+                        <img src="{% static "img/tux.png" %}" alt="tux" width="40" style="margin-bottom:10px;"/>
+                        iTeam
+                    </a>
+                </h1>
+            </li>
+
+            <!-- Mobile Menu Toggle -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            
+        </ul>
+
+        <!-- Top Bar Section -->
+        <section class="top-bar-section">
+            <!-- Top Bar Right Nav Elements -->
+            <ul class="right">
+                <li class="active"><a href="#">News</a></li>
+                <li><a href="#">Tutos</a></li>
+                <li><a href="#">Formations</a></li>
+                <li><a href="#">Events</a></li>
+            </ul>
+        </section>
+    </nav>
+
+    {# Header #}
+{# {% block header %}{% endblock %}  #}    
+    <header>
+        <div class="row">
+            <div class="twelve columns">
+                <div class="row">
+                    <div class="large-8 columns">
+                        <h1>
+                            Bienvenue
+                        </h1>
+                        <p>
+                            L'iTeam est une association pour la promotion du logiciel libre de l'ECE.<br />
+                            Passez nous voir en P404 !
+                        </p>
+                    </div>
+
+                    <div class="large-4 columns">
+                        <div class="headline-actions">
+                            <img src="{% static "img/logo.png" %}" alt="logo" width="200"></img>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    {# Footer #}
+    
+    <hr />
+    <footer class="row">
+        <div class="large-12 columns">
+            <div class="row">
+                <div class="large-6 columns">
+                    <p>
+                        iTeam 2014 - <a href="#">open source</p>
+                    </p>
+                </div>
+                <div class="large-6 columns">
+                    <ul class="inline-list right">
+                        <li><a href="#">À propos (plus d'info + bureau)</a></li>
+                        <li><a href="#">IRC</a></li>
+                        <li><a href="#">↑</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

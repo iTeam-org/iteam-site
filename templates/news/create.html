@@ -1,0 +1,26 @@
+{% if msg %}
+<p style="color:red">{{ msg }}</p>
+{% endif %}
+
+<h1>Nouvelle News</h1>
+
+<form action="{% url 'news:create' %}" method="post">
+    {% csrf_token %}
+    <p>
+        <label>Titre :<br />
+            <input name="title">
+        </label>
+    </p>
+    <p>
+        <label>Auteur :<br />
+            <input name="author">
+        </label>
+    </p>
+    <p>
+        <label>Text :<br />
+            <textarea cols="100" rows="20" name="text"></textarea>
+        </label>
+    </p>
+
+    <input type="submit" value="Creer" />
+</form>

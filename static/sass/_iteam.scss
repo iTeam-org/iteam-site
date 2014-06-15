@@ -1,0 +1,33 @@
+
+
+header
+{
+    background-image: url('../img/header.png');
+    background-color: darken($topbar-bg-color, 10%);
+    color: white;
+
+    h1
+    {
+        color: white;
+        font-weight: normal;
+    }
+}
+
+.home-app-title
+{
+    padding-bottom: emCalc(3px);
+    margin-bottom: emCalc(8px);
+    border-bottom: solid 1px #ddd;
+
+    h2
+    {
+        margin: 0;
+        padding-left: emCalc(2px);
+    }
+}
+
+.headline-actions{margin-top:1.5em}
+@media only screen and (min-width: 768px)
+{
+    .headline-actions{float:right}
+}

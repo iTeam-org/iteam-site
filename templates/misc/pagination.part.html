@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="large-12 columns">
+        <div class="pagination-centered">
+            <ul class="pagination">
+                {% for i in data.paginator.page_range %}
+                    <li class="{% if data.number == i %}current{% endif %}">
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{#<li class="unavailable"><a href="">&hellip;</a></li>#}
