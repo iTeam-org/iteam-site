@@ -1,0 +1,36 @@
+{% extends "member/base.html" %}
+
+{% block title %}
+    Déconnexion
+{% endblock %}
+
+{% block headline %}
+    Se déconnecter
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="current"><a href="#">Déconnexion</a></li>
+{% endblock %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+    <div class="row">
+        <div class="large-12 columns">
+            <p>
+                Vous n’êtes pas connecté.
+            </p>
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        <div class="large-6 large-centered columns">
+            <form action="{% url 'news:index' %}" method="post">
+                <input type="submit" class="button expand" value="Cliquez ici pour vous déconnecter" />
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

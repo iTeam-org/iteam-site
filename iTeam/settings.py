@@ -24,19 +24,28 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = (
+    'iTeam.pages',
+    'iTeam.member',
+    'iTeam.news',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'iTeam.news',
+
+    'crispy_forms',
+    'crispy_forms_foundation',
+    'simplemathcaptcha',
+    #'email_obfuscator',
+    #'taggit',    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,6 +103,6 @@ TEMPLATE_DIRS = (
 
 
 NB_NEWS_PER_PAGE = 5
-
+MEMBERS_PER_PAGE = 42
 
 

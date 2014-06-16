@@ -1,0 +1,58 @@
+{% extends "news/base.html" %}
+
+{% load staticfiles %}
+
+{% block title_page %}
+    Liste des membres
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+
+            <div class="row">
+                <div class="large-8 columns">
+                    <h1>
+                        Liste des membres
+                        <br />
+                        <small>
+                            Qui sont les <em>geek</em> de l'iTeam ?
+                        </small>
+                    </h1>
+                </div>
+                <div class="large-4 columns">
+                    <div class="headline-actions">
+                        <a href="inscription" class="button">
+                            S'inscrire
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="row">
+                    <div class="large-6 columns large-offset-3">
+                        {% if members %}
+                        <ul class="inline-list">
+                            {% for member_one in members %}
+                                <li><a href="voir/{{ member_one.user }}">{{ member_one.user }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                            <p>No members found.</p>
+                        {% endif %}
+                    </div>                            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
