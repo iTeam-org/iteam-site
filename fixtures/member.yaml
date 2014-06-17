@@ -1,0 +1,9 @@
+- fields: {user: 2}
+  model: member.profile
+  pk: 2
+- fields: {user: 3}
+  model: member.profile
+  pk: 3
+- fields: {user: 4}
+  model: member.profile
+  pk: 4

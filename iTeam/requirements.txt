@@ -6,3 +6,4 @@ django-simple-math-captcha
 django-email-obfuscator
 crispy-forms-foundation
 django-taggit
+PyYAML

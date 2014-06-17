@@ -3,28 +3,15 @@
 ------------------------------------------------------------
 todo :
 -> git
+-> dump iteam.org
 
-- users (integration)
-
+- users (improve : avatar, bio, mail, ...)
+- app member
 - better news (author, thumnail, create)
-//- better template
 
-- calendrier -> event + fortmation
+- calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
+- event + formation : formation, jpo, bar, ...
 - publications : tuto / news
-
-- dump iteam.org
-
-
-------------------------------------------------------------
-* user
-* publication : news / tuto
-* calendrier
-    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ 
-    * https://github.com/llazzaro/django-scheduler
-* event : formation / jpo / bar / ...
-
--> membres
-
 
 ------------------------------------------------------------
 ## News ##

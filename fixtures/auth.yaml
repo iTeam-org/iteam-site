@@ -1,0 +1,23 @@
+- fields:
+    username: Gaetan Fleury
+    password: Gaetan Fleury
+    first_name: Gaetan
+    last_name: Fleury
+  model: auth.user
+  pk: 2
+- fields:
+    username: Guillaume Pigaux
+    password: Guillaume Pigaux
+    first_name: Guillaume
+    last_name: Pigaux
+  model: auth.user
+  pk: 3
+- fields:
+    username: Marion Hayoun
+    password: Marion Hayoun
+    first_name: Marion
+    last_name: Hayoun
+  model: auth.user
+  pk: 4
+
+
