@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}
+{% load staticfiles %}
+
+{% block title_app %}
     Erreur 404
 {% endblock %}
 
-{% block headline %}
-    Erreur 404
-{% endblock %}
-
-{% block breadcrumb %}
-    <li class="current"><a href="#">Erreur 404</a></li>
+{% block header %}
+    <h1>
+        Bienvenue
+    </h1>
+    <p>
+        L'iTeam est une association pour la promotion du logiciel libre de l'ECE.<br />
+        Passez nous voir en P404 !
+    </p>
 {% endblock %}
 
 {% block content %}
+
 <div class="row">
     <div class="large-12 columns">
         <p>
@@ -20,4 +25,5 @@
         </p>
     </div>
 </div>
+
 {% endblock %}

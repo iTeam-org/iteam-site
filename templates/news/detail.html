@@ -22,7 +22,7 @@
                     <span>
                         <img src="/static/img/todo1.jpg" width="50" class="hide-for-small"/>
                     </span>
-                    {{ news.title }}{% if news.subtitle %} - {{ news.subtitle }}{% endif %}
+                    {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
                     <br />
                     <small>
                         News rédigée par <em>{{ news.author }}</em> le {{ news.pub_date|date:"d-m-Y" }}

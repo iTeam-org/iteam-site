@@ -1,26 +1,55 @@
-{% if msg %}
-<p style="color:red">{{ msg }}</p>
-{% endif %}
+{% extends "news/base.html" %}
 
-<h1>Nouvelle News</h1>
+{% load staticfiles %}
 
-<form action="{% url 'news:create' %}" method="post">
-    {% csrf_token %}
-    <p>
-        <label>Titre :<br />
-            <input name="title">
-        </label>
-    </p>
-    <p>
-        <label>Auteur :<br />
-            <input name="author">
-        </label>
-    </p>
-    <p>
-        <label>Text :<br />
-            <textarea cols="100" rows="20" name="text"></textarea>
-        </label>
-    </p>
+{% block title_page %}
+    Nouvelle news
+{% endblock %}
 
-    <input type="submit" value="Creer" />
-</form>
+{% block content %}
+
+<div class="row">
+    <div class="large-6 large-offset-1 columns">
+        <h1>
+            Rédiger une news
+        </h1>
+        <p>
+            {% if msg %}
+            <small class="error">{{ msg }}</small>
+            {% endif %}
+        </p>
+    </div>
+
+    <hr />
+
+    <div class="large-10 large-offset-1 columns">
+    
+        <form action="{% url 'news:create' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="large-6 columns">
+                    <label>Titre
+                        <input type="text" placeholder="Titre" name="title" />
+                    </label>
+                </div>
+                <div class="large-6 columns">
+                    <label>Sous-titre
+                        <input type="text" placeholder="Sous-titre" name="subtitle" />
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <label>Texte
+                        <textarea placeholder="Texte" name="text" ></textarea>
+                    </label>
+                </div>
+            </div>
+
+            <input type="submit" value="Creer" class="button" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

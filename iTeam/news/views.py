@@ -34,15 +34,20 @@ def detail(request, news_id):
 def create(request):
     # If the form has been submitted ...
     if request.method == 'POST':
-        # parse data
-        title = request.POST['title'][:49]
-        author = request.POST['author'][:49]
-        text = request.POST['text']
+        if 'title' in request.POST and 'text' in request.POST:
+            # parse data
+            title = request.POST['title'][:49]
+            if 'subtitle' in request.POST:
+                subtitle = request.POST['subtitle'][:49]
+            else:
+                subtitle = None
+            text = request.POST['text']
         
-        # if all data is ok
-        if title and author and text:
             # Process the data
-            news = News(title=title, author=author, pub_date=timezone.now(), text=text)
+            news = News(
+                title=title, subtitle = subtitle, text=text,
+                author=request.user, pub_date=timezone.now()
+            )
             news.save()
             
             # Redirect after POST

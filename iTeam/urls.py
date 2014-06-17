@@ -18,3 +18,4 @@ urlpatterns = patterns('',
     
     url(r'^$', views.home),
 )
+

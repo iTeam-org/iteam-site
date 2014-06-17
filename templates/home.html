@@ -1,29 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}
+{% load staticfiles %}
+
+{% block title_app %}
     Accueil
 {% endblock %}
 
-{% block meta %}
-    <meta name="description" content="Bienvenue sur Progdupeupl, une communauté de passionnés d'informatique et notamment de programmation. Ce site permet non seulement de se former à la programmation, mais également de discuter entre membres pour progresser, découvrir des astuces, partager, aider, en bref : échanger de façon utile sur le monde de l'informatique." />
+{% block header %}
+    <h1>
+        Bienvenue
+    </h1>
+    <p>
+        L'iTeam est une association pour la promotion du logiciel libre de l'ECE.<br />
+        Passez nous voir en P404 !
+    </p>
 {% endblock %}
-
-{# Content #}
 
 {% block content %}
 
 <div class="row">
-    <div class="large-4 columns">
+    <div class="large-6 columns">
         <div class="home-app-title">
             <h2>
-                <a href="#">
-                    Tutoriels
+                <a href="{% url 'news:index' %}">
+                    Publications
                 </a>
             </h2>
         </div>
         <div class="row">
             <div class="large-12 columns">
-                data
+                {% if data %}
+                    {% for news in data %}
+                        <div class="row collapse">
+                            <div class="small-2 column" style="text-align: center;">
+                                <a href="view/{{ news.id }}">
+                                        <img src="{% static "img/tux.png" %}" alt="" width="50" />
+                                </a>
+                            </div>
+                            <div class="small-10 column" style="padding-left: 5px;">
+                                <a href="view/{{ news.id }}">{{ news.title }}</a>
+                                <p>Ecrit avec amour par {{ news.author }}.</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No news are available.</p>
+                {% endif %}
             </div>
         </div>
     </div>

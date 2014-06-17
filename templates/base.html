@@ -3,7 +3,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>{% block title_app %}Accueil{% endblock %} &#183; {% block title_page %}{% endblock %} &#183; iTeam.org</title>
+    <title>
+        {% if title_app %} {% block title_app %}{% endblock %} &#183; {% endif %}
+        {% if title_page %} {% block title_page %}{% endblock %} &#183; {% endif %}
+        iTeam.org
+    </title>
 
     <meta charset="utf-8" />
     {% block meta %}{% endblock %}
@@ -20,6 +24,8 @@
 </head>
 
 <body>
+    <div id="h"></div>
+
     {#  Top bar #}
     <nav class="top-bar" data-topbar>
         <!-- Title -->
@@ -42,30 +48,28 @@
         <section class="top-bar-section">
             <!-- Top Bar Right Nav Elements -->
             <ul class="left">
-                <li class="active"><a href="/news">Publications</a></li>
-                <li><a href="/event">Events</a></li>
+                <li class="{% block menu_publications %}{% endblock %}"><a href="/news">Publications</a></li>
+                <li class="{% block menu_event %}{% endblock %}"><a href="/event">Events</a></li>
             </ul>
             <ul class="right">
-                <li><a href="#">Connexion</a></li>
-                <li><a href="#">Inscription</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Deconnexion</a></li>
+                {% else %}
+                    <li><a href="#">Connexion</a></li>
+                    <li><a href="#">Inscription</a></li>
+                {% endif %}
             </ul>
         </section>
     </nav>
 
     {# Header #}
-{# {% block header %}{% endblock %}  #}    
     <header>
         <div class="row">
             <div class="twelve columns">
                 <div class="row">
                     <div class="large-8 columns">
-                        <h1>
-                            Bienvenue
-                        </h1>
-                        <p>
-                            L'iTeam est une association pour la promotion du logiciel libre de l'ECE.<br />
-                            Passez nous voir en P404 !
-                        </p>
+                        {% block header %}{% endblock %}
                     </div>
 
                     <div class="large-4 columns">
@@ -86,16 +90,16 @@
             <div class="row">
                 <div class="large-6 columns">
                     <p>
-                        iTeam 2014 - <a href="#">open source</p>
+                        iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</p>
                     </p>
                 </div>
                 <div class="large-6 columns">
                     <ul class="inline-list right">
-                        <li><a href="#">ECE</a></li>
-                        <li><a href="#">L'iTeam</a></li>
-                        <li><a href="#">À propos</a></li>
-                        <li><a href="#">IRC</a></li>
-                        <li><a href="#">↑</a></li>
+                        <li><a href="http://ece.fr">ECE</a></li>
+                        <li><a href="{% url 'pages:iteam' %}">L'iTeam</a></li>
+                        <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                        <li><a href="http://irc.iteam.org">IRC</a></li>
+                        <li><a href="#h">↑</a></li>
                     </ul>
                 </div>
             </div>

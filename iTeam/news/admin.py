@@ -20,7 +20,7 @@ class NewsAdmin(admin.ModelAdmin):
     # add author name for the news based on the current logged user
     def save_model(self, request, obj, form, change):
         # set user
-        obj.user = request.user
+        obj.author = request.user
         # call the admin model save.
         super(NewsAdmin, self).save_model(request, obj, form, change)
 

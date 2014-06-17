@@ -4,7 +4,6 @@
 todo :
 -> git
 
-- home + urls -> templates
 - users (integration)
 
 - better news (author, thumnail, create)
