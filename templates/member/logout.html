@@ -25,9 +25,9 @@
 {% else %}
     <div class="row">
         <div class="large-6 large-centered columns">
-            <form action="{% url 'news:index' %}" method="post">
-                <input type="submit" class="button expand" value="Cliquez ici pour vous déconnecter" />
+            <form action="{% url 'member:logout' %}" method="post">
                 {% csrf_token %}
+                <input type="submit" class="button" value="Cliquez ici pour vous déconnecter" />
             </form>
         </div>
     </div>

@@ -1,6 +1,4 @@
-{% extends "news/base.html" %}
-
-{% load staticfiles %}
+{% extends "member/base.html" %}
 
 {% block title_page %}
     Détail d'un membre
@@ -12,7 +10,6 @@
     <div class="large-12 columns">
         {# title #}
         <div class="home-app-title">
-
             <div class="row">
                 <div class="large-8 columns">
                     <h1>
@@ -23,28 +20,21 @@
                         </small>
                     </h1>
                 </div>
-                <div class="large-4 columns">
-                    <div class="headline-actions">
-                        <a href="inscription" class="button">
-                            S'inscrire
-                        </a>
-                    </div>
-                </div>
             </div>
-
         </div>
         {# content #}
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
-                    <div class="large-6 columns large-offset-2">
+                    <div class="large-8 columns large-offset-2">
                         {% if member %}
                         <p>
                             <h2>
                                 <span>
                                     <img src="/static/img/tux.png" width="50" class="hide-for-small" style="vertical-align:bottom;" />
                                 </span>
-                                {{ member.username}} <small>{{ member.first_name }} {{ member.last_name }}</small>
+                                {{ member.username }}
+                                <small>{{ member.first_name }} {{ member.last_name }}</small>
                             </h2>
                             <ul>
                                 <li>Email : {{ member.email }}</li>
@@ -64,3 +54,4 @@
 
 
 {% endblock %}
+

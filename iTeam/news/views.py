@@ -3,7 +3,9 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from iTeam.news.models import News
 
@@ -31,6 +33,7 @@ def detail(request, news_id):
     return render(request, 'news/detail.html', {'news': news,})
 
 
+@login_required(redirect_field_name='suivant')
 def create(request):
     # If the form has been submitted ...
     if request.method == 'POST':

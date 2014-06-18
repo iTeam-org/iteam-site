@@ -24,14 +24,9 @@ urlpatterns = patterns(
 
     # Profile
     url(r'^voir/(?P<user_name>.+)$', views.details, name='voir'),
-    url(r'^profil/editer$', views.edit_profile, name='editer'),
-
-    # User's actions
-    url(r'^publications$', views.publications, name='publications'),
 
     # Settings
-    url(r'^parametres/profil$', views.settings_profile, name='param_profil'),
-    url(r'^parametres/compte$', views.settings_account, name='param_compte'),
+    url(r'^parametres$', views.settings, name='param_compte'),
 
     url(r'^inscription$', views.register_view, name='register'),
     url(r'^connexion$', views.login_view, name='login'),

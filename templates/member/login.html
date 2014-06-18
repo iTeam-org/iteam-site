@@ -1,15 +1,7 @@
 {% extends "member/base.html" %}
 
-{% block title %}
+{% block title_page %}
     Connexion
-{% endblock %}
-
-{% block headline %}
-    Se connecter
-{% endblock %}
-
-{% block breadcrumb %}
-    <li class="current"><a href="#">Connexion</a></li>
 {% endblock %}
 
 {% block content %}
@@ -18,13 +10,13 @@
     <div class="large-12 columns">
         {% if not user.is_authenticated %}
             {% if error %}
-            <div class="alert-box warning">
+            <small class="error">
                 {{ error }}.
-            </div>
+            </small>
             {% endif %}
 
             <p>
-                Si vous n'avez pas de compte, vous pouvez <a href="{% url "pdp.member.views.register_view" %}" >vous inscrire</a>.
+                Si vous n'avez pas de compte, vous pouvez <a href="{% url 'member:register' %}" >vous inscrire</a>.
             </p>
         {% else %}
             <p>
@@ -37,7 +29,8 @@
 {% if not user.is_authenticated %}
 <div class="row">
     <div class="large-7 large-offset-1 columns">
-        <form method="post" action="{% url "pdp.member.views.login_view" %}{% if next %}?suivant={{ next }}{% endif %}">
+        <form method="post" action="{% url 'member:login' %}{% if next %}?suivant={{ next }}{% endif %}">
+            {% csrf_token %}
             <div class="row">
                 <div class="small-4 columns">
                     <label class="right inline" for="id_username">Identifiant</label>
@@ -74,8 +67,6 @@
                     </a>
                 </div>
             </div>
-
-            {% csrf_token %}
         </form>
     </div>
 </div>

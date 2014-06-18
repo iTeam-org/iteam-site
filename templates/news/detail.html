@@ -7,29 +7,22 @@
     Détail d'une news
 {% endblock %}
 
-{% block meta %}
-    <meta name="description" content="Les forums vous permettent de venir poser vos questions aux autres membres mais aussi de s'entrainer ou tout simplement de discuter. Cela fonctionne également dans l'autre sens : vous pouvez ici aider les autres et proposer des exercices au reste de la communauté." />
-{% endblock %}
-
 {% block content %}
 
 {# title #}        
 <div class="row">
     <div class="large-12 columns">
-        <div class="row">
-            <div class="large-8 columns large-offset-1">
-                <h1>
-                    <span>
-                        <img src="/static/img/todo1.jpg" width="50" class="hide-for-small"/>
-                    </span>
-                    {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
-                    <br />
-                    <small>
-                        News rédigée par <em>{{ news.author }}</em> le {{ news.pub_date|date:"d-m-Y" }}
-                    </small>
-                </h1>
-            </div>
-        </div>
+        <h1>
+            <span>
+                <img src="/static/img/todo1.jpg" width="50" class="hide-for-small"/>
+            </span>
+            {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
+        </h1>
+        <h2>
+            <small>
+                News rédigée par <em>{{ news.author }}</em> le {{ news.pub_date|date:"d-m-Y" }}
+            </small>
+        </h2>
     </div>
 </div>
 

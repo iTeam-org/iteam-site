@@ -105,4 +105,6 @@ TEMPLATE_DIRS = (
 NB_NEWS_PER_PAGE = 5
 MEMBERS_PER_PAGE = 42
 
+LOGIN_URL = '/membres/connexion'
+
 

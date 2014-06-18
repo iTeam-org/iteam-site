@@ -1,3 +1,6 @@
+- fields: {user: 1}
+  model: member.profile
+  pk: 1
 - fields: {user: 2}
   model: member.profile
   pk: 2

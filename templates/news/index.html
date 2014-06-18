@@ -48,7 +48,13 @@
                             </div>
                             <div class="small-10 column" style="padding-left: 5px;">
                                 <a href="view/{{ news.id }}">{{ news.title }}</a>
-                                <p>Ecrit avec amour par {{ news.author }}.</p>
+                                <p>
+                                    Ecrit avec amour par
+                                    <a href="{% url 'member:voir' user_name=news.author %}">
+                                        {{ news.author }}
+                                    </a>
+                                    .
+                                </p>
                             </div>
                         </div>
                     {% endfor %}

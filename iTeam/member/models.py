@@ -50,7 +50,7 @@ class Profile(models.Model):
             string
 
         """
-        return reverse('pdp.member.views.details', args=[self.user.username])
+        return reverse('iTeam.member.views.details', args=[self.user.username])
 
     def get_avatar_url(self):
         """Get the member's avatar URL.
@@ -61,6 +61,7 @@ class Profile(models.Model):
             string
 
         """
+        return 'TODO implement this'
         if self.avatar_url:
             return self.avatar_url
         else:

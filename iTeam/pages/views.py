@@ -30,12 +30,12 @@ def home(request):
 
     news_list = News.objects.all().order_by('-pub_date')[:5]
 
-    return render(request, 'home.html', {"data": news_list})
+    return render(request, 'home.html', {"news_list": news_list})
 
 def iteam(request):
-    return HttpResponse('iteam')
+    return render(request, 'pages/iteam.html')
 
 
 def apropos(request):
-    return HttpResponse('apropos')
+    return render(request, 'pages/apropos.html')
 

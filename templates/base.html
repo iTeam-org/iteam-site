@@ -4,8 +4,8 @@
 <html lang="fr">
 <head>
     <title>
-        {% if title_app %} {% block title_app %}{% endblock %} &#183; {% endif %}
-        {% if title_page %} {% block title_page %}{% endblock %} &#183; {% endif %}
+        {% block title_app %}{% endblock %} &#183;
+        {% block title_page %}{% endblock %} &#183;
         iTeam.org
     </title>
 
@@ -53,11 +53,11 @@
             </ul>
             <ul class="right">
                 {% if user.is_authenticated %}
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Deconnexion</a></li>
+                    <li><a href="{% url 'member:voir' user_name=user.username %}">Profil</a></li>
+                    <li><a href="{% url 'member:logout' %}">Deconnexion</a></li>
                 {% else %}
-                    <li><a href="#">Connexion</a></li>
-                    <li><a href="#">Inscription</a></li>
+                    <li><a href="{% url 'member:login' %}">Connexion</a></li>
+                    <li><a href="{% url 'member:register' %}">Inscription</a></li>
                 {% endif %}
             </ul>
         </section>

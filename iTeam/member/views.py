@@ -38,6 +38,15 @@ from iTeam.member.forms import LoginForm, ProfileForm, RegisterForm, \
     ChangePasswordForm
 
 
+###############################
+from hashlib import md5
+from time import time
+
+
+def generate_token():
+    return md5('lcdldses?nas. {0} salt'.format(time())).hexdigest()[:12]
+##############################
+
 def index(request):
     """Display list of registered users.
 
@@ -45,8 +54,10 @@ def index(request):
         HttpResponse
 
     """
-    members = User.objects.order_by('-date_joined')
+    #members = User.objects.all().order_by('-date_joined')
+    members = Profile.objects.all()
 
+    """
     paginator = Paginator(members, settings.MEMBERS_PER_PAGE)
     page = request.GET.get('page')
 
@@ -59,12 +70,12 @@ def index(request):
     except EmptyPage:
         shown_members = paginator.page(paginator.num_pages)
         page = paginator.num_pages
-
+    """
     return render(request, 'member/index.html', {
-        'members': shown_members,
+        'members': members, #shown_members
         'members_count': members.count(),
-        'pages': range(1, paginator.num_pages), #paginator_range(page, paginator.num_pages),
-        'nb': page,
+        'pages': 1,#range(1, paginator.num_pages), #paginator_range(page, paginator.num_pages),
+        'nb': None,
     })
 
 
@@ -94,50 +105,8 @@ def details(request, user_name):
 
     """
     usr = get_object_or_404(User, username=user_name)
-    profile = get_object_or_404(Profile, user=usr)
 
-    return render(request, 'member/profile.html', {
-        'usr': usr, 'profile': profile
-    })
-
-
-@login_required(redirect_field_name='suivant')
-def edit_profile(request):
-    """Edit an user's profile.
-
-    Returns:
-        HttpResponse
-
-    """
-    try:
-        profile_pk = int(request.GET['profil'])
-        profile = get_object_or_404(Profile, pk=profile_pk)
-    except KeyError:
-        profile = get_object_or_404(Profile, user=request.user)
-
-    # Making sure the user is allowed to do that
-    if not request.user == profile.user:
-        raise PermissionDenied
-
-    if request.method == 'POST':
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            data = form.data
-            profile.biography = data['biography']
-            profile.site = data['site']
-            profile.user.email = data['email']
-            profile.show_email = 'show_email' in data
-
-            # Save the user and it's associated profile
-            profile.user.save()
-            profile.save()
-            return redirect(profile.get_absolute_url())
-        else:
-            raise Http404
-    else:
-        return render(request, 'member/edit_profile.html', {
-            'profile': profile
-        })
+    return render(request, 'member/detail.html', {'member': usr})
 
 
 @sensitive_post_parameters('password')
@@ -178,7 +147,7 @@ def login_view(request):
                 if 'suivant' in request.GET:
                     return redirect(request.GET['suivant'])
                 else:
-                    return redirect(reverse('pdp.pages.views.home'))
+                    return redirect(reverse('iTeam.pages.views.home'))
 
             else:
                 error = u'Les identifiants fournis ne sont pas valides'
@@ -206,7 +175,7 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         request.session.clear()
-        return redirect(reverse('iTeam.news.views.index'))
+        return redirect(reverse('iTeam.pages.views.home'))
 
     # Elsewise we ask the user to submit a form with correct csrf token
     return render(request, 'member/logout.html')
@@ -252,49 +221,7 @@ def register_view(request):
 # Settings for public profile
 
 @login_required(redirect_field_name='suivant')
-def settings_profile(request):
-    """Set current user's profile settings.
-
-    Returns:
-        HttpResponse
-
-    """
-    # extra information about the current user
-    profile = Profile.objects.get(user=request.user)
-
-    if request.method == 'POST':
-        form = ProfileForm(request.user, request.POST)
-        c = {
-            'form': form,
-        }
-        if form.is_valid():
-            profile.biography = form.data['biography']
-            profile.site = form.data['site']
-            profile.show_email = 'show_email' in form.data
-            profile.avatar_url = form.data['avatar_url']
-            profile.save()
-
-            messages.success(request,
-                             u'Le profil a correctement été mis à jour.')
-
-            return redirect('/membres/parametres/profil')
-        else:
-            return render(request, 'member/settings_profile.html', c)
-    else:
-        form = ProfileForm(request.user, initial={
-            'biography': profile.biography,
-            'site': profile.site,
-            'avatar_url': profile.avatar_url,
-            'show_email': profile.show_email}
-        )
-        c = {
-            'form': form
-        }
-        return render(request, 'member/settings_profile.html', c)
-
-
-@login_required(redirect_field_name='suivant')
-def settings_account(request):
+def settings(request):
     """Set current user's account settings.
 
     Returns:
@@ -321,25 +248,3 @@ def settings_account(request):
             'form': form,
         }
         return render(request, 'member/settings_account.html', c)
-
-
-@login_required(redirect_field_name='suivant')
-def publications(request):
-    """Show current user's articles and tutorials.
-
-    Returns:
-        HttpResponse
-
-    """
-
-    user_articles = Article.objects.filter(
-        author=request.user).order_by('-pubdate')
-    user_tutorials = Tutorial.objects.filter(
-        authors=request.user).order_by('-pubdate')
-
-    c = {
-        'user_articles': user_articles,
-        'user_tutorials': user_tutorials,
-    }
-
-    return render(request, 'member/publications.html', c)
