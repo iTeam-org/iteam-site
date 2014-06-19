@@ -5,16 +5,17 @@ todo :
 -> git
 -> dump iteam.org
 
+-> clean code (and doc and tests)
+- check links, titles, header, namespaces ... (code + template)
+
 - better news (author, thumnail, create)
-- tests, tests, tests, ...
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
 - event + formation : formation, jpo, bar, ...
 - publications : tuto / news
 
-- favicon
 - bitbucket project
-- member (rewrote templates + views / improve avatar + bio + mail ...)
+- member (rewrote templates + views / improve avatar)
 
 
 ------------------------------------------------------------
