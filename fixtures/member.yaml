@@ -1,12 +1,20 @@
-- fields: {user: 1}
+- fields:
+    user: 1
+    promo: 2018
   model: member.profile
   pk: 1
-- fields: {user: 2}
+- fields:
+    user: 2
+    promo: 2017
   model: member.profile
   pk: 2
-- fields: {user: 3}
+- fields:
+    user: 3
+    promo: 2016
   model: member.profile
   pk: 3
-- fields: {user: 4}
+- fields:
+    user: 4
+    promo: 2015
   model: member.profile
   pk: 4

@@ -22,14 +22,11 @@ from iTeam.member import views
 urlpatterns = patterns(
     '',
 
-    # Profile
-    url(r'^voir/(?P<user_name>.+)$', views.details, name='voir'),
+    url(r'^voir/(?P<user_name>.+)/$', views.detail, name='detail'),
+    url(r'^parametres/$', views.settings_view, name='settings_view'),
 
-    # Settings
-    url(r'^parametres$', views.settings, name='param_compte'),
-
-    url(r'^inscription$', views.register_view, name='register'),
-    url(r'^connexion$', views.login_view, name='login'),
-    url(r'^deconnexion/$', views.logout_view, name='logout'),
+    url(r'^inscription/$', views.register_view, name='register_view'),
+    url(r'^connexion/$', views.login_view, name='login_view'),
+    url(r'^deconnexion/$', views.logout_view, name='logout_view'),
     url(r'^$', views.index, name='index'),
 )

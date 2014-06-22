@@ -2,30 +2,43 @@
 {% load crispy_forms_tags %}
 
 {% block title_page %}
-    S'incrire
+    S'incrire &#183;
 {% endblock %}
 
 {% block content %}
 
 <div class="row">
     <div class="large-12 columns">
-        {% if not user.is_authenticated %}
-            {% if error %}
-                {{ error }}
-            {% endif %}
-            <p>
-                <strong>Vous êtes sur le point de vous inscrire sur Progdupeupl</strong> ; si vous
-                possédez déjà un compte, merci de <a href="{% url 'member:login' %}">vous connecter</a>
-                à la place.
-            </p>
-            <p>
-                Veuillez fournir les informations nécessaires dans le
-                formulaire suivant afin de poursuivre votre inscription.
-            </p>
-            {% crispy form %}
-        {% else %}
-            <p>Vous êtes déjà connecté.</p>
-        {% endif %}
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-12 columns">
+                    <h1>
+                        Inscription
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                {% if not user.is_authenticated %}
+                    {% if error %}
+                        {{ error }}
+                    {% endif %}
+                    <p>
+                        <strong>Vous êtes sur le point de vous inscrire sur Progdupeupl</strong> ; si vous
+                        possédez déjà un compte, merci de <a href="{% url 'member:login_view' %}">vous connecter</a>
+                        à la place.
+                    </p>
+                    <p>
+                        Veuillez fournir les informations nécessaires dans le
+                        formulaire suivant afin de poursuivre votre inscription.
+                    </p>
+                    {% crispy form %}
+                {% else %}
+                    <p>Vous êtes déjà connecté.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 

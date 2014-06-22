@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Progdupeupl. If not, see <http://www.gnu.org/licenses/>.
 
-"""Member app's views."""
 
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import Http404
@@ -34,9 +33,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.debug import sensitive_post_parameters
 
 from iTeam.member.models import Profile
-from iTeam.member.forms import LoginForm, ProfileForm, RegisterForm, \
-    ChangePasswordForm
-
+from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
 
 ###############################
 from hashlib import md5
@@ -48,17 +45,12 @@ def generate_token():
 ##############################
 
 def index(request):
-    """Display list of registered users.
-
-    Returns:
-        HttpResponse
-
     """
-    #members = User.objects.all().order_by('-date_joined')
-    members = Profile.objects.all()
-
+        Display list of registered users.
     """
-    paginator = Paginator(members, settings.MEMBERS_PER_PAGE)
+    members = User.objects.all().order_by('-date_joined')
+
+    paginator = Paginator(members, settings.NB_MEMBERS_PER_PAGE)
     page = request.GET.get('page')
 
     try:
@@ -70,55 +62,29 @@ def index(request):
     except EmptyPage:
         shown_members = paginator.page(paginator.num_pages)
         page = paginator.num_pages
-    """
+
     return render(request, 'member/index.html', {
-        'members': members, #shown_members
+        'data': shown_members,
         'members_count': members.count(),
-        'pages': 1,#range(1, paginator.num_pages), #paginator_range(page, paginator.num_pages),
-        'nb': None,
     })
 
 
-@login_required(redirect_field_name='suivant')
-def actions(request):
-    """Show avaible actions for current user, like a customized homepage.
-
-    This may be very temporary.
-
-    Returns:
-        HttpResponse
-
+def detail(request, user_name):
     """
-
-    # TODO: Seriously improve this page, and see if cannot be merged in
-    #       pdp.pages.views.home since it will be more coherent to give an
-    #       enhanced homepage for registered users
-
-    return render(request, 'member/actions.html')
-
-
-def details(request, user_name):
-    """Display details about a profile.
-
-    Returns:
-        HttpResponse
-
+        Display details about a profile.
     """
-    usr = get_object_or_404(User, username=user_name)
+    user = get_object_or_404(User, username=user_name)
 
-    return render(request, 'member/detail.html', {'member': usr})
+    return render(request, 'member/detail.html', {'member': user})
 
 
 @sensitive_post_parameters('password')
 def login_view(request):
-    """Allow users to log into their accounts.
+    """
+        Allow users to log into their accounts.
 
-    If the `suivant` HTTP GET field is given, then this view will redirect the
-    user to the given URL after successful auth.
-
-    Returns:
-        HttpResponse
-
+        If the 'suivant' HTTP GET field is given, then this view will redirect the
+        user to the given URL after successful auth.
     """
     csrf_tk = {}
     csrf_tk.update(csrf(request))
@@ -137,7 +103,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                # Yeah auth successful
+            # Yeah auth successful
                 login(request, user)
                 request.session['get_token'] = generate_token()
 
@@ -148,8 +114,8 @@ def login_view(request):
                     return redirect(request.GET['suivant'])
                 else:
                     return redirect(reverse('iTeam.pages.views.home'))
-
             else:
+            # auth failed
                 error = u'Les identifiants fournis ne sont pas valides'
         else:
             error = (u'Veuillez spécifier votre identifiant '
@@ -165,11 +131,8 @@ def login_view(request):
 
 @login_required(redirect_field_name='suivant')
 def logout_view(request):
-    """Allow users to log out of their accounts.
-
-    Returns:
-        HttpResponse
-
+    """
+        Allow users to log out of their accounts.
     """
     # If we got a secure POST, we disconnect
     if request.method == 'POST':
@@ -183,11 +146,8 @@ def logout_view(request):
 
 @sensitive_post_parameters('password', 'password_confirm')
 def register_view(request):
-    """Allow new users to register, creating them an account.
-
-    Returns:
-        HttpResponse
-
+    """
+        Allow new users to register, creating them an account.
     """
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -198,13 +158,10 @@ def register_view(request):
                 data['email'],
                 data['password'])
 
-            profile = Profile(user=user, show_email=False)
+            profile = Profile(user=user, promo=0)
             profile.save()
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-
-            if settings.BOT_ENABLED:
-                bot.send_welcome_private_message(user)
 
             login(request, user)
 
@@ -218,15 +175,10 @@ def register_view(request):
     })
 
 
-# Settings for public profile
-
 @login_required(redirect_field_name='suivant')
-def settings(request):
-    """Set current user's account settings.
-
-    Returns:
-        HttpResponse
-
+def settings_view(request):
+    """
+        Set current user's account settings.
     """
     if request.method == 'POST':
         form = ChangePasswordForm(request.user, request.POST)
@@ -243,7 +195,7 @@ def settings(request):
         else:
             return render(request, 'member/settings_account.html', c)
     else:
-        form = ChangePasswordForm(request.user)
+        form = SettingsForm(request.user)
         c = {
             'form': form,
         }

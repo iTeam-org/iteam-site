@@ -4,8 +4,8 @@
 <html lang="fr">
 <head>
     <title>
-        {% block title_app %}{% endblock %} &#183;
-        {% block title_page %}{% endblock %} &#183;
+        {% block title_app %}{% endblock %}
+        {% block title_page %}{% endblock %}
         iTeam.org
     </title>
 
@@ -20,7 +20,7 @@
     <![endif]-->
 
 
-    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
 </head>
 
 <body>
@@ -53,11 +53,11 @@
             </ul>
             <ul class="right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'member:voir' user_name=user.username %}">Profil</a></li>
-                    <li><a href="{% url 'member:logout' %}">Deconnexion</a></li>
+                    <li><a href="{% url 'member:detail' user_name=user.username %}">Profil</a></li>
+                    <li><a href="{% url 'member:logout_view' %}">Deconnexion</a></li>
                 {% else %}
-                    <li><a href="{% url 'member:login' %}">Connexion</a></li>
-                    <li><a href="{% url 'member:register' %}">Inscription</a></li>
+                    <li><a href="{% url 'member:login_view' %}">Connexion</a></li>
+                    <li><a href="{% url 'member:register_view' %}">Inscription</a></li>
                 {% endif %}
             </ul>
         </section>
@@ -68,11 +68,11 @@
         <div class="row">
             <div class="twelve columns">
                 <div class="row">
-                    <div class="large-8 columns">
+                    <div class="large-6 columns">
                         {% block header %}{% endblock %}
                     </div>
 
-                    <div class="large-4 columns">
+                    <div class="large-6 columns">
                             <img src="{% static "img/bg.png" %}" alt="logo"></img>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="large-6 columns">
                     <p>
-                        iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</p>
+                        iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</a>
                     </p>
                 </div>
                 <div class="large-6 columns">

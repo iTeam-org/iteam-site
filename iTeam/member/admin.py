@@ -15,8 +15,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Progdupeupl. If not, see <http://www.gnu.org/licenses/>.
 
+"""
+    admin.py
+
+    Set displayed fields of the admin view
+"""
+
 from django.contrib import admin
-from .models import Profile
+
+from iTeam.member.models import Profile
 
 class ProfileAdmin(admin.ModelAdmin):
     search_fields = ['user__username']

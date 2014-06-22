@@ -1,36 +1,44 @@
 {% extends "member/base.html" %}
 
 {% block title %}
-    Déconnexion
-{% endblock %}
-
-{% block headline %}
-    Se déconnecter
-{% endblock %}
-
-{% block breadcrumb %}
-    <li class="current"><a href="#">Déconnexion</a></li>
+    Déconnexion &#183;
 {% endblock %}
 
 {% block content %}
 
-{% if not user.is_authenticated %}
-    <div class="row">
-        <div class="large-12 columns">
-            <p>
-                Vous n’êtes pas connecté.
-            </p>
+<div class="row">
+    <div class="large-12 columns">
+
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-12 columns">
+                    <h1>
+                        Déconnexion
+                    </h1>
+                </div>
+            </div>
         </div>
+
+        {% if not user.is_authenticated %}
+            <div class="row">
+                <div class="large-12 columns">
+                    <p>
+                        Vous n’êtes pas connecté.
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="large-4 large-centered columns">
+                    <form action="{% url 'member:logout_view' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="button expand" value="Cliquez ici pour vous déconnecter" />
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
     </div>
-{% else %}
-    <div class="row">
-        <div class="large-6 large-centered columns">
-            <form action="{% url 'member:logout' %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="button" value="Cliquez ici pour vous déconnecter" />
-            </form>
-        </div>
-    </div>
-{% endif %}
+</div>
 
 {% endblock %}

@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title_page %}
-    Liste des membres
+    Liste des membres &#183;
 {% endblock %}
 
 {% block content %}
@@ -14,12 +14,12 @@
         <div class="home-app-title">
 
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-12 columns">
                     <h1>
                         Liste des membres
                         <br />
                         <small>
-                            Qui sont les <em>geek</em> de l'iTeam ?
+                            {{ members_count }} membres trouvés : qui sont ces <em>geek</em> de l'iTeam ?
                         </small>
                     </h1>
                 </div>
@@ -30,15 +30,11 @@
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
-                    <div class="large-12 columns">
-                        <h1>
-                            {{ members_count }} membres trouvés :
-                        </h1>
-
-                        {% if members %}
+                    <div class="large-8 columns large-offset-2">
+                        {% if data %}
                             <ul class="left">
-                                {% for member_one in members %}
-                                    <li><a href="voir/{{ member_one.user }}">{{ member_one.user }}</a></li>
+                                {% for member_one in data %}
+                                    <li><a href="voir/{{ member_one.username }}">{{ member_one.username }}</a></li>
                                 {% endfor %}
                             </ul>
                         {% else %}
@@ -47,6 +43,9 @@
                             </p>
                         {% endif %}
                     </div>                            
+                </div>
+                <div class="row">
+                    {% include "misc/pagination.part.html" %}
                 </div>
             </div>
         </div>

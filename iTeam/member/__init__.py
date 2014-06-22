@@ -15,4 +15,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Progdupeupl. If not, see <http://www.gnu.org/licenses/>.
 
-"""This app is used to store all additional informations about users."""
+"""
+    This app is used to store all additional informations about users.
+
+    Views :
+        - index
+        - details
+        - settings
+        - login_view
+        - logout_view
+        - register_view
+
+    Note : '_view' because of weird recursive function call ...
+"""

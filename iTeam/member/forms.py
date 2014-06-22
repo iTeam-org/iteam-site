@@ -25,10 +25,6 @@ from crispy_forms_foundation.layout import (
     Layout, Div, Fieldset, Submit, Field, HTML
 )
 
-from simplemathcaptcha.fields import MathCaptchaField
-from simplemathcaptcha.widgets import MathCaptchaWidget
-
-
 class LoginForm(forms.Form):
 
     """Form used for login in users."""
@@ -49,16 +45,6 @@ class RegisterForm(forms.Form):
     password_confirm = forms.CharField(
         label=u'Confirmation', max_length=76, widget=forms.PasswordInput
     )
-    captcha = MathCaptchaField(
-        error_messages={
-            'invalid': u'Vérifiez votre réponse et réessayez.',
-            'invalid_number': u'Entrez un nombre entier.',
-        },
-        widget=MathCaptchaWidget(
-            question_tmpl=u'Quel est le résultat de '
-                          u'%(num1)i %(operator)s %(num2)i ?'
-        )
-    )
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
@@ -71,10 +57,6 @@ class RegisterForm(forms.Form):
                 Field('password'),
                 Field('password_confirm'),
                 Field('email'),
-            ),
-            Fieldset(
-                u'Captcha',
-                Field('captcha'),
             ),
             Div(
                 Submit('submit', u'Valider mon inscription'),
@@ -113,73 +95,8 @@ class RegisterForm(forms.Form):
 
 # update extra information about user
 
-class ProfileForm(forms.Form):
+class SettingsForm(forms.Form):
     """Form used to change an user's personnal informations and options."""
-
-    biography = forms.CharField(
-        label=u'Biographie',
-        required=False,
-        widget=forms.Textarea(
-            attrs={'placeholder': u'Votre biographie au format Markdown.'}
-        )
-    )
-
-    site = forms.CharField(
-        label=u'Site internet',
-        required=False,
-        max_length=128,
-        widget=forms.TextInput(
-            attrs={'placeholder': u'Lien vers votre site internet personnel '
-                   u'(ne pas oublier le http:// ou https:// devant).'}
-        )
-    )
-
-    avatar_url = forms.CharField(
-        label=u'Avatar',
-        required=False,
-        widget=forms.TextInput(
-            attrs={'placeholder': u'Lien vers un avatar externe '
-                   u'(laisser vide pour utiliser Gravatar).'}
-        )
-    )
-
-    def __init__(self, user, *args, **kwargs):
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-
-        self.user = user
-
-        # Get initial value form checkbox show email
-        initial = kwargs.get('initial', {})
-        value_checked = ''
-        if 'show_email' in initial and initial['show_email']:
-            value_checked = 'checked'
-
-        self.helper.layout = Layout(
-            Div(
-                HTML(u'{% include "misc/editor.part.html" %}'),
-                Field('biography', id='id_text'),
-                Field('site'),
-                Field('avatar_url'),
-                # Inline checkbox is not supported by crispy form
-                HTML(
-                    u'<div id="div_id_show_email" class="ctrlHolder checkbox"'
-                    u'style="padding-top:10px"><label for="id_show_email"> '
-                    u'<input id="id_show_email" type="checkbox"'
-                    u'class="checkboxinput" name="show_email" {}/> Afficher '
-                    u'mon adresse mail publiquement</label></div>'
-                    .format(value_checked)),
-            ),
-            Div(
-                Submit('submit', 'Editer mon profil'),
-                css_class='button-group'
-            )
-        )
-        super(ProfileForm, self).__init__(*args, **kwargs)
-
-
-class ChangePasswordForm(forms.Form):
-    """Form used to change an user's password."""
 
     password_new = forms.CharField(
         label=u'Nouveau mot de passe ',
@@ -199,11 +116,25 @@ class ChangePasswordForm(forms.Form):
         widget=forms.PasswordInput
     )
 
+    avatar_url = forms.CharField(
+        label=u'Avatar',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': u'Lien vers un avatar externe '
+                   u'(laisser vide pour utiliser Gravatar).'}
+        )
+    )
+
+
     def __init__(self, user, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
 
         self.user = user
+
+        # Get initial value form checkbox show email
+        initial = kwargs.get('initial', {})
+        value_checked = ''
 
         self.helper.layout = Layout(
             Fieldset(
@@ -215,9 +146,25 @@ class ChangePasswordForm(forms.Form):
                     Submit('submit', u'Changer mon mot de passe'),
                     css_class='button-group'
                 )
+            ),
+            Div(
+                HTML(u'{% include "misc/editor.part.html" %}'),
+                Field('avatar_url'),
+                # Inline checkbox is not supported by crispy form
+                HTML(
+                    u'<div id="div_id_show_email" class="ctrlHolder checkbox"'
+                    u'style="padding-top:10px"><label for="id_show_email"> '
+                    u'<input id="id_show_email" type="checkbox"'
+                    u'class="checkboxinput" name="show_email" {}/> Afficher '
+                    u'mon adresse mail publiquement</label></div>'
+                    .format(value_checked)),
+            ),
+            Div(
+                Submit('submit', 'Editer mon profil'),
+                css_class='button-group'
             )
         )
-        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        super(SettingsForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super(ChangePasswordForm, self).clean()

@@ -4,7 +4,7 @@
 {% load news_tags %}
 
 {% block title_page %}
-    Détail d'une news
+    Détail d'une news &#183;
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,13 @@
         </h1>
         <h2>
             <small>
-                News rédigée par <em>{{ news.author }}</em> le {{ news.pub_date|date:"d-m-Y" }}
+                News rédigée par
+                <em>
+                    <a href="{% url 'member:detail' user_name=news.author %}">
+                        {{ news.author }}
+                    </a>
+                </em>
+                le {{ news.pub_date|date:"d-m-Y" }}
             </small>
         </h2>
     </div>

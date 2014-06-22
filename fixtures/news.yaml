@@ -1,5 +1,5 @@
 - fields: {title: 'Bureau 2013', subtitle: 'De nouveaux visages', author: 2,
-      pub_date: !!timestamp '2013-05-14',
+      pub_date: "2013-05-14T00:00:00+00:00",
       text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
       Après un retour sur une année chargée en événements, l'ensemble des
       membres présents ont participés a l'éléction de notre nouveau bureau !\n
@@ -18,7 +18,7 @@
   model: news.news
   pk: 1
 - fields: {title: 'Salon Solution Linux 2012', subtitle: 'De nouveaux visages', author: 3,
-      pub_date: !!timestamp '2012-07-13',
+      pub_date: "2012-07-13T00:00:00+00:00",
       text: "Le 19-20 et 21 juin dernier l’iTeam a assisté à la 14ème édition
       du Salon Solution Linux !\n
       L’évènement avait lieu au CNIT à Paris, c’était l’occasion de découvrir
@@ -33,7 +33,7 @@
   model: news.news
   pk: 2
 - fields: {title: 'Bureau 2012', subtitle: 'De nouveaux visages', author: 4,
-      pub_date: !!timestamp '2012-04-18',
+      pub_date: "2012-04-18T00:00:00+00:00",
       text: "Le 5 avril dernier a eu lieu notre assemblée général annuel pour
       déterminer notre tout nouveau, tout beau, bureau iTeamien 2013-2013. Voici
       la liste élue lors de cette dernière et prête à vous faire vivre une année
