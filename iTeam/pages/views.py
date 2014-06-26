@@ -21,13 +21,6 @@ from django.shortcuts import render
 from iTeam.news.models import News
 
 def home(request):
-    """Display the home page with last articles, tutorials and topics added.
-
-    Returns:
-        HttpResponse
-
-    """
-
     news_list = News.objects.all().order_by('-pub_date')[:5]
 
     return render(request, 'home.html', {"news_list": news_list})

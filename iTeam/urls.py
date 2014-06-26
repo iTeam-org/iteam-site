@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 
 from django.contrib import admin
 admin.autodiscover()
@@ -15,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^news/', include('iTeam.news.urls', namespace="news")),
     url(r'^membres/', include('iTeam.member.urls', namespace="member")),
     url(r'^pages/', include('iTeam.pages.urls', namespace="pages")),
-    
+
     url(r'^$', views.home),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

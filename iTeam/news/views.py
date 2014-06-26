@@ -7,6 +7,10 @@ from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
+from django.core.files import File
+import string
+from django.template.defaultfilters import slugify
+
 from iTeam.news.models import News
 
 # Create your views here.
@@ -39,21 +43,34 @@ def create(request):
     # If the form has been submitted ...
     if request.method == 'POST':
         if 'title' in request.POST and 'text' in request.POST:
-            # parse data
-            title = request.POST['title'][:49]
+            news = News()
+
+            news.author = request.user
+            news.pub_date = timezone.now()
+
+            news.title = request.POST['title'][:99]
+            news.text = request.POST['text']
+
             if 'subtitle' in request.POST:
-                subtitle = request.POST['subtitle'][:49]
-            else:
-                subtitle = None
-            text = request.POST['text']
-        
-            # Process the data
-            news = News(
-                title=title, subtitle = subtitle, text=text,
-                author=request.user, pub_date=timezone.now()
-            )
+                news.subtitle = request.POST['subtitle'][:99]
+
+            if 'image' in request.FILES:
+                img = request.FILES['image']
+                ext = string.lower(img.name.split('.')[-1])
+                error = 0
+                if img.size > 1024*1024*1024:
+                    print('File too big')
+                    error += 1
+                if ext not in ('png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp'):
+                    print('Not an img')
+                    error += 1
+
+                if error == 0:
+                    news.image = img
+                    news.image.name = '.'.join((slugify(news.title), ext))
+
             news.save()
-            
+
             # Redirect after POST
             return HttpResponseRedirect(reverse('news:detail', args=(news.id,)))
         # missing data

@@ -10,12 +10,18 @@ class News(models.Model):
         verbose_name = 'News'
         verbose_name_plural = 'News'
 
-    title = models.CharField(max_length=50)
-    subtitle = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+    subtitle = models.CharField(max_length=100, blank=True)
     author = models.ForeignKey(User, verbose_name=u'Auteur')
     pub_date = models.DateTimeField('Date de publication')
     text = models.TextField()
-    # img
+
+    image = models.ImageField(
+        upload_to='news',
+        blank=True,
+        null=True,
+        default=None
+    )
 
     def __unicode__(self):
         return self.title

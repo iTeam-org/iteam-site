@@ -9,12 +9,16 @@
 
 {% block content %}
 
-{# title #}        
+{# title #}
 <div class="row">
     <div class="large-12 columns">
         <h1>
             <span>
-                <img src="/static/img/todo1.jpg" width="50" class="hide-for-small"/>
+                <img src="{% if news.image %}
+                            {{ news.image.url }}
+                        {% else %}
+                            /static/img/todo1.jpg
+                        {% endif %}" width="50" class="hide-for-small"/>
             </span>
             {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
         </h1>

@@ -11,7 +11,7 @@
 
     <meta charset="utf-8" />
     {% block meta %}{% endblock %}
-    
+
     <!--<link href="{% static "stylesheets/_normalize.css" %}" rel="stylesheet" type="text/css" />!-->
     <link href="{% static "stylesheets/app.css" %}" media="screen, projector, print" rel="stylesheet" type="text/css" />
 
@@ -41,7 +41,7 @@
 
             <!-- Mobile Menu Toggle -->
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-            
+
         </ul>
 
         <!-- Top Bar Section -->
@@ -56,8 +56,16 @@
                     <li><a href="{% url 'member:detail' user_name=user.username %}">Profil</a></li>
                     <li><a href="{% url 'member:logout_view' %}">Deconnexion</a></li>
                 {% else %}
-                    <li><a href="{% url 'member:login_view' %}">Connexion</a></li>
-                    <li><a href="{% url 'member:register_view' %}">Inscription</a></li>
+                    <li>
+                        <a href="{% url 'member:register_view' %}">
+                            Inscription
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'member:login_view' %}">
+                            Connexion
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </section>
@@ -83,7 +91,7 @@
     {% block content %}{% endblock %}
 
     {# Footer #}
-    
+
     <hr />
     <footer class="row">
         <div class="large-12 columns">

@@ -23,9 +23,10 @@
     <hr />
 
     <div class="large-10 large-offset-1 columns">
-    
-        <form action="{% url 'news:create' %}" method="post">
+
+        <form action="{% url 'news:create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+
             <div class="row">
                 <div class="large-6 columns">
                     <label>Titre
@@ -33,8 +34,16 @@
                     </label>
                 </div>
                 <div class="large-6 columns">
-                    <label>Sous-titre
+                    <label>Sous-titre (optionnel)
                         <input type="text" placeholder="Sous-titre" name="subtitle" />
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <label>Image (optionnel)
+                       <input type="file" name="image">
                     </label>
                 </div>
             </div>
