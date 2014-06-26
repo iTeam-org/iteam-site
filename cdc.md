@@ -5,11 +5,10 @@ todo :
 -> git
 -> dump iteam.org
 
-- member:settings_view
+- better news : thumnail (! create form) + edit form
+- better member (mail, ...) + member:settings_view
 
-- better news (author, thumnail, create)
-- better member (avatar, mail, promo, ...)
-- member (rewrote templates + views / improve avatar)
+- news / tuto : booleen + pagination
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
 - event + formation : formation, jpo, bar, ...
@@ -33,7 +32,7 @@ cette partie permet aux utilisateurs de consulter les news du site web, posté p
 
 -> markdown
 
-1 page accessible à tout le monde affichant les dernières news de la plus récente à la plus vielle. Laissez au choix l'utilisateur de pouvoir avoir 5,10 ou 20 news par page. Accessibilité des news antérieurs en allant sur les pages suivantes (un peu comme tout système de blog, exemple : l'utilisateur a choisi 5 articles par page, donc la page affiche les 5 plus récents, la page 2 les 5 suivants etc)
+1 page accessible à tout le monde affichant les dernières news de la plus récente à la plus vieille. Laissez au choix l'utilisateur de pouvoir avoir 5,10 ou 20 news par page. Accessibilité des news antérieurs en allant sur les pages suivantes (un peu comme tout système de blog, exemple : l'utilisateur a choisi 5 articles par page, donc la page affiche les 5 plus récents, la page 2 les 5 suivants etc)
 1 page pour les administrateur permettant de créer/éditer/supprimer des news. Le contenu d'une news n'est pas du simple texte, un minimum de formatage CSS doit être possible, ainsi qu'ajouter des images. Le JavaScript et le PHP cependant doivent être bloqués pour des questions de sécurité. 
 
 
@@ -85,7 +84,86 @@ Ces deux pages (la liste des formations et leur détail individuel) peut être a
 ## Synchronisation avec médias sociaux ##
 
 **Description**
-un script (par site google +, facebook, twitter) qui permet de poster sur nos différentes pages d'asso.
+un script (par site google + facebook + twitter) qui permet de poster sur nos différentes pages d'asso.
 
 **Contient**
 autant de scripts que nécessaire.
+
+.........................
+POST graph.facebook.com
+  /{user-id}/feed?
+    message={message}&
+    access_token={access-token}
+.........................
+ https://developers.facebook.com/docs/graph-api/reference/v2.0/user/feed
+.........................
+POST /me/feed HTTP/1.1
+Host: graph.facebook.com
+
+message=This+is+a+test+message
+
+
+
+.........................
+ DJANGO IMAGES
+.........................
+
+
+In your settings file, you’ll need to define MEDIA_ROOT as the full path to a directory where you’d like Django to store uploaded files. (For performance, these files are not stored in the database.) Define MEDIA_URL as the base public URL of that directory. Make sure that this directory is writable by the Web server’s user account.
+Add the FileField or ImageField to your model, defining the upload_to option to specify a subdirectory of MEDIA_ROOT to use for uploaded files.
+All that will be stored in your database is a path to the file (relative to MEDIA_ROOT). You’ll most likely want to use the convenience url attribute provided by Django. For example, if your ImageField is called mug_shot, you can get the absolute path to your image in a template with {{ object.mug_shot.url }}.
+
+
+
+image = models.ImageField(
+        upload_to=image_path,
+        blank=True, null=True,
+        default=None
+    )
+
+
+def image_path(instance, filename):
+    """Get path to a tutorial image.
+
+    Returns:
+        string
+
+    """
+    ext = filename.split('.')[-1]
+    filename = u'original.{}'.format(string.lower(ext))
+    return os.path.join('tutorials', str(instance.pk), filename)
+
+
+def thumbnail_path(instance, filename):
+    """Get path to a tutorial thumbnail.
+
+    Returns:
+        string
+
+    """
+    ext = filename.split('.')[-1]
+    filename = u'thumb.{}'.format(string.lower(ext))
+    return os.path.join('tutorials', str(instance.pk), filename)
+
+    
+
+image = Image.open(self.image)
+
+            if image.mode not in ('L', 'RGB'):
+                image = image.convert('RGB')
+
+            image.thumbnail(thumb_size, Image.ANTIALIAS)
+
+            # save the thumbnail to memory
+            temp_handle = StringIO()
+            image.save(temp_handle, 'png')
+            temp_handle.seek(0)  # rewind the file
+
+            # save to the thumbnail field
+            suf = SimpleUploadedFile(os.path.split(self.image.name)[-1],
+                                     temp_handle.read(),
+                                     content_type='image/png')
+            self.thumbnail.save(u'{}.png'.format(suf.name), suf, save=False)
+
+            # save the image object
+            super(Tutorial, self).save(force_update, force_insert)

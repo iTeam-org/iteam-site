@@ -20,7 +20,7 @@
                 <div class="large-4 columns">
                     <div class="headline-actions">
                         {% if user.is_authenticated %}
-                            {% ifequal member user %}
+                            {% ifequal profile.user user %}
                                 <a href="{% url 'member:settings_view' %}" class="button">
                                     Paramètres
                                 </a>
@@ -33,19 +33,20 @@
         {# content #}
         <div class="row">
             <div class="large-8 columns large-offset-2">
-                {% if member %}
+                {% if profile.user %}
                 <p>
                     <h2>
                         <span>
-                            <img src="/static/img/tux.png" width="50" class="hide-for-small" style="vertical-align:bottom;" />
+                            <img src="{{ profile.get_avatar_url }}" class="hide-for-small" style="vertical-align:bottom;" />
                         </span>
-                        {{ member.get_username }}
-                        <small>{{ member.get_full_name }}</small>
+                        {{ profile.user.get_username }}
+                        <small>{{ profile.user.get_full_name }}</small>
                     </h2>
                     <ul>
-                        {% if member.email %}<li>Email : {{ member.email }}</li>{% endif %}
-                        <li>Date d'inscription : {{ member.date_joined|date:'d-m-Y' }}</li>
-                        <li>Dernière connexion : {{ member.last_login|date:'d-m-Y' }}</li>
+                        {% if profile.user.email %}<li>Email : {{ profile.user.email }}</li>{% endif %}
+                        {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
+                        <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
+                        <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>
                     </ul>
                 </p>
                 {% else %}

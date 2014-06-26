@@ -74,8 +74,9 @@ def detail(request, user_name):
         Display details about a profile.
     """
     user = get_object_or_404(User, username=user_name)
+    profile = get_object_or_404(Profile, user=user)
 
-    return render(request, 'member/detail.html', {'member': user})
+    return render(request, 'member/detail.html', {'profile': profile})
 
 
 @sensitive_post_parameters('password')
@@ -158,7 +159,7 @@ def register_view(request):
                 data['email'],
                 data['password'])
 
-            profile = Profile(user=user, promo=0)
+            profile = Profile(user=user)
             profile.save()
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'

@@ -1,6 +1,12 @@
 
 from os import system
 
+apps = (
+    'auth',
+    'member',
+    'news',
+)
+
 fixtures = (
     'fixtures/auth.yaml',
     'fixtures/member.yaml',
@@ -8,10 +14,19 @@ fixtures = (
     )
 
 # clean everything
-system('python manage.py sqlclear member | python manage.py dbshell')
-system('python manage.py sqlclear auth | python manage.py dbshell')
-system('python manage.py sqlclear news | python manage.py dbshell')
+print '=> Cleaning everything ...'
+for app in apps:
+    system('python manage.py sqlclear %s | python manage.py dbshell' % app)
+print '=> Done'
+
+# sync db
+print '=> Sync db ...'
 system('python manage.py syncdb')
+print '=> Done'
 
 # load data
-system('python manage.py loaddata {0}'.format(' '.join(fixtures)))
+print '=> Loading fixtures ...'
+for fixture in fixtures:
+    print '=> %s :' % fixture
+    system('python manage.py loaddata %s' % fixture)
+print '=> Done'

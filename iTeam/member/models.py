@@ -29,8 +29,9 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, unique=True, verbose_name=u'Utilisateur')
-    promo = models.IntegerField()
+    user = models.ForeignKey(User, unique=True)
+    promo = models.IntegerField(blank=True)
+    avatar_url = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Profil'
@@ -41,19 +42,6 @@ class Profile(models.Model):
             Textual representation of a profile.
         """
         return ' - '.join((self.user.username, self.get_ing()))
-
-    def get_ing(self, now=datetime.now()):
-        """
-            Return the proper : ing1 ing2 ing3 ing4 ing5 or none
-        """
-        # from sept to dec
-        if now.month >= 9:
-            return str(5 - (self.promo - now.year - 1))
-        # from jan to june
-        elif now.month <= 6:
-            return str(5 - (self.promo - now.year))
-        else:
-            return None
 
     def get_absolute_url(self):
         """
@@ -69,6 +57,9 @@ class Profile(models.Model):
         if self.avatar_url:
             return self.avatar_url
         else:
-            return 'https://secure.gravatar.com/avatar/{0}?d=identicon'\
-                .format(md5(self.user.email).hexdigest())
+            return 'https://secure.gravatar.com/avatar/{0}?d=identicon&s=50'.format(md5(self.user.username).hexdigest())
+
+
+
+
 

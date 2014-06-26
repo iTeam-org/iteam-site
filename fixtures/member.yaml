@@ -1,6 +1,7 @@
 - fields:
     user: 1
     promo: 2018
+    avatar_url: "http://progdupeu.pl/media/tutorials/335/thumb.png"
   model: member.profile
   pk: 1
 - fields:

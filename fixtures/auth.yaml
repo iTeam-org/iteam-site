@@ -1,19 +1,19 @@
 - fields:
-    username: Gaetan Fleury
+    username: Tantan
     password: Gaetan Fleury
     first_name: Gaetan
     last_name: Fleury
   model: auth.user
   pk: 2
 - fields:
-    username: Guillaume Pigaux
+    username: Guigui
     password: Guillaume Pigaux
     first_name: Guillaume
     last_name: Pigaux
   model: auth.user
   pk: 3
 - fields:
-    username: Marion Hayoun
+    username: Rionrion
     password: Marion Hayoun
     first_name: Marion
     last_name: Hayoun

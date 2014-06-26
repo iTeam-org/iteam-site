@@ -15,6 +15,7 @@ class News(models.Model):
     author = models.ForeignKey(User, verbose_name=u'Auteur')
     pub_date = models.DateTimeField('Date de publication')
     text = models.TextField()
+    # img
 
     def __unicode__(self):
         return self.title
