@@ -39,11 +39,11 @@
             <ul class="left">
                 <li>
                     <a href="/">
-                        <img src="{% static "img/logo.png" %}" alt="logo_light"></img>
+                        <img src="{% static "img/logo_light.png" %}" alt="logo_light"></img>
                     </a>
                 </li>
                 <li class="{% block menu_publications %}{% endblock %}">
-                    <a href="/news">Publications</a>
+                    <a href="{% url 'news:index' %}">Publications</a>
                 </li>
                 <li class="{% block menu_event %}{% endblock %}">
                     <a href="/event">Événements</a>

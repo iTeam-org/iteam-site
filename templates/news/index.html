@@ -23,24 +23,22 @@
                         </small>
                     </h1>
                 </div>
-                {% if user.is_authenticated %}
-                    <div class="large-4 columns">
-                        <div class="headline-actions">
+                <div class="large-4 columns">
+                    <div class="headline-actions">
+                        {% if user.is_authenticated %}
                             <a href="create" class="button">
                                 Rédigez une news
                             </a>
-                        </div>
+                        {% endif %}
+                        <dl class="sub-nav">
+                            <dt>Filtrer:</dt>
+                            <dd class="active"><a href="#">Tout</a></dd>
+                            <dd><a href="#">News</a></dd>
+                            <dd><a href="#">Tuto</a></dd>
+                        </dl>
                     </div>
-                {% endif %}
+                </div>
             </div>
-
-<dl class="sub-nav">
-    <dt>Filtrer:</dt>
-    <dd class="active"><a href="#">Tout</a></dd>
-    <dd><a href="#">News</a></dd>
-    <dd><a href="#">Tuto</a></dd>
-</dl>
-
         </div>
         {# content #}
         <div class="large-12 columns">

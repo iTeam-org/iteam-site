@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="large-5 columns hide-for-small">
-                        <img src="{% static "img/bg.png" %}" alt="logo_full"></img>
+                        <img src="{% static "img/logo_full.png" %}" alt="logo_full"></img>
                 </div>
             </div>
         </div>
@@ -51,9 +51,7 @@
                         <a href="{% url 'news:detail' news_id=news.id %}">{{ news.title }}</a>
                         <p>Ecrit avec amour par
                             <a href="{% url 'member:detail' user_name=news.author %}">
-                                {{ news.author }}
-                            </a>
-                            .
+                                {{ news.author }}</a>.
                         </p>
                     </div>
                 </div>
