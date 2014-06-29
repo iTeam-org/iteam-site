@@ -14,11 +14,7 @@
     <div class="large-12 columns">
         <h1>
             <span>
-                <img src="{% if news.image %}
-                            {{ news.image.url }}
-                        {% else %}
-                            /static/img/todo1.jpg
-                        {% endif %}" width="50" class="hide-for-small"/>
+                <img src="{{ news.image_url }}" width="50" class="hide-for-small"/>
             </span>
             {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
         </h1>

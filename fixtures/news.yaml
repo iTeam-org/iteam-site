@@ -1,5 +1,6 @@
 - fields: {title: 'Bureau 2013', subtitle: 'De nouveaux visages', author: 2,
       pub_date: "2013-05-14T00:00:00+00:00",
+      image: "news/bureau_2013.jpeg",
       text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
       Après un retour sur une année chargée en événements, l'ensemble des
       membres présents ont participés a l'éléction de notre nouveau bureau !\n
@@ -34,6 +35,7 @@
   pk: 2
 - fields: {title: 'Bureau 2012', subtitle: 'De nouveaux visages', author: 4,
       pub_date: "2012-04-18T00:00:00+00:00",
+      image: "news/bureau_2012.jpeg",
       text: "Le 5 avril dernier a eu lieu notre assemblée général annuel pour
       déterminer notre tout nouveau, tout beau, bureau iTeamien 2013-2013. Voici
       la liste élue lors de cette dernière et prête à vous faire vivre une année

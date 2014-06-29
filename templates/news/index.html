@@ -36,13 +36,40 @@
 
         </div>
         {# content #}
-        <div class="row">
-            <div class="large-12 columns">
-                <div class="row">
-                    <div class="large-12 columns">
-                        {% if data %}
-                            {% for news in data %}
-                                <div class="row collapse">
+        <div class="large-12 columns">
+            <div class="row">
+                <div class="large-6 columns">
+                    {% if data %}
+                        {% for news in data %}
+                            {% if forloop.counter <= 5 %}
+                                <div class="row">
+                                    <div class="small-2 column" style="text-align: center;">
+                                        <a href="{% url 'news:detail' news_id=news.id %}">
+                                            <img src="{{ news.image_url }}" alt="" width="50" />
+                                        </a>
+                                    </div>
+                                    <div class="small-10 column" style="padding-left: 5px;">
+                                        <a href="view/{{ news.id }}">{{ news.title }}</a>
+                                        <p>
+                                            Ecrit avec amour par
+                                            <a href="{% url 'member:detail' user_name=news.author %}">
+                                                {{ news.author }}
+                                            </a>
+                                            le {{ news.pub_date|date:"d-m-Y" }}.
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No news are available.</p>
+                    {% endif %}
+                </div>
+                <div class="large-6 columns">
+                    {% if data %}
+                        {% for news in data %}
+                            {% if forloop.counter > 5 %}
+                                <div class="row">
                                     <div class="small-2 column" style="text-align: center;">
                                         <a href="{% url 'news:detail' news_id=news.id %}">
                                                 <img src="{% static "img/tux.png" %}" alt="" width="50" />
@@ -55,22 +82,21 @@
                                             <a href="{% url 'member:detail' user_name=news.author %}">
                                                 {{ news.author }}
                                             </a>
+                                            le {{ news.pub_date|date:"d-m-Y" }}
                                             .
                                         </p>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        {% else %}
-                            <p>No news are available.</p>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="large-12 columns">
-                        {% include "misc/pagination.part.html" %}
-                    </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No news are available.</p>
+                    {% endif %}
                 </div>
             </div>
+        </div>
+        <div class="large-12 columns">
+            {% include "misc/pagination.part.html" %}
         </div>
     </div>
 </div>

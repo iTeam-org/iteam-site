@@ -96,8 +96,6 @@ MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 MEDIA_URL = '/media/'
 
 
-STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
-
 STATIC_URL = '/static/'
 
 # Additional locations of static files

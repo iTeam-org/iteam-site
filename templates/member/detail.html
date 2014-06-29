@@ -32,13 +32,16 @@
         </div>
         {# content #}
         <div class="row">
-            <div class="large-8 columns large-offset-2">
+            <div class="large-2 columns">
+                <h2>
+                    <span>
+                        <img src="{{ profile.get_avatar_url }}" class="hide-for-small right" style="vertical-align:bottom;" />
+                    </span>
+                </h2>
+            </div>
+            <div class="large-10 columns">
                 {% if profile.user %}
-                <p>
                     <h2>
-                        <span>
-                            <img src="{{ profile.get_avatar_url }}" class="hide-for-small" style="vertical-align:bottom;" />
-                        </span>
                         {{ profile.user.get_username }}
                         <small>{{ profile.user.get_full_name }}</small>
                     </h2>
@@ -48,7 +51,6 @@
                         <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
                         <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>
                     </ul>
-                </p>
                 {% else %}
                     <p>
                         Ceci ne devrait pas apparaitre, vous devriez avoir une erreur 404.
@@ -56,7 +58,7 @@
                         Vous avez le droit de signaler ce bug au développeur.
                     </p>
                 {% endif %}
-            </div>                            
+            </div>
         </div>
     </div>
 </div>

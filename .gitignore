@@ -1,27 +1,12 @@
-#pdp/settings_prod.py
+#iteam/settings_prod.py
 
 *.pyc
-#*.db.sqlite3
 db.sqlite3
 
 static/.sass-cache
 static/stylesheets/
 
-#*~
-#*.swp
-#*.old
-#*.bak
-#*.directory
-
-#fabfile_local.py
 #media/
 #static/
-#venv/
-#pdp/whoosh/
 
 #doc/_build
-
-#*.pyproj
-#*.sln
-#*.suo
-#*.komodoproject

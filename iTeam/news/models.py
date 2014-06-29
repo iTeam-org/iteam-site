@@ -26,5 +26,8 @@ class News(models.Model):
     def __unicode__(self):
         return self.title
 
-
-
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        else:
+            return '/static/img/tux.png'

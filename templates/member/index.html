@@ -12,42 +12,32 @@
     <div class="large-12 columns">
         {# title #}
         <div class="home-app-title">
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <h1>
-                        Liste des membres
-                        <br />
-                        <small>
-                            {{ members_count }} membres trouvés : qui sont ces <em>geek</em> de l'iTeam ?
-                        </small>
-                    </h1>
-                </div>
-            </div>
-
+            <h1>
+                Liste des membres
+                <br />
+                <small>
+                    {{ members_count }} membres trouvés : qui sont ces <em>geek</em> de l'iTeam ?
+                </small>
+            </h1>
         </div>
         {# content #}
         <div class="row">
-            <div class="large-12 columns">
-                <div class="row">
-                    <div class="large-8 columns large-offset-2">
-                        {% if data %}
-                            <ul class="left">
-                                {% for member_one in data %}
-                                    <li><a href="voir/{{ member_one.username }}">{{ member_one.username }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <p>
-                                No members found.
-                            </p>
-                        {% endif %}
-                    </div>                            
-                </div>
-                <div class="row">
-                    {% include "misc/pagination.part.html" %}
-                </div>
+            <div class="large-8 columns large-offset-2">
+                {% if data %}
+                    <ul class="left">
+                        {% for member_one in data %}
+                            <li><a href="voir/{{ member_one.username }}">{{ member_one.username }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>
+                        No members found.
+                    </p>
+                {% endif %}
             </div>
+        </div>
+        <div class="row">
+            {% include "misc/pagination.part.html" %}
         </div>
     </div>
 </div>

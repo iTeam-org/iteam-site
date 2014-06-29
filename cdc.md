@@ -5,7 +5,7 @@ todo :
 -> git
 -> dump iteam.org
 
-- better news : thumnail (! create form) + edit form
+- better news : edit form
 - better member (mail, ...) + member:settings_view
 
 - news / tuto : booleen + pagination
