@@ -6,34 +6,45 @@
     Accueil &#183;
 {% endblock %}
 
-{% block header %}
-    <h1>
-        Bienvenue
-    </h1>
-    <p>
-        L'iTeam est une association pour la promotion du logiciel libre de l'ECE.<br />
-        Passez nous voir en P404 !
-    </p>
-{% endblock %}
-
 {% block content %}
+
+<header>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="row">
+                <div class="large-7 columns">
+                    <h1>
+                        Bienvenue
+                    </h1>
+                    <p>
+                        Bienvenue sur le site de l'iTeam, une association de l'ECE pour la promotion du logiciel libre et open source.<br />
+                        Passez nous voir en P404 !
+                    </p>
+                </div>
+                <div class="large-5 columns hide-for-small">
+                        <img src="{% static "img/bg.png" %}" alt="logo_full"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <div class="row">
     {# PUBLICATIONS #}
     <div class="large-6 columns">
         <div class="home-app-title">
-            <h2>
+            <h1>
                 <a href="{% url 'news:index' %}">
                     Publications
                 </a>
-            </h2>
+            </h1>
         </div>
         {% if news_list %}
             {% for news in news_list %}
                 <div class="row">
                     <div class="small-2 column" style="text-align: center;">
                         <a href="{% url 'news:detail' news_id=news.id %}">
-                                <img src="{% static "img/tux.png" %}" alt="" width="50" />
+                                <img src="{{ news.image_url }}" alt="" width="50" />
                         </a>
                     </div>
                     <div class="small-10 column" style="padding-left: 5px;">
@@ -64,11 +75,11 @@
     {# EVENT #}
     <div class="large-6 columns">
         <div class="home-app-title">
-            <h2>
+            <h1>
                 <a href="#">
                     Events
                 </a>
-            </h2>
+            </h1>
         </div>
         {% if data %}
             {% for news in data %}

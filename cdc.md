@@ -5,10 +5,9 @@ todo :
 -> git
 -> dump iteam.org
 
-- better news : edit form
 - better member (mail, ...) + member:settings_view
-
-- news / tuto : booleen + pagination
+- news / tuto : booleen (all, news, tuto) + edit form
+- clean templates (title, active page in top bar, ...) + generic news display
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
 - event + formation : formation, jpo, bar, ...

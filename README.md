@@ -1,6 +1,6 @@
 # Iteam.org
 
-[ITeam](iteam.org) is a french association of the french engineering school [ECE](ece.fr).
+[ITeam](http://iteam.org) is a french association of the french engineering school [ECE](http://ece.fr).
 
 Notes :
 
@@ -9,27 +9,27 @@ Notes :
 
 ## Dependencies
 
-* Python 2.x (and its framework Django)
+* Python 2.x, its framework Django, the python package installer pip and some dependencies
 ```shell
 apt-get install python2.7 python2.7-dev
 apt-get install python-pip
-```
-* Ruby (for the static files .css)
-```shell
-apt-get install ruby
-```
-* Python dependencies
-```shell
 pip install -r requirements.txt
 ```
-* Ruby dependencies (to generate CSS files)
+
+* Ruby and other dependencies (to generate CSS files)
 ```shell
+apt-get install ruby
 gem install --user-install compass zurb-foundation
 ```
 
-## Seting up the stuff
+## Setting up the stuff and run the server
 
-* Creating tables for the database
+* Compiling the .css stylessheets
+```shell
+compass compile static/
+```
+
+* Configuring the database
 ```shell
 python manage.py syncdb
 ```
@@ -56,5 +56,5 @@ python manage.py sqlclear news | python manage.py dbshell
 
 ## Copyright
 
-ITeam uses some code of the [AGP licensed](https://bitbucket.org/MicroJoe/progdupeupl/) project [Progdupeu.pl](http://progdupeu.pl)
+ITeam uses some code of the [AGPL licensed](http://bitbucket.org/MicroJoe/progdupeupl/) project [Progdupeu.pl](http://progdupeu.pl)
 

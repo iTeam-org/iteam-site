@@ -172,7 +172,7 @@ $include-html-top-bar-classes: $include-html-classes;
 
 // Control header font styles
 
-$header-font-family: "Roboto Slab", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+// $header-font-family: "Roboto Slab", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $header-font-weight: bold;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -1260,7 +1260,7 @@ $topbar-bg: $topbar-bg-color;
 
 // Height and margin
 
-$topbar-height: 50px;
+$topbar-height: 65px;
 // $topbar-margin-bottom: 0;
 
 // Control Input height for top bar
@@ -1270,7 +1270,7 @@ $topbar-height: 50px;
 // Controlling the styles for the title in the top bar
 
 // $topbar-title-weight: bold;
-$topbar-title-font-size: em-calc(35);
+// $topbar-title-font-size: em-calc(30);
 
 // Style the top bar dropdown elements
 
@@ -1287,10 +1287,10 @@ $topbar-title-font-size: em-calc(35);
 // $topbar-link-color-hover: #fff;
 // $topbar-link-color-active: #fff;
 // $topbar-link-weight: bold;
-$topbar-link-font-size: em-calc(17);
+$topbar-link-font-size: em-calc(18);
 // $topbar-link-hover-lightness: -30%; // Darken by 30%
 $topbar-link-bg-hover: darken($topbar-bg-color, $iteam_base_darken);
-$topbar-link-bg-active: darken($topbar-bg-color, $iteam_base_darken );
+$topbar-link-bg-active: darken($topbar-bg-color, $iteam_base_darken);
 
 // $topbar-dropdown-label-color: #555;
 // $topbar-dropdown-label-text-transform: uppercase;

@@ -41,7 +41,7 @@ class Profile(models.Model):
         """
             Textual representation of a profile.
         """
-        return ' - '.join((self.user.username, self.get_ing()))
+        return self.user.username
 
     def get_absolute_url(self):
         """

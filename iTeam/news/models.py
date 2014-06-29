@@ -30,4 +30,4 @@ class News(models.Model):
         if self.image:
             return self.image.url
         else:
-            return '/static/img/tux.png'
+            return '/media/news/default.png'
