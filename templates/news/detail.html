@@ -16,17 +16,16 @@
             <span>
                 <img src="{{ news.image_url }}" width="50" class="hide-for-small"/>
             </span>
-            {{ news.title }}{% if news.subtitle %} <small>{{ news.subtitle }}</small>{% endif %}
+            {{ news.title }} <small>{{ news.subtitle }}</small>
         </h1>
         <h2>
             <small>
-                News rédigée par
-                <em>
-                    <a href="{% url 'member:detail' user_name=news.author %}">
-                        {{ news.author }}
-                    </a>
-                </em>
-                le {{ news.pub_date|date:"d-m-Y" }}
+                News rédigée avec amour par
+                <a href="{% url 'member:detail' user_name=news.author %}">
+                    {{ news.author }}
+                </a>
+                le {{ news.pub_date|date:"d F Y" }}
+                - ("news" ou tuto / article -> test type)
             </small>
         </h2>
     </div>

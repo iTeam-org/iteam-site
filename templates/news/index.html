@@ -49,23 +49,7 @@
                     {% if data %}
                         {% for news in data %}
                             {% if forloop.counter <= 5 %}
-                                <div class="row">
-                                    <div class="small-2 column" style="text-align: center;">
-                                        <a href="{% url 'news:detail' news_id=news.id %}">
-                                            <img src="{{ news.image_url }}" alt="" width="50" />
-                                        </a>
-                                    </div>
-                                    <div class="small-10 column" style="padding-left: 5px;">
-                                        <a href="view/{{ news.id }}">{{ news.title }}</a>
-                                        <p>
-                                            Ecrit avec amour par
-                                            <a href="{% url 'member:detail' user_name=news.author %}">
-                                                {{ news.author }}
-                                            </a>
-                                            le {{ news.pub_date|date:"d-m-Y" }}.
-                                        </p>
-                                    </div>
-                                </div>
+                                {% include "news/index.part.html" %}
                             {% endif %}
                         {% endfor %}
                     {% else %}
@@ -76,24 +60,7 @@
                     {% if data %}
                         {% for news in data %}
                             {% if forloop.counter > 5 %}
-                                <div class="row">
-                                    <div class="small-2 column" style="text-align: center;">
-                                        <a href="{% url 'news:detail' news_id=news.id %}">
-                                                <img src="{% static "img/tux.png" %}" alt="" width="50" />
-                                        </a>
-                                    </div>
-                                    <div class="small-10 column" style="padding-left: 5px;">
-                                        <a href="view/{{ news.id }}">{{ news.title }}</a>
-                                        <p>
-                                            Ecrit avec amour par
-                                            <a href="{% url 'member:detail' user_name=news.author %}">
-                                                {{ news.author }}
-                                            </a>
-                                            le {{ news.pub_date|date:"d-m-Y" }}
-                                            .
-                                        </p>
-                                    </div>
-                                </div>
+                                {% include "news/index.part.html" %}
                             {% endif %}
                         {% endfor %}
                     {% else %}

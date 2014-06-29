@@ -4,18 +4,33 @@
     avatar_url: "http://progdupeu.pl/media/tutorials/335/thumb.png"
   model: member.profile
   pk: 1
+
 - fields:
     user: 2
     promo: 2017
   model: member.profile
   pk: 2
+
 - fields:
     user: 3
     promo: 2016
   model: member.profile
   pk: 3
+
 - fields:
     user: 4
     promo: 2015
   model: member.profile
   pk: 4
+
+- fields:
+    user: 5
+    promo: 2015
+  model: member.profile
+  pk: 5
+
+- fields:
+    user: 6
+    promo: 2015
+  model: member.profile
+  pk: 6

@@ -18,6 +18,7 @@
       * Admin Systemes : Brice Davier\n"}
   model: news.news
   pk: 1
+
 - fields: {title: 'Salon Solution Linux 2012', subtitle: 'De nouveaux visages', author: 3,
       pub_date: "2012-07-13T00:00:00+00:00",
       text: "Le 19-20 et 21 juin dernier l’iTeam a assisté à la 14ème édition
@@ -33,6 +34,7 @@
       Rendez-vous l'année prochaine ;)\n"}
   model: news.news
   pk: 2
+
 - fields: {title: 'Bureau 2012', subtitle: 'De nouveaux visages', author: 4,
       pub_date: "2012-04-18T00:00:00+00:00",
       image: "news/bureau_2012.jpeg",
@@ -53,4 +55,112 @@
       et de joies \\o/ !\n"}
   model: news.news
   pk: 3
+
+- fields: {title: 'Paris GTUG : Android', subtitle: 'Google App Engine', author: 5,
+      pub_date: "2012-03-25T00:00:00+00:00",
+      text: "Rencontre le mardi 17 Avril : Android et Google App Engine avec respectivement
+      Romain Guy et Ludovic Champenois\n
+      \n
+      Au programme (début à 18h45) :\n
+      \n
+      * session Android avec Romain Guy\n
+      * session Google App Engine avec Ludovic Champenois\n
+      \n
+      Date : Mardi 17 Avril 18h45\n
+      Lieu : ECE, 37 Quai de Grenelle, 75015 Paris. Travaux -> suivre <http://yfrog.com/z/h3bsz1j>\n
+      Paris GTUG team : Jérémy Milhau, Louis Rouffineau, Alain Regnier, Cyprien Decouty\n
+      \n
+      Retrouvez l'intégralité des conférences en livestream sur : [LiveStream Conférence](http://www.livestream.com/parisgtug/video?clipId=pla_aa7eb044-9def-4cb1-a1c5-8494f662a375)
+      \n
+      Romain Guy is a software engineer at Google. After spending years having
+      fun with large UIs on the desktop and talking about them at conferences,
+      in blogs, magazines and books, Romain decided to go for the small screen
+      and joined the Android project, an Open Source operating system for mobile
+      phones. He's now trying to make mobile phone UIs as fun and exciting as desktop ones.\n
+      \n
+      Ludovic Champenois is a software engineer at Google working on Cloud
+      technologies in San Francisco. In the past, he was one of the architect of
+      the GlassFish Java EE 6 application server.\n
+      \n
+      Source : meetup du Paris Gtug ;)\n"}
+  model: news.news
+  pk: 4
+
+- fields: {title: 'PAUG - Ice Cream Sandwich', author: 4,
+      pub_date: "2012-01-16T00:00:00+00:00",
+      text: "Pour cette nouvelle année, un nouveau meetup du Paris Android User
+      Group se déroulera à l'ECE à partir de 19h le 19 janvier en P445. Cette
+      session vous emenera derrière les fournaux et vous permettra de découvrir
+      ICS, dernière version né d'Android.\n
+      \n
+      En entrée, Léo Cacheux, développeur Android pour la start-up Genymobile,
+      vous propose de découvrir les nouveautés de l’API ainsi que quelques
+      exemples concrets afin de connaître les dernières évolutions du framewor
+      Android.\n
+      \n
+      Puis, nous passerons tout de suite au dessert avec Daniel Fages, expert en
+      construction de ROM Android, qui vous présentera l’architecture générale
+      du code source Android, son contenu, son process de compilation et ses
+      outils de tests et validation.\n
+      \n
+      La conférence se terminera par un pot offert par Genymobile, un grand
+      merci à eux pour leur soutien.\n"}
+  model: news.news
+  pk: 5
+
+- fields: {title: 'Bien choisir son mot de passe', author: 6,
+      pub_date: "2011-11-11T00:00:00+00:00",
+      image: "news/Bien-choisir-son-mot-de-passe.jpeg",
+      text: "Vous avez tous une adresse mail, un facebook ou bien un compte en
+      banque. Le point commun entre ses trois points est l'utilisation d'un compte
+      sécurisé par un mot de passe. Si pour les banques, le mot de passe est la
+      plupart du temps imposé, ce n'est pas le cas de vos comptes mail et si vous
+      tenez à en garder le contenu privé il faut choisir un mot de passe conséquent.\n
+      \n
+      Pour choisir un mot de passe, il faut d'abord identifier trois facteurs :
+      la confidentialité (à moins d'un usage étrange, vous n'aurez pas besoin
+      d'un mot de passe trop complexe pour votre compte deezer), le service
+      (sur les comptes hotmail, il existe, à l'instar des portables, une limite de
+      saisie avant de bloquer temporairement l'accès) et la menace (Votre petite
+      sœur se lassera sûrement après trois essais, un logiciel non). En prenant en
+      compte, ces trois facteurs, il convient de mettre en place une échelle de sécurité.
+      Une identification sensible (accès bancaire ou Paypal) nécessitera un mot de passe
+      complexe tandis q'un accès physique à votre ordinateur ne nécessitera jamais qu'un
+      peu d'originalité, une simple recherche dans le dictionnaire est suffisante.\n
+      \n
+      Une fois cette approche achevée, la construction d'un mot de passe fiable
+      peut commencer. Il est inutile de se faire d'illusion, un mot de pass
+      fiable est composé de majuscules, minuscules, nombres et symboles de
+      préférence dans un ordre chaotique. Il s'agit alors d'en créer facile à
+      mémoriser pour vous mais difficile à première vue.Pour cela prenez une
+      phrase quelconque (réplique de film ou issue d'un texte) que vous retiendrez,
+      puis sélectionnez la première ou la dernière lettre de chaque mot et transposez
+      là de manière à former un mot de passe. Ainsi la célèbre phrase \"Quand on
+      attaque l'Empire, l'Empire contre-attaque!\", peut donner \"Qoal'E,c-a!\" ou
+      \"DoelEx2e-e!\" le x2 remplaçant évidemment le doublon.\n
+      \n
+      Ces mots de passe présente un niveau de protection optimale sauf à vouloir
+      protéger des documents secret-défense. L'usage de caractères accentués,
+      spéciaux ou propres à certaines langues est recommandé mais peut-être dérangeant
+      si vous devez le saisir sur internet ou sur un clavier étranger. Il ne faut
+      JAMAIS noter ce mot de passe sur un post-it ou autre papier à porté du bureau.
+      Dans certains bâtiments administratifs \"sécurisés\", j'ai pu découvrir le mot de
+      passe de chaque machine noté sous le clavier ...\n
+      \n
+      Si vous voulez un mot de passe à la fois simple à retenir et difficile à
+      trouver, vous pouvez tenter de ne saisir qu'un seul caractère spécial
+      (&@*$çé...) ce qui en cas de test a peu de chance d'être tenté mais qui se
+      révèle gênant quand quelqu'un regarde par dessus votre épaule !\n
+      \n
+      Pour les mots de passe simple, il est préférable d'éviter les grands
+      classique comme password, motdepasse, azerty, qwerty, 123456 sans parler
+      des dates de naissance ou les noms des frères et sœurs ! L'attaquant essayera
+      ces mots de passe en premier lieu et il est donc aussi utile de ne pas mettre
+      de mot de passe.\n
+      \n
+      (En cas d'attaque le premier mot de passe est en vérité plus sécurisé car avec un charset moins commun)\n
+      \n
+      ![xkcd_lol](http://imgs.xkcd.com/comics/password_strength.png)"}
+  model: news.news
+  pk: 6
 
