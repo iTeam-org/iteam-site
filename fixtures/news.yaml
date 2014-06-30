@@ -173,11 +173,12 @@
 - fields: {title: 'Todo list', author: 1,
       pub_date: "2014-06-30T00:00:00+00:00",
       type: 'P',
+      image: "news/todo-list.jpg",
       text: "## Todo ##\n
       \n
       - **Now :**\n
       \    - better member (mail, citation, bio, ...) + member:settings_view\n
-      \    - news / tuto : booleen (all, news, tuto) + edit form\n
+      \    - news / tuto : draft boolean\n
       \    - clean templates (title, active page in top bar, ...) + tests\n
       - **Soon :**\n
       \    - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)\n

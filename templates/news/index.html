@@ -13,7 +13,7 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-6 columns">
+                <div class="large-8 columns">
                     <h1>
                         Liste des news
                         <br />
@@ -22,18 +22,18 @@
                         </small>
                     </h1>
                 </div>
-                <div class="large-6 columns">
+                <div class="large-4 columns">
                     <div class="headline-actions">
                         {% if user.is_authenticated %}
-                            <div class="row">
+                            <div class="row right">
                                 <div class="large-12 columns">
-                                    <a href="create" class="button">
+                                    <a href="{% url 'news:create' %}" class="button small">
                                         Rédigez une publication
                                     </a>
                                 </div>
                             </div>
                         {% endif %}
-                        <div class="row">
+                        <div class="row right">
                             <div class="large-12 columns">
                                 <dl class="sub-nav">
                                     <dt>Filtrer :</dt>

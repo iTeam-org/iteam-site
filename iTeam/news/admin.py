@@ -7,8 +7,9 @@ from iTeam.news.models import News
 class NewsAdmin(admin.ModelAdmin):
     # DETAIL fields for a news
     fieldsets = [
-        ('Informations',    {'fields': ['title', 'subtitle', 'pub_date', 'author', 'type']}),
-        ('Donnees',         {'fields': ['text', 'image']}),
+        ('Informations',    {'fields': ['title', 'subtitle', 'pub_date', 'author']}),
+        ('Bonus',           {'fields': ['image', 'type']}),
+        ('Text',            {'fields': ['text']}),
     ]
 
     # fields for ALL news

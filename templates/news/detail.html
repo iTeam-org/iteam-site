@@ -12,35 +12,52 @@
 {# title #}
 <div class="row">
     <div class="large-12 columns">
-        <h1>
-            <span>
-                <img src="{{ news.image_url }}" width="100" class="hide-for-small"/>
-            </span>
-            {{ news.title }}
-            <small>
-                {{ news.subtitle }}
-                <br />
-                {{ news.get_type_display }} rédigée avec amour par
-                <a href="{% url 'member:detail' user_name=news.author %}">{{ news.author }}</a>
-                le {{ news.pub_date|date:"d F Y" }}
-            </small>
-        </h2>
-    </div>
-</div>
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-10 columns">
+                    <h1>
+                        <span>
+                            <img src="{{ news.image_url }}" width="100" class="hide-for-small"/>
+                        </span>
+                        {{ news.title }}
+                        <small>
+                            {{ news.subtitle }}
+                            <br />
+                            {{ news.get_type_display }} rédigée avec amour par
+                            <a href="{% url 'member:detail' user_name=news.author %}">{{ news.author }}</a>
+                            le {{ news.pub_date|date:"d F Y" }}
+                        </small>
+                    </h1>
+                </div>
+                <div class="large-2 columns">
+                    <div class="headline-actions">
+                        {% if user.is_authenticated and user == news.author %}
+                            <div class="row right">
+                                <div class="large-12 columns">
+                                    <a href="{% url 'news:edit' news_id=news.pk %}" class="button small">
+                                        Éditer la publication
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<hr />
+        {# content #}
 
-{# content #}
-
-<div class="row">
-    <div class="large-10 columns large-offset-1">
-        {% if news %}
-            {{ news.text|iteam_markdown }}
-        {% else %}
-            <p>
-                Error : news not found (kind of 404).
-            </p>
-        {% endif %}
+        <div class="row">
+            <div class="large-10 columns large-offset-1">
+                {% if news %}
+                    {{ news.text|iteam_markdown }}
+                {% else %}
+                    <p>
+                        Error : news not found (kind of 404).
+                    </p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 

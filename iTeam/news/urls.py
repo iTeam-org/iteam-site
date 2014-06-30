@@ -7,4 +7,5 @@ urlpatterns = patterns(
     url(r'^$', views.index, name='index'),
     url(r'^create/$', views.create, name='create'),
     url(r'^view/(?P<news_id>\d+)/$', views.detail, name='detail'),
+    url(r'^edit/(?P<news_id>\d+)/$', views.edit, name='edit'),
 )

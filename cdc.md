@@ -5,7 +5,7 @@ todo :
 -> dump iteam.org
 
 - better member (mail, citation, bio, ...) + member:settings_view
-- news / tuto : booleen (all, news, tuto) + edit form
+- news / tuto : draft boolean
 - clean templates (title, active page in top bar, ...) + tests
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)

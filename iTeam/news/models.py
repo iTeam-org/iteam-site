@@ -16,8 +16,8 @@ class News(models.Model):
         ('P', u'Publication')
     )
 
-    title = models.CharField(max_length=100)
-    subtitle = models.CharField(max_length=100, blank=True)
+    title = models.CharField(max_length=100, verbose_name=u'Titre')
+    subtitle = models.CharField(max_length=100, blank=True, verbose_name=u'Sous-titre')
 
     author = models.ForeignKey(User, verbose_name=u'Auteur')
     pub_date = models.DateTimeField('Date de publication')
