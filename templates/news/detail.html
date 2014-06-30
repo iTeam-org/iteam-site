@@ -20,7 +20,7 @@
             <small>
                 {{ news.subtitle }}
                 <br />
-                News rédigée avec amour par
+                {{ news.get_type_display }} rédigée avec amour par
                 <a href="{% url 'member:detail' user_name=news.author %}">{{ news.author }}</a>
                 le {{ news.pub_date|date:"d F Y" }}
             </small>

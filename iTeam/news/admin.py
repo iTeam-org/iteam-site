@@ -7,14 +7,14 @@ from iTeam.news.models import News
 class NewsAdmin(admin.ModelAdmin):
     # DETAIL fields for a news
     fieldsets = [
-        ('Informations',    {'fields': ['title', 'subtitle', 'pub_date', 'author']}),
+        ('Informations',    {'fields': ['title', 'subtitle', 'pub_date', 'author', 'type']}),
         ('Donnees',         {'fields': ['text', 'image']}),
     ]
 
     # fields for ALL news
-    list_display = ('title', 'subtitle', 'author', 'pub_date')
+    list_display = ('title', 'subtitle', 'author', 'pub_date', 'type')
 
-    list_filter = ['pub_date', 'author']
+    list_filter = ['pub_date', 'author', 'type']
     search_fields = ['title', 'subtitle', 'text']
 
     # add author name for the news based on the current logged user

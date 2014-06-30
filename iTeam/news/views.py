@@ -16,7 +16,16 @@ from iTeam.news.models import News
 # Create your views here.
 
 def index(request):
+    TYPES = ('N', 'T', 'P')
+
+    # get objects
     news_list = News.objects.all().order_by('-pub_date')
+
+    type = request.GET.get('type')
+    if type in TYPES:
+        news_list = news_list.filter(type=type)
+
+    # paginator
     paginator = Paginator(news_list, settings.NB_NEWS_PER_PAGE)
 
     page = request.GET.get('page')
@@ -29,7 +38,16 @@ def index(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         news = paginator.page(paginator.num_pages)
 
-    return render(request, 'news/index.html', {"data": news})
+    # build data for template
+    data = {"data":news, "cur_type":type}
+
+    # add active field to proper filter
+    if type in TYPES:
+        data[''.join(("type_", type))] = "active"
+    else:
+        data['type_all'] = "active"
+
+    return render(request, 'news/index.html', data)
 
 
 def detail(request, news_id):

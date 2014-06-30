@@ -10,11 +10,11 @@ class News(models.Model):
         verbose_name = 'News'
         verbose_name_plural = 'News'
 
-    TYPE = (
+    TYPES = (
         ('N', u'News'),
         ('T', u'Tutoriel'),
+        ('P', u'Publication')
     )
-
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=100, blank=True)
@@ -29,13 +29,12 @@ class News(models.Model):
         default=None
     )
 
-    """
-    size = models.CharField(
+    type = models.CharField(
         u'Type de la publication',
         max_length=1,
-        choices=TYPE,
+        choices=TYPES,
+        default='P',
     )
-    """
 
     text = models.TextField()
 
