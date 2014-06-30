@@ -10,15 +10,8 @@
     </title>
 
     <meta charset="utf-8" />
-    {% block meta %}{% endblock %}
 
-    <!--<link href="{% static "stylesheets/_normalize.css" %}" rel="stylesheet" type="text/css" />!-->
     <link href="{% static "stylesheets/app.css" %}" media="screen, projector, print" rel="stylesheet" type="text/css" />
-
-    <!--[if IE]>
-        <link href="{% static "/stylesheets/ie.css" %}" media="screen, projection" rel="stylesheet" type="text/css" />
-    <![endif]-->
-
 
     <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
 </head>
@@ -30,18 +23,17 @@
     <nav class="top-bar" data-topbar>
         <ul class="title-area">
             <li class="name">
-
+                <a href="/">
+                    <span>
+                        <img src="{% static "img/logo_light.png" %}" alt="logo_light"></img>
+                    </span>
+                </a>
             </li>
-            <!--<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>-->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
 
         <section class="top-bar-section">
             <ul class="left">
-                <li>
-                    <a href="/">
-                        <img src="{% static "img/logo_light.png" %}" alt="logo_light"></img>
-                    </a>
-                </li>
                 <li class="{% block menu_publications %}{% endblock %}">
                     <a href="{% url 'news:index' %}">Publications</a>
                 </li>
@@ -91,6 +83,15 @@
             </div>
         </div>
     </footer>
+
+    <script src="{% static "javascripts/vendor/jquery.js" %}"></script>
+    <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
+    <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
+    <!-- Other JS plugins can be included here -->
+
+    <script>
+        $(document).foundation();
+    </script>
 
 </body>
 </html>

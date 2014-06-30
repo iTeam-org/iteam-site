@@ -14,18 +14,15 @@
     <div class="large-12 columns">
         <h1>
             <span>
-                <img src="{{ news.image_url }}" width="50" class="hide-for-small"/>
+                <img src="{{ news.image_url }}" width="100" class="hide-for-small"/>
             </span>
-            {{ news.title }} <small>{{ news.subtitle }}</small>
-        </h1>
-        <h2>
+            {{ news.title }}
             <small>
+                {{ news.subtitle }}
+                <br />
                 News rédigée avec amour par
-                <a href="{% url 'member:detail' user_name=news.author %}">
-                    {{ news.author }}
-                </a>
+                <a href="{% url 'member:detail' user_name=news.author %}">{{ news.author }}</a>
                 le {{ news.pub_date|date:"d F Y" }}
-                - ("news" ou tuto / article -> test type)
             </small>
         </h2>
     </div>
@@ -34,17 +31,16 @@
 <hr />
 
 {# content #}
+
 <div class="row">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="large-10 columns large-offset-1">
-                {% if news %}
-                    <p>{{ news.text|iteam_markdown }}</p>
-                {% else %}
-                    <p>Error : news not found (kind of 404).</p>
-                {% endif %}
-            </div>
-        </div>
+    <div class="large-10 columns large-offset-1">
+        {% if news %}
+            {{ news.text|iteam_markdown }}
+        {% else %}
+            <p>
+                Error : news not found (kind of 404).
+            </p>
+        {% endif %}
     </div>
 </div>
 

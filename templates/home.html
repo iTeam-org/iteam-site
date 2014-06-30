@@ -42,12 +42,12 @@
         {% if news_list %}
             {% for news in news_list %}
                 <div class="row">
-                    <div class="small-2 column" style="text-align: center;">
+                    <div class="small-2 columns" style="text-align: center;">
                         <a href="{% url 'news:detail' news_id=news.id %}">
                                 <img src="{{ news.image_url }}" alt="" width="50" />
                         </a>
                     </div>
-                    <div class="small-10 column" style="padding-left: 5px;">
+                    <div class="small-10 columns" style="padding-left: 5px;">
                         <a href="{% url 'news:detail' news_id=news.id %}">{{ news.title }}</a>
                         <p>Ecrit avec amour par
                             <a href="{% url 'member:detail' user_name=news.author %}">
@@ -58,7 +58,9 @@
             {% endfor %}
         {% else %}
             <div class="row">
-                <p>No news are available.</p>
+                <div class="large-12 columns">
+                    <p>No news are available.</p>
+                </div>
             </div>
         {% endif %}
         <div class="row">
@@ -82,12 +84,12 @@
         {% if data %}
             {% for news in data %}
                 <div class="row">
-                    <div class="small-2 column" style="text-align: center;">
+                    <div class="small-2 columns" style="text-align: center;">
                         <a href="{% url 'news:detail' news_id=news.id %}">
                                 <img src="{% static "img/tux.png" %}" alt="" width="50" />
                         </a>
                     </div>
-                    <div class="small-10 column" style="padding-left: 5px;">
+                    <div class="small-10 columns" style="padding-left: 5px;">
                         <a href="{% url 'news:detail' news_id=news.id %}">{{ news.title }}</a>
                         <p>Ecrit avec amour par {{ news.author }}.</p>
                     </div>
@@ -95,7 +97,9 @@
             {% endfor %}
         {% else %}
             <div class="row">
-                <p>No events are available.</p>
+                <div class="large-12 columns">
+                    <p>No events are available.</p>
+                </div>
             </div>
         {% endif %}
         <div class="row">

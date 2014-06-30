@@ -40,24 +40,24 @@
                 <form method="post" action="{% url 'member:login_view' %}{% if next %}?suivant={{ next }}{% endif %}">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="small-4 columns">
+                        <div class="large-4 columns">
                             <label class="right inline" for="id_username">Identifiant</label>
                         </div>
-                        <div class="small-8 columns">
+                        <div class="large-8 columns">
                             <input type="text" name="username" id="id_username" maxlength="30" {% if form.username.value %}value="{{ form.username.value }}"{% endif %} />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="small-4 columns">
+                        <div class="large-4 columns">
                             <label class="right inline" for="id_password">Mot magique</label>
                         </div>
-                        <div class="small-8 columns">
+                        <div class="large-8 columns">
                             <input type="password" name="password" id="id_password" maxlength="76" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="small-4 columns"></div>
-                        <div class="small-8 columns">
+                        <div class="large-4 columns"></div>
+                        <div class="large-8 columns">
                             <label>
                                 <input type="checkbox" name="remember">
                                 Connexion automatique
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="small-8 small-offset-4 columns">
+                        <div class="large-8 large-offset-4 columns">
                             <button type="submit" class="button">
                                 Se connecter
                             </button>

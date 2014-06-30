@@ -11,6 +11,7 @@ todo :
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
 - event + formation : formation, jpo, bar, ...
 
+- a propos / l'iteam
 - bitbucket / github
 
 

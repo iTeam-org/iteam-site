@@ -115,6 +115,80 @@ TEMPLATE_DIRS = (
 NB_NEWS_PER_PAGE = 10
 NB_MEMBERS_PER_PAGE = 10
 
-LOGIN_URL = '/membres/connexion'
+LOGIN_URL = '/membres/connexion/'
 
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+#
+# Levels :
+# DEBUG: Low level system information for debugging purposes
+# INFO: General system information
+# WARNING: Information describing a minor problem that has occurred.
+# ERROR: Information describing a major problem that has occurred.
+# CRITICAL: Information describing a critical problem that has occurred.
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+
+    'formatters': {
+        'default': {
+            'format': '\tDefault : %(levelname)s %(asctime)s %(message)s'
+        },
+        'request': {
+            'format': '\tRequest : %(levelname)s %(status_code)d %(message)s'
+        },
+        'backends_simple': {
+            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)s'
+        },
+        'backends_verbose': {
+            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)s %(sql)s %(params)s'
+        },
+    },
+
+    'handlers': {
+        'default':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default'
+        },
+        'request':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'request'
+        },
+        'backends':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'backends_simple'
+        },
+        #'db':{
+        #    'level': 'INFO',
+        #    'class': 'iTeam.utils.MyDbLogHandler',
+        #    'formatter': 'verbose'
+        #}
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['request'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['backends'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    }
+}
 

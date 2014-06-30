@@ -15,15 +15,8 @@ header
 
 .home-app-title
 {
-    padding-bottom: emCalc(3px);
-    margin-bottom: emCalc(8px);
+    margin-bottom: emCalc(10em);
     border-bottom: solid 1px #ddd;
-
-    h2
-    {
-        margin: 0;
-        padding-left: emCalc(2px);
-    }
 }
 
 .headline-actions{margin-top:1.5em}

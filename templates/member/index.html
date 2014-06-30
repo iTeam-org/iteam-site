@@ -26,7 +26,7 @@
                 {% if data %}
                     <ul class="left">
                         {% for member_one in data %}
-                            <li><a href="voir/{{ member_one.username }}">{{ member_one.username }}</a></li>
+                            <li><a href="{% url 'member:detail' user_name=member_one.username %}">{{ member_one.username }}</a></li>
                         {% endfor %}
                     </ul>
                 {% else %}

@@ -1305,8 +1305,8 @@ $topbar-link-bg-active: darken($topbar-bg-color, $iteam_base_darken);
 // $topbar-menu-link-weight: bold;
 // $topbar-menu-link-color: #fff;
 // $topbar-menu-icon-color: #fff;
-// $topbar-menu-link-color-toggled: #888;
-// $topbar-menu-icon-color-toggled: #888;
+$topbar-menu-link-color-toggled: #ffffff; //#888;
+$topbar-menu-icon-color-toggled: #ffffff; //#888;
 
 // Transitions and breakpoint styles
 
