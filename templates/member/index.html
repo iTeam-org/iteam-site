@@ -1,7 +1,5 @@
 {% extends "member/base.html" %}
 
-{% load staticfiles %}
-
 {% block title_page %}
     Liste des membres &#183;
 {% endblock %}
@@ -36,8 +34,16 @@
                 {% endif %}
             </div>
         </div>
-        <div class="row">
-            {% include "misc/pagination.part.html" %}
+
+        {# paginator #}
+        <div class="pagination-centered">
+            <ul class="pagination">
+                {% for i in data.paginator.page_range %}
+                    <li class="{% if data.number == i %}current{% endif %}">
+                        <a href="?page={{ i }}&type={{ cur_type }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>

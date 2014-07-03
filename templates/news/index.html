@@ -1,7 +1,5 @@
 {% extends "news/base.html" %}
 
-{% load staticfiles %}
-
 {% block title_page %}
     Liste des news &#183;
 {% endblock %}
@@ -13,7 +11,7 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-7 columns">
                     <h1>
                         Liste des news
                         <br />
@@ -22,20 +20,20 @@
                         </small>
                     </h1>
                 </div>
-                <div class="large-4 columns">
+                <div class="large-5 columns">
                     <div class="headline-actions">
                         {% if user.is_authenticated %}
-                            <div class="row right">
+                            <div class="row">
                                 <div class="large-12 columns">
-                                    <a href="{% url 'news:create' %}" class="button small">
+                                    <a href="{% url 'news:create' %}" class="button small right">
                                         Rédigez une publication
                                     </a>
                                 </div>
                             </div>
                         {% endif %}
-                        <div class="row right">
+                        <div class="row">
                             <div class="large-12 columns">
-                                <dl class="sub-nav">
+                                <dl class="sub-nav right">
                                     <dt>Filtrer :</dt>
                                     <dd class="{{ type_all }}"><a href="?">Tout</a></dd>
                                     <dd class="{{ type_N }}"><a href="?type=N">News</a></dd>

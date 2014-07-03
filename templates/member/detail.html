@@ -1,5 +1,7 @@
 {% extends "member/base.html" %}
 
+{% load email_obfuscator %}
+
 {% block title_page %}
     Détail d'un membre &#183;
 {% endblock %}
@@ -46,7 +48,7 @@
                         <small>{{ profile.user.get_full_name }}</small>
                     </h2>
                     <ul>
-                        {% if profile.user.email %}<li>Email : {{ profile.user.email }}</li>{% endif %}
+                        {% if profile.user.email %}<li>Email : {{ profile.user.email|obfuscate }}</li>{% endif %}
                         {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
                         <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
                         <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>

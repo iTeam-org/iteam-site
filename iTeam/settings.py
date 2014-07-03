@@ -43,9 +43,7 @@ INSTALLED_APPS = (
 
     'crispy_forms',
     'crispy_forms_foundation',
-    'simplemathcaptcha',
-    #'email_obfuscator',
-    #'taggit',
+    'email_obfuscator',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -192,3 +190,5 @@ LOGGING = {
     }
 }
 
+CRISPY_FAIL_SILENTLY = not DEBUG
+CRISPY_TEMPLATE_PACK = 'foundation-5'

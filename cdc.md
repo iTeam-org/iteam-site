@@ -1,12 +1,15 @@
+python manage.py dumpdata --format=json myapp > data.json
+https://docs.djangoproject.com/en/1.6/topics/security/
+
 # CDC site web #
 
 ------------------------------------------------------------
 todo :
 -> dump iteam.org
 
+- clean templates (crispy form, ...) + tests
+- news / tuto : draft boolean + better error / keep data
 - better member (mail, citation, bio, ...) + member:settings_view
-- news / tuto : draft boolean
-- clean templates (title, active page in top bar, ...) + tests
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
 - event + formation : formation, jpo, bar, ...

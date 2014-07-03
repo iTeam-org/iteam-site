@@ -66,7 +66,10 @@ def create(request):
 @login_required(redirect_field_name='suivant')
 def edit(request, news_id):
     news = get_object_or_404(News, pk=news_id)
-    return save_news(request, 'news/edit.html', news)
+    if news.author.pk is not request.user.pk:
+        raise Http404
+    else:
+        return save_news(request, 'news/edit.html', news)
 
 
 def save_news(request, template_name, news):
