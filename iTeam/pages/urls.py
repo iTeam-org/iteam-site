@@ -21,6 +21,5 @@ from iTeam.pages import views
 
 urlpatterns = patterns(
     '',
-    url(r'^iteam/$', views.iteam, name='iteam'),
     url(r'^apropos/$', views.apropos, name='apropos'),
 )

@@ -19,12 +19,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
-from iTeam.news.models import News
+from iTeam.publications.models import Publication
 
 def home(request):
-    news_list = News.objects.all().filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+    publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
-    return render(request, 'home.html', {"news_list": news_list})
+    return render(request, 'home.html', {"publications_list": publications_list})
 
 def iteam(request):
     return render(request, 'pages/iteam.html')

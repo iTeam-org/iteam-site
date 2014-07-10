@@ -7,7 +7,11 @@
 {% block content %}
 
 <div class="row">
-    <div class="large-10 large-offset-1 columns">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-8 columns">
         <h1>
             Éditer une publication
         </h1>
@@ -16,11 +20,13 @@
             <small class="error">{{ msg }}</small>
             {% endif %}
         </p>
-    </div>
 
-    <hr />
-
-    <div class="large-10 large-offset-1 columns">
+                </div>
+            </div>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
 
         <form action="{% url 'publications:edit' publication_id=publication.pk %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -65,6 +71,9 @@
 
             <input type="submit" value="Éditer" class="button" />
         </form>
+
+            </div>
+        </div>
     </div>
 </div>
 
