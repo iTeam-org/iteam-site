@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^news/', include('iTeam.news.urls', namespace="news")),
+    url(r'^publications/', include('iTeam.publications.urls', namespace="publications")),
     url(r'^membres/', include('iTeam.member.urls', namespace="member")),
     url(r'^pages/', include('iTeam.pages.urls', namespace="pages")),
 

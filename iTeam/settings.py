@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = (
     'iTeam.pages',
     'iTeam.member',
-    'iTeam.news',
+    'iTeam.publications',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -110,7 +110,7 @@ TEMPLATE_DIRS = (
 )
 
 
-NB_NEWS_PER_PAGE = 10
+NB_PUBLICATIONS_PER_PAGE = 10
 NB_MEMBERS_PER_PAGE = 10
 
 LOGIN_URL = '/membres/connexion/'

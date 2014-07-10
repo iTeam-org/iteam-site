@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="small-2 columns" style="text-align: center;">
+        <a href="{% url 'publications:detail' publication_id=publication.id %}">
+            <img src="{{ publication.image_url }}" alt="" width="50" />
+        </a>
+    </div>
+    <div class="small-10 columns" style="padding-left: 5px;">
+        <p>
+            <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                {{ publication.title }}
+            </a>
+            <br />
+            {{ publication.subtitle }}
+        </p>
+    </div>
+</div>

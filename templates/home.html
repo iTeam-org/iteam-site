@@ -34,24 +34,24 @@
     <div class="large-6 columns">
         <div class="home-app-title">
             <h1>
-                <a href="{% url 'news:index' %}">
+                <a href="{% url 'publications:index' %}">
                     Publications
                 </a>
             </h1>
         </div>
-        {% if news_list %}
-            {% for news in news_list %}
+        {% if publications_list %}
+            {% for publication in publications_list %}
                 <div class="row">
                     <div class="small-2 columns" style="text-align: center;">
-                        <a href="{% url 'news:detail' news_id=news.id %}">
-                                <img src="{{ news.image_url }}" alt="" width="50" />
+                        <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                <img src="{{ publication.image_url }}" alt="" width="50" />
                         </a>
                     </div>
                     <div class="small-10 columns" style="padding-left: 5px;">
-                        <a href="{% url 'news:detail' news_id=news.id %}">{{ news.title }}</a>
+                        <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
                         <p>Ecrit avec amour par
-                            <a href="{% url 'member:detail' user_name=news.author %}">
-                                {{ news.author }}</a>.
+                            <a href="{% url 'member:detail' user_name=publication.author %}">
+                                {{ publication.author }}</a>.
                         </p>
                     </div>
                 </div>
@@ -59,14 +59,14 @@
         {% else %}
             <div class="row">
                 <div class="large-12 columns">
-                    <p>No news are available.</p>
+                    <p>Aucunes publications trouvées.</p>
                 </div>
             </div>
         {% endif %}
         <div class="row">
             <div style="text-align: center">
-                <a href="{% url 'news:index' %}" class="button">
-                    Aller aux news
+                <a href="{% url 'publications:index' %}" class="button">
+                    Aller aux publications.
                 </a>
             </div>
         </div>
@@ -82,16 +82,16 @@
             </h1>
         </div>
         {% if data %}
-            {% for news in data %}
+            {% for publication in data %}
                 <div class="row">
                     <div class="small-2 columns" style="text-align: center;">
-                        <a href="{% url 'news:detail' news_id=news.id %}">
+                        <a href="{% url 'publication:detail' publication_id=publications.id %}">
                                 <img src="{% static "img/tux.png" %}" alt="" width="50" />
                         </a>
                     </div>
                     <div class="small-10 columns" style="padding-left: 5px;">
-                        <a href="{% url 'news:detail' news_id=news.id %}">{{ news.title }}</a>
-                        <p>Ecrit avec amour par {{ news.author }}.</p>
+                        <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
+                        <p>Ecrit avec amour par {{ publication.author }}.</p>
                     </div>
                 </div>
             {% endfor %}

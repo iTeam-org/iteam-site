@@ -4,13 +4,13 @@ from os import system
 apps = (
     'auth',
     'member',
-    'news',
+    'publications',
 )
 
 fixtures = (
     'fixtures/auth.yaml',
     'fixtures/member.yaml',
-    'fixtures/news.yaml',
+    'fixtures/publications.yaml',
     )
 
 # clean everything

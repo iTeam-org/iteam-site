@@ -84,14 +84,14 @@ def login_view(request):
     """
         Allow users to log into their accounts.
 
-        If the 'suivant' HTTP GET field is given, then this view will redirect the
+        If the 'next' HTTP GET field is given, then this view will redirect the
         user to the given URL after successful auth.
     """
     csrf_tk = {}
     csrf_tk.update(csrf(request))
 
-    if 'suivant' in request.GET:
-        csrf_tk['next'] = request.GET['suivant']
+    if 'next' in request.GET:
+        csrf_tk['next'] = request.GET['next']
 
     error = False
     if request.method == 'POST':
@@ -104,19 +104,24 @@ def login_view(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-            # Yeah auth successful
-                login(request, user)
-                request.session['get_token'] = generate_token()
+                # Yeah auth successful
+                if user.is_active:
+                    login(request, user)
+                    request.session['get_token'] = generate_token()
 
-                if 'remember' not in request.POST:
-                    request.session.set_expiry(0)
+                    if 'remember' not in request.POST:
+                        request.session.set_expiry(0)
 
-                if 'suivant' in request.GET:
-                    return redirect(request.GET['suivant'])
+                    if 'next' in request.GET:
+                        return redirect(request.GET['next'])
+                    else:
+                        return redirect(reverse('iTeam.pages.views.home'))
                 else:
-                    return redirect(reverse('iTeam.pages.views.home'))
+                    error = (u'Le compte a été désactivé. Pour toute '
+                             u'réclamation, merci de contacter '
+                             u'l\'administrateur')
             else:
-            # auth failed
+                # auth failed
                 error = u'Les identifiants fournis ne sont pas valides'
         else:
             error = (u'Veuillez spécifier votre identifiant '
@@ -130,7 +135,7 @@ def login_view(request):
     return render(request, 'member/login.html', csrf_tk)
 
 
-@login_required(redirect_field_name='suivant')
+@login_required
 def logout_view(request):
     """
         Allow users to log out of their accounts.
@@ -138,7 +143,7 @@ def logout_view(request):
     # If we got a secure POST, we disconnect
     if request.method == 'POST':
         logout(request)
-        request.session.clear()
+        request.session.clear() # clean explicitly stored data about the user
         return redirect(reverse('iTeam.pages.views.home'))
 
     # Elsewise we ask the user to submit a form with correct csrf token
@@ -169,14 +174,14 @@ def register_view(request):
             return render(request, 'member/register_success.html')
         else:
             return render(request, 'member/register.html', {'form': form})
-
+    #else:
     form = RegisterForm()
     return render(request, 'member/register.html', {
         'form': form
     })
 
 
-@login_required(redirect_field_name='suivant')
+@login_required
 def settings_view(request):
     """
         Set current user's account settings.

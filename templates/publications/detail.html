@@ -1,9 +1,9 @@
-{% extends "news/base.html" %}
+{% extends "publications/base.html" %}
 
-{% load news_tags %}
+{% load publications_tags %}
 
 {% block title_page %}
-    Détail d'une news &#183;
+    Détail d'une publication &#183;
 {% endblock %}
 
 {% block content %}
@@ -16,24 +16,24 @@
                 <div class="large-10 columns">
                     <h1>
                         <span>
-                            <img src="{{ news.image_url }}" width="100" class="hide-for-small"/>
+                            <img src="{{ publication.image_url }}" width="100" class="hide-for-small"/>
                         </span>
-                        {{ news.title }}
+                        {{ publication.title }}
                         <small>
-                            {{ news.subtitle }}
+                            {{ publication.subtitle }}
                             <br />
-                            {{ news.get_type_display }} rédigée avec amour par
-                            <a href="{% url 'member:detail' user_name=news.author %}">{{ news.author }}</a>
-                            le {{ news.pub_date|date:"d F Y" }}
+                            {{ publication.get_type_display }} rédigée avec amour par
+                            <a href="{% url 'member:detail' user_name=publication.author %}">{{ publication.author }}</a>
+                            le {{ publication.pub_date|date:"d F Y" }}
                         </small>
                     </h1>
                 </div>
                 <div class="large-2 columns">
                     <div class="headline-actions">
-                        {% if user.is_authenticated and user == news.author %}
+                        {% if user.is_authenticated and user == publication.author %}
                             <div class="row right">
                                 <div class="large-12 columns">
-                                    <a href="{% url 'news:edit' news_id=news.pk %}" class="button small">
+                                    <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button small">
                                         Éditer la publication
                                     </a>
                                 </div>
@@ -48,13 +48,7 @@
 
         <div class="row">
             <div class="large-10 columns large-offset-1">
-                {% if news %}
-                    {{ news.text|iteam_markdown }}
-                {% else %}
-                    <p>
-                        Error : news not found (kind of 404).
-                    </p>
-                {% endif %}
+                {{ publication.text|iteam_markdown }}
             </div>
         </div>
     </div>

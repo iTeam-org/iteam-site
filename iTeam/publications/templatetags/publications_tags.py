@@ -7,5 +7,5 @@ register = template.Library()
 
 @register.filter
 def iteam_markdown(value):
-    html = markdown.markdown(value)
+    html = markdown.markdown(value, safe_mode='escape')
     return mark_safe(html)

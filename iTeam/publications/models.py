@@ -5,11 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class News(models.Model):
-    class Meta:
-        verbose_name = 'News'
-        verbose_name_plural = 'News'
-
+class Publication(models.Model):
     TYPES = (
         ('N', u'News'),
         ('T', u'Tutoriel'),
@@ -23,7 +19,7 @@ class News(models.Model):
     pub_date = models.DateTimeField('Date de publication')
 
     image = models.ImageField(
-        upload_to='news',
+        upload_to='publications',
         blank=True,
         null=True,
         default=None
@@ -45,4 +41,4 @@ class News(models.Model):
         if self.image:
             return self.image.url
         else:
-            return '/media/news/default.png'
+            return '/media/publications/default.png'
