@@ -22,7 +22,7 @@ from django.utils import timezone
 from iTeam.publications.models import Publication
 
 def home(request):
-    publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+    publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False).order_by('-pub_date')[:5]
 
     return render(request, 'home.html', {"publications_list": publications_list})
 

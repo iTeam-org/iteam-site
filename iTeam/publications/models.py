@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.conf import settings
+
 # Create your models here.
 
 
@@ -12,8 +14,8 @@ class Publication(models.Model):
         ('P', u'Publication')
     )
 
-    title = models.CharField(max_length=100, verbose_name=u'Titre')
-    subtitle = models.CharField(max_length=100, blank=True, verbose_name=u'Sous-titre')
+    title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')
+    subtitle = models.CharField(max_length=settings.SIZE_MAX_TITLE, blank=True, verbose_name=u'Sous-titre')
 
     author = models.ForeignKey(User, verbose_name=u'Auteur')
     pub_date = models.DateTimeField('Date de publication')
@@ -33,6 +35,8 @@ class Publication(models.Model):
     )
 
     text = models.TextField()
+
+    is_draft = models.BooleanField(u'Est un brouillon', default=True)
 
     def __unicode__(self):
         return self.title

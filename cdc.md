@@ -5,10 +5,8 @@ https://docs.djangoproject.com/en/1.6/topics/security/
 
 ------------------------------------------------------------
 todo :
--> dump iteam.org
+-> dump iteam.org + tests
 
-- clean templates (crispy form, ...) + tests
-- news / tuto : draft boolean + better error / keep data
 - better member (mail, citation, bio, ...) + member:settings_view
 
 - calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)

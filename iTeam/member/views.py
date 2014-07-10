@@ -34,6 +34,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 
 from iTeam.member.models import Profile
 from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
+from iTeam.publications.models import Publication
 
 ###############################
 from hashlib import md5
@@ -76,7 +77,19 @@ def detail(request, user_name):
     user = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user)
 
-    return render(request, 'member/detail.html', {'profile': profile})
+    publications_list = Publication.objects.all().filter(author=user, is_draft=False).order_by('-pub_date')
+    publications_draft_list = Publication.objects.all().filter(author=user, is_draft=True).order_by('-pub_date')
+
+    show_draft = request.user == user
+
+    c = {
+        'profile': profile,
+        'publications_list': publications_list,
+        'publications_draft_list': publications_draft_list,
+        'show_draft': show_draft,
+    }
+
+    return render(request, 'member/detail.html', c)
 
 
 @sensitive_post_parameters('password')

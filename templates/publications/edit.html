@@ -11,7 +11,7 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-12 columns">
         <h1>
             Éditer une publication
         </h1>
@@ -27,51 +27,9 @@
         {# content #}
         <div class="row">
             <div class="large-12 columns">
-
-        <form action="{% url 'publications:edit' publication_id=publication.pk %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Titre
-                        <input type="text" placeholder="Titre" name="title" value="{{ publication.title }}" />
-                    </label>
-                </div>
-                <div class="large-6 columns">
-                    <label>Sous-titre (optionnel)
-                        <input type="text" placeholder="Sous-titre" name="subtitle" value="{{ publication.subtitle }}" />
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Image (optionnelle)
-                       <input type="file" name="image">
-                    </label>
-                </div>
-                <div class="large-6 columns">
-                    <label>Type de la publication
-                        <select name="type">
-                            <option value="P" {% if publication.type == "P" %}selected{% endif %}>Publication</option>
-                            <option value="N" {% if publication.type == "N" %}selected{% endif %}>News</option>
-                            <option value="T" {% if publication.type == "T" %}selected{% endif %}>Tutoriel</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <label>Texte
-                        <textarea placeholder="Texte" name="text" rows="20" >{{ publication.text|safe }}</textarea>
-                    </label>
-                </div>
-            </div>
-
-            <input type="submit" value="Éditer" class="button" />
-        </form>
-
+                <form action="{% url 'publications:edit' publication_id=publication.pk %}" method="post" enctype="multipart/form-data">
+                    {% include "publications/form.part.html" %}
+                </form>
             </div>
         </div>
     </div>

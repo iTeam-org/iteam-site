@@ -30,8 +30,8 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    promo = models.IntegerField(blank=True)
-    avatar_url = models.CharField(max_length=256, null=True, blank=True)
+    promo = models.IntegerField(null=True)
+    avatar_url = models.CharField(max_length=256, null=True, default='')
 
     class Meta:
         verbose_name = 'Profil'

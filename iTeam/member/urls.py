@@ -21,6 +21,7 @@ from iTeam.member import views
 
 urlpatterns = patterns(
     '',
+    url(r'^$', views.index, name='index'),
 
     url(r'^voir/(?P<user_name>.+)/$', views.detail, name='detail'),
     url(r'^parametres/$', views.settings_view, name='settings_view'),
@@ -28,5 +29,4 @@ urlpatterns = patterns(
     url(r'^inscription/$', views.register_view, name='register_view'),
     url(r'^connexion/$', views.login_view, name='login_view'),
     url(r'^deconnexion/$', views.logout_view, name='logout_view'),
-    url(r'^$', views.index, name='index'),
 )

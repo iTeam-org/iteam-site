@@ -42,23 +42,68 @@
                 </h2>
             </div>
             <div class="large-10 columns">
-                {% if profile.user %}
-                    <h2>
-                        {{ profile.user.get_username }}
-                        <small>{{ profile.user.get_full_name }}</small>
-                    </h2>
-                    <ul>
-                        {% if profile.user.email %}<li>Email : {{ profile.user.email|obfuscate }}</li>{% endif %}
-                        {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
-                        <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
-                        <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>
-                    </ul>
+                <h3>
+                    {{ profile.user.get_username }}
+                    <small>{{ profile.user.get_full_name }}</small>
+                </h3>
+                <ul>
+                    {% if profile.user.email %}<li>Email : {{ profile.user.email|obfuscate }}</li>{% endif %}
+                    {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
+                    <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
+                    <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <h3>Publications :</h3>
+                {% if publications_list %}
+                    {% for publication in publications_list %}
+                        <div class="row">
+                            <div class="small-2 columns" style="text-align: center;">
+                                <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                    <img src="{{ publication.image_url }}" alt="" width="50" />
+                                </a>
+                            </div>
+                            <div class="small-10 columns" style="padding-left: 5px;">
+                                <p>
+                                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                        {{ publication.title }}
+                                    </a>
+                                    <br />
+                                    {{ publication.subtitle }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 {% else %}
-                    <p>
-                        Ceci ne devrait pas apparaitre, vous devriez avoir une erreur 404.
-                        <br />
-                        Vous avez le droit de signaler ce bug au développeur.
-                    </p>
+                    <p>Aucunes publications trouvées.</p>
+                {% endif %}
+                {% if show_draft %}
+                    <h3>Brouillons :</h3>
+                    {% if publications_draft_list %}
+                        {% for publication in publications_draft_list %}
+                            <div class="row">
+                                <div class="small-2 columns" style="text-align: center;">
+                                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                        <img src="{{ publication.image_url }}" alt="" width="50" />
+                                    </a>
+                                </div>
+                                <div class="small-10 columns" style="padding-left: 5px;">
+                                    <p>
+                                        <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                            {{ publication.title }}
+                                        </a>
+                                        <br />
+                                        {{ publication.subtitle }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Aucunes publications trouvées.</p>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

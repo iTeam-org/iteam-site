@@ -11,7 +11,7 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-12 columns">
         <h1>
             Rédiger une publication
         </h1>
@@ -26,49 +26,9 @@
         {# content #}
         <div class="row">
             <div class="large-12 columns">
-        <form action="{% url 'publications:create' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Titre
-                        <input type="text" placeholder="Titre" name="title" />
-                    </label>
-                </div>
-                <div class="large-6 columns">
-                    <label>Sous-titre (optionnel)
-                        <input type="text" placeholder="Sous-titre" name="subtitle" />
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Image (optionnelle)
-                       <input type="file" name="image">
-                    </label>
-                </div>
-                <div class="large-6 columns">
-                    <label>Type de la publication
-                        <select name="type">
-                            <option value="P">Publication</option>
-                            <option value="N">News</option>
-                            <option value="T">Tutoriel</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <label>Texte
-                        <textarea placeholder="Texte" name="text" rows="20" ></textarea>
-                    </label>
-                </div>
-            </div>
-
-            <input type="submit" value="Publier" class="button" />
-        </form>
+                <form action="{% url 'publications:create' %}" method="post" enctype="multipart/form-data">
+                    {% include "publications/form.part.html" %}
+                </form>
             </div>
         </div>
     </div>
