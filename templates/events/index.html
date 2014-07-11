@@ -1,0 +1,27 @@
+{% extends "events/base.html" %}
+
+{% block title_page %}
+    Events &#183;
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <h1>
+                Events
+            </h1>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                {{ calendar }}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

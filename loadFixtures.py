@@ -5,13 +5,16 @@ apps = (
     'auth',
     'member',
     'publications',
+    'medias',
+    'events',
 )
 
 fixtures = (
     'fixtures/auth.yaml',
     'fixtures/member.yaml',
     'fixtures/publications.yaml',
-    )
+    'fixtures/events.yaml',
+)
 
 # clean everything
 print '=> Cleaning everything ...'

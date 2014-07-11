@@ -33,6 +33,8 @@ INSTALLED_APPS = (
     'iTeam.pages',
     'iTeam.member',
     'iTeam.publications',
+    'iTeam.medias',
+    'iTeam.events',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +46,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'crispy_forms_foundation',
     'email_obfuscator',
+    'schedule',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +57,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+#TEMPLATE_CONTEXT_PROCESSORS = (
+    # missing default django items -> see pdp
+#    'django.core.context_processors.request',
+#)
+
 
 ROOT_URLCONF = 'iTeam.urls'
 
@@ -195,3 +204,6 @@ LOGGING = {
 
 CRISPY_FAIL_SILENTLY = not DEBUG
 CRISPY_TEMPLATE_PACK = 'foundation-5'
+
+# schedule (django-scheduler)
+FIRST_DAY_OF_WEEK = 1 # default : 0 = Sunday

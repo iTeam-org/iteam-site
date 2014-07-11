@@ -1,0 +1,44 @@
+{% extends "medias/base.html" %}
+
+{% block title_page %}
+    Status FB &#183;
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <h1>
+                Status FB
+            </h1>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+
+                {% if result %}
+                    <p>
+                        {{ result }}
+                    </p>
+                {% endif %}
+
+                <hr />
+
+                <form action="{% url 'medias:fb' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <textarea placeholder="Texte" name="text" rows="20" >Plop !</textarea>
+
+                    <div class="small-4 small-offset-4" >
+                        <input type="submit" value="Poster" class="button expand" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,3 +3,8 @@ markdown>=2.1
 django-email-obfuscator
 crispy-forms
 crispy-forms-foundation
+
+requests
+facebook-sdk
+
+django-scheduler
