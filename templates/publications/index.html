@@ -22,15 +22,6 @@
                 </div>
                 <div class="large-5 columns">
                     <div class="headline-actions">
-                        {% if user.is_authenticated %}
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <a href="{% url 'publications:create' %}" class="button small right">
-                                        Rédigez une publication
-                                    </a>
-                                </div>
-                            </div>
-                        {% endif %}
                         <div class="row">
                             <div class="large-12 columns">
                                 <dl class="sub-nav right">
@@ -42,6 +33,15 @@
                                 </dl>
                             </div>
                         </div>
+                        {% if user.is_authenticated %}
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <a href="{% url 'publications:create' %}" class="button small right">
+                                        Rédigez une publication
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -50,26 +50,20 @@
         {# content #}
         <div class="row">
             <div class="large-6 columns">
-                {% if data %}
-                    {% for publication in data %}
-                        {% if forloop.counter <= 5 %}
-                            {% include "publications/index.part.html" %}
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
+                {% for publication in data %}
+                    {% if forloop.counter <= 5 %}
+                        {% include "publications/index.part.html" %}
+                    {% endif %}
+                {% empty %}
                     <p>Aucunes publications trouvées.</p>
-                {% endif %}
+                {% endfor %}
             </div>
             <div class="large-6 columns">
-                {% if data %}
-                    {% for publication in data %}
-                        {% if forloop.counter > 5 %}
-                            {% include "publications/index.part.html" %}
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <p>Aucunes publications trouvées.</p>
-                {% endif %}
+                {% for publication in data %}
+                    {% if forloop.counter > 5 %}
+                        {% include "publications/index.part.html" %}
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
 

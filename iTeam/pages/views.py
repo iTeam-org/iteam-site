@@ -20,11 +20,13 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from iTeam.publications.models import Publication
+from iTeam.events.models import Event
 
 def home(request):
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False).order_by('-pub_date')[:5]
+    events_list = Event.objects.all()
 
-    return render(request, 'home.html', {"publications_list": publications_list})
+    return render(request, 'home.html', {"publications_list": publications_list, 'events_list': events_list,})
 
 def iteam(request):
     return render(request, 'pages/iteam.html')

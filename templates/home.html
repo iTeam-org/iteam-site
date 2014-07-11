@@ -10,21 +10,17 @@
 
 <header>
     <div class="row">
-        <div class="large-12 columns">
-            <div class="row">
-                <div class="large-7 columns">
-                    <h1>
-                        Bienvenue
-                    </h1>
-                    <p>
-                        Bienvenue sur le site de l'iTeam, une association de l'ECE pour la promotion du logiciel libre et de l'open source : par exemple le navigateur Firefox, la suite OpenOffice ou le système Linux.<br />
-                        Passez nous voir en P404 !
-                    </p>
-                </div>
-                <div class="large-5 columns hide-for-small">
-                        <img src="{% static "img/logo_full.png" %}" alt="logo_full"></img>
-                </div>
-            </div>
+        <div class="small-12 large-6 columns">
+            <h1>
+                Bienvenue
+            </h1>
+            <p>
+                Bienvenue sur le site de l'iTeam, une association de l'ECE pour la promotion du logiciel libre et de l'open source : par exemple le navigateur Firefox, la suite OpenOffice ou le système Linux.<br />
+                Passez nous voir en P404 !
+            </p>
+        </div>
+        <div class="large-6 columns hide-for-small">
+            <img src="{% static "img/logo_full.png" %}" alt="logo_full" />
         </div>
     </div>
 </header>
@@ -39,34 +35,32 @@
                 </a>
             </h1>
         </div>
-        {% if publications_list %}
-            {% for publication in publications_list %}
-                <div class="row">
-                    <div class="small-2 columns" style="text-align: center;">
-                        <a href="{% url 'publications:detail' publication_id=publication.id %}">
-                                <img src="{{ publication.image_url }}" alt="" width="50" />
-                        </a>
-                    </div>
-                    <div class="small-10 columns" style="padding-left: 5px;">
-                        <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
-                        <p>Ecrit avec amour par
-                            <a href="{% url 'member:detail' user_name=publication.author %}">
-                                {{ publication.author }}</a>.
-                        </p>
-                    </div>
+        {% for publication in publications_list %}
+            <div class="row">
+                <div class="small-2 columns" style="text-align: center;">
+                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                            <img src="{{ publication.image_url }}" alt="" width="50" />
+                    </a>
                 </div>
-            {% endfor %}
-        {% else %}
+                <div class="small-10 columns" style="padding-left: 5px;">
+                    <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
+                    <p>Ecrit avec amour par
+                        <a href="{% url 'member:detail' user_name=publication.author %}">
+                            {{ publication.author }}</a>.
+                    </p>
+                </div>
+            </div>
+        {% empty %}
             <div class="row">
                 <div class="large-12 columns">
                     <p>Aucunes publications trouvées.</p>
                 </div>
             </div>
-        {% endif %}
+        {% endfor %}
         <div class="row">
             <div style="text-align: center">
                 <a href="{% url 'publications:index' %}" class="button">
-                    Aller aux publications.
+                    Aller aux publications
                 </a>
             </div>
         </div>
@@ -77,34 +71,27 @@
         <div class="home-app-title">
             <h1>
                 <a href="{% url 'events:index' %}">
-                    Events
+                    Events à venir
                 </a>
             </h1>
         </div>
-        {% if data %}
-            {% for publication in data %}
-                <div class="row">
-                    <div class="small-2 columns" style="text-align: center;">
-                        <a href="{% url 'publication:detail' publication_id=publications.id %}">
-                                <img src="{% static "img/tux.png" %}" alt="" width="50" />
-                        </a>
-                    </div>
-                    <div class="small-10 columns" style="padding-left: 5px;">
-                        <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
-                        <p>Ecrit avec amour par {{ publication.author }}.</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
+        {% for event in events_list %}
             <div class="row">
-                <div class="large-12 columns">
-                    <p>No events are available.</p>
+                <div class="small-12 columns">
+                    <a href="#">{{ event.title }}</a>
+                    <p>Le {{ event.date }}.</p>
                 </div>
             </div>
-        {% endif %}
+        {% empty %}
+             <div class="row">
+                <div class="large-12 columns">
+                    <p>Aucun événements prévus.</p>
+                </div>
+            </div>
+        {% endfor %}
         <div class="row">
             <div style="text-align: center">
-                <a href="#" class="button">
+                <a href="{% url 'events:index' %}" class="button">
                     Aller aux events
                 </a>
             </div>

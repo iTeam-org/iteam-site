@@ -47,3 +47,10 @@ td, th
     height: 50px;
 }
 
+.warning
+{
+  @include alert(
+    $bg: rgb(240, 138, 36)
+  );
+}
+

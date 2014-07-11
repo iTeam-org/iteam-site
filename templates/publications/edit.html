@@ -12,16 +12,24 @@
         <div class="home-app-title">
             <div class="row">
                 <div class="large-12 columns">
-        <h1>
-            Éditer une publication
-        </h1>
-        <p>
-            {% if msg %}
-            <small class="error">{{ msg }}</small>
-            {% endif %}
-        </p>
-
+                    <h1>
+                        Éditer une publication
+                    </h1>
                 </div>
+            </div>
+        </div>
+        {# Error / warning #}
+        <div class="row">
+            <div class="large-12 columns">
+                {% if not publication.is_draft %}
+                    <div data-alert class="alert-box warning round">
+                        Attention, ce texte a déjà été publié ! Pour ne pas perdre les lecteur, explicitez vos modifications.
+                        <a href="#" class="close">&times;</a>
+                    </div>
+                {% endif %}
+                {% if msg %}
+                    <small class="error">{{ msg }}</small>
+                {% endif %}
             </div>
         </div>
         {# content #}

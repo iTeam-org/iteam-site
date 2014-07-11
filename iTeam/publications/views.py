@@ -56,6 +56,7 @@ def detail(request, publication_id):
         if request.method == 'POST':
             if 'toggle_draft' in request.POST:
                 publication.is_draft = not publication.is_draft
+                publication.pub_date = timezone.now()
                 publication.save()
 
         return render(request, 'publications/detail.html', {'publication': publication,})

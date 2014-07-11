@@ -41,7 +41,7 @@
                     {% csrf_token %}
                     <div class="row">
                         <div class="large-4 columns">
-                            <label class="right inline" for="id_username">Identifiant</label>
+                            <label class=".small-text-left .large-text-right inline" for="id_username">Identifiant</label>
                         </div>
                         <div class="large-8 columns">
                             <input type="text" name="username" id="id_username" maxlength="30" {% if form.username.value %}value="{{ form.username.value }}"{% endif %} />
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="large-4 columns">
-                            <label class="right inline" for="id_password">Mot magique</label>
+                            <label class=".small-text-left .large-text-right inline" for="id_password">Mot magique</label>
                         </div>
                         <div class="large-8 columns">
                             <input type="password" name="password" id="id_password" maxlength="76" />

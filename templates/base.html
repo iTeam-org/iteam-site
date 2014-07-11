@@ -11,7 +11,9 @@
 
     <meta charset="utf-8" />
 
-    <link href="{% static "stylesheets/app.css" %}" media="screen, projector, print" rel="stylesheet" type="text/css" />
+    <link href="{% static "stylesheets/normalize.css" %}" media="all" rel="stylesheet" type="text/css" /> <!-- usefull ? -->
+    <link href="{% static "stylesheets/app.css" %}" media="all" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="initial-scale=1" />
 
     <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
 </head>
@@ -25,7 +27,7 @@
             <li class="name">
                 <a href="/">
                     <span>
-                        <img src="{% static "img/logo_light.png" %}" alt="logo_light"></img>
+                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" style="padding:3px;" />
                     </span>
                 </a>
             </li>
