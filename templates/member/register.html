@@ -1,5 +1,4 @@
 {% extends "member/base.html" %}
-{% load crispy_forms_tags %}
 
 {% block title_page %}
     S'incrire &#183;
@@ -37,7 +36,35 @@
                         Veuillez fournir les informations nécessaires dans le
                         formulaire suivant afin de poursuivre votre inscription.
                     </p>
-                    {% crispy form %}
+
+                    <form action="{% url 'member:register_view' %}" method="post">
+                        {% csrf_token %}
+
+                        {% for error in errors %}
+                            <small class="error">{{ error }}</small>
+                        {% endfor %}
+
+                        <fieldset>
+                            <legend>Identifiants</legend>
+
+                            <label for="username">Nom d'utilisateur :</label>
+                            <input type="text" placeholder="Tux" name="username" id="username" maxlength="30" value="{{ username }}" />
+
+                            <label for="password">Mot de passe :</label>
+                            <input type="password" placeholder="Mot de passe" name="password" maxlength="76" id="password" />
+
+                            <label for="password_confirm">Confirmation :</label>
+                            <input type="password" placeholder="Confirmation" name="password_confirm" maxlength="76" id="password_confirm" />
+
+                            <label for="email">Email :</label>
+                            <input type="email" placeholder="tux@linux.org" name="email" id="email" value="{{ email }}" />
+                        </fieldset>
+
+                        <div class="small-6 small-offset-3 large-4 large-offset-4" >
+                            <input type="submit" value="Valider mon inscription" class="button expand" />
+                        </div>
+
+                    </form>
                 {% else %}
                     <p>Vous êtes déjà connecté.</p>
                 {% endif %}

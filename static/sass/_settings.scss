@@ -340,8 +340,8 @@ $fieldset-margin: em-calc(18 18);
 
 // $input-error-message-padding: em-calc(6 4);
 // $input-error-message-top: 0;
-// $input-error-message-font-size: em-calc(12);
-// $input-error-message-font-weight: bold;
+$input-error-message-font-size: em-calc(12); /* deafult 12 */
+$input-error-message-font-weight: none; /* default bold */
 // $input-error-message-font-color: #fff;
 // $input-error-message-font-color-alt: #333;
 

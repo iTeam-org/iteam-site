@@ -36,7 +36,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = False
+USE_TZ = True
 
 
 ##################################
@@ -126,8 +126,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'crispy_forms',
-    'crispy_forms_foundation',
     'email_obfuscator',
     'schedule',
 )
@@ -169,17 +167,6 @@ SIZE_MAX_IMG = 10*1024*1024
 SIZE_MAX_TITLE = 100
 
 LOGIN_URL = '/membres/connexion/'
-
-
-####################################
-# Crispy forms
-#
-# Actually we are working with Foundation 4 but the Foundation 5 crispy
-# template pack seems to behave well with our version.
-####################################
-
-CRISPY_FAIL_SILENTLY = not DEBUG
-CRISPY_TEMPLATE_PACK = 'foundation-5'
 
 
 #####################################
@@ -277,6 +264,6 @@ LOGGING = {
 #######################################
 
 try:
-    from pdp.settings_prod import *
+    from iTeam.settings_prod import *
 except ImportError:
     pass

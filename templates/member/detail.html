@@ -61,7 +61,7 @@
 
         <div class="row">
             <div class="large-12 columns">
-                <h3>Publications :</h3>
+                <h3>Écrits publiés :</h3>
                 {% if publications_list %}
                     {% for publication in publications_list %}
                         <div class="row">
@@ -85,7 +85,7 @@
                     <p>Aucunes publications trouvées.</p>
                 {% endif %}
                 {% if show_draft %}
-                    <h3>Brouillons :</h3>
+                    <h3>Mes brouillons :</h3>
                     {% if publications_draft_list %}
                         {% for publication in publications_draft_list %}
                             <div class="row">
@@ -106,7 +106,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        <p>Aucunes publications trouvées.</p>
+                        <p>Aucuns brouillons trouvés.</p>
                     {% endif %}
                 {% endif %}
             </div>

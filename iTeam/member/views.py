@@ -186,12 +186,15 @@ def register_view(request):
 
             return render(request, 'member/register_success.html')
         else:
-            return render(request, 'member/register.html', {'form': form})
-    #else:
-    form = RegisterForm()
-    return render(request, 'member/register.html', {
-        'form': form
-    })
+            c = {
+                'errors': form._errors,
+                'username': form.data['username'],
+                'email': form.data['email']
+            }
+            return render(request, 'member/register.html', c)
+    else: # method == GET
+        form = RegisterForm()
+        return render(request, 'member/register.html', {'form': form})
 
 
 @login_required
@@ -200,22 +203,16 @@ def settings_view(request):
         Set current user's account settings.
     """
     if request.method == 'POST':
-        form = ChangePasswordForm(request.user, request.POST)
-        c = {
-            'form': form,
-        }
+        form = SettingsForm(request.user, request.POST)
+
         if form.is_valid():
             request.user.set_password(form.data['password_new'])
             request.user.save()
 
-            messages.success(request, u'Le mot de passe a bien été modifié.')
-            return redirect('/membres/parametres/profil')
+            return render(request, 'member/settings_account.html', {'errors': [u'Le mot de passe a bien été modifié.'],})
 
         else:
-            return render(request, 'member/settings_account.html', c)
+            return render(request, 'member/settings_account.html', {'form': form, 'errors': form._errors,})
     else:
         form = SettingsForm(request.user)
-        c = {
-            'form': form,
-        }
-        return render(request, 'member/settings_account.html', c)
+        return render(request, 'member/settings_account.html', {'form': form,})

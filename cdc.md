@@ -4,15 +4,16 @@
 todo :
 -> dump iteam.org + tests
 
-- better member (mail, citation, bio, ...) + member:settings_view
+- better error (in member app)
 
-- calendrier (http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/ + https://github.com/llazzaro/django-scheduler)
+- calendrier
+    * doc
+        * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
+        * https://github.com/llazzaro/django-scheduler)
+    * todo
+        * list (month, week, day, ... prochain, passés, ...)
+        * add / change / delete (for admin) via pk
 - event + formation : formation, jpo, bar, ag, ...
-
-
-** calendar **
-* list (month, week, day, ... prochain, passés, ...)
-* add / change / delete (for admin) via pk
 
 
 - a propos / l'iteam
@@ -21,6 +22,9 @@ todo :
 - publication : view supprimer -> admin/ ou group admin for member ?
 - publication:tuto : tag, multi-page
 - member group : admin, tuto, event, ... -> view
+- tests
+
+- better member (mail, citation, bio, ... osef ?)
 
 ------------------------------------------------------------
 ## News ##
@@ -95,4 +99,16 @@ un script (par site google + facebook + twitter) qui permet de poster sur nos di
 autant de scripts que nécessaire.
 
 -> https://developers.facebook.com/docs/graph-api/reference/v2.0/user/feed
+
+-> ifttt
+
+----------------
+## Users tests
+
+* Walk me through how you might checkout and pay on our site.
+* Where on this site would you go to find the company's contact information?
+* What do you think a "project" means within the context of this application?
+* Let's say you're shopping for a gift. How would you use this to shop for someone else?
+* Which visual elements interest you most on this home page?
+
 

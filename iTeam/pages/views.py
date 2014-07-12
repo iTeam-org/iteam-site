@@ -28,10 +28,6 @@ def home(request):
 
     return render(request, 'home.html', {"publications_list": publications_list, 'events_list': events_list,})
 
-def iteam(request):
-    return render(request, 'pages/iteam.html')
-
-
 def apropos(request):
     return render(request, 'pages/apropos.html')
 
