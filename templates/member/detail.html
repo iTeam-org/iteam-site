@@ -6,6 +6,10 @@
     Détail d'un membre &#183;
 {% endblock %}
 
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">{{ profile.user.get_username}} </a></li>
+{% endblock %}
+
 {% block content %}
 
 <div class="row">

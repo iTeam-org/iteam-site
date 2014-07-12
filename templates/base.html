@@ -60,6 +60,19 @@
         </section>
     </nav>
 
+    {% block header %}{% endblock %}
+
+    {# breadcrumbs #}
+    <div class="row hide-for-small">
+        <div class="large-12 columns">
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'iTeam.pages.views.home' %}">Accueil</a></li>
+                {% block breadcrumb_app %}{% endblock %}
+                {% block breadcrumb_page %}{% endblock %}
+            </ul>
+        </div>
+    </div>
+
     {% block content %}{% endblock %}
 
     {# Footer #}

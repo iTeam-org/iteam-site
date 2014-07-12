@@ -6,6 +6,10 @@
     Détail d'une publication &#183;
 {% endblock %}
 
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">{{ publication.title }}</a></li>
+{% endblock %}
+
 {% block content %}
 
 {# title #}

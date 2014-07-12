@@ -7,3 +7,7 @@
 {% block menu_publications %}
     active
 {% endblock %}
+
+{% block breadcrumb_app %}
+    <li><a href="{% url 'publications:index' %}">Publications</a></li>
+{% endblock %}

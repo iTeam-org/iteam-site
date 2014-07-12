@@ -550,11 +550,11 @@ $fieldset-margin: em-calc(18 18);
 
 // We use these to set various text styles for breadcrumbs.
 
-// $crumb-font-size: em-calc(11);
+$crumb-font-size: em-calc(12);
 // $crumb-font-color: $primary-color;
 // $crumb-font-color-current: #333;
 // $crumb-font-color-unavailable: #999;
-// $crumb-font-transform: uppercase;
+$crumb-font-transform: none; //uppercase;
 // $crumb-link-decor: underline;
 
 // We use these to control the slash between breadcrumbs
