@@ -37,12 +37,12 @@ from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
 from iTeam.publications.models import Publication
 
 ###############################
-from hashlib import md5
-from time import time
+#from hashlib import md5
+#from time import time
 
 
-def generate_token():
-    return md5('lcdldses?nas. {0} salt'.format(time())).hexdigest()[:12]
+#def generate_token():
+#    return md5('lcdldses?nas. {0} salt'.format(time())).hexdigest()[:12]
 ##############################
 
 def index(request):
@@ -80,7 +80,7 @@ def detail(request, user_name):
     publications_list = Publication.objects.all().filter(author=user, is_draft=False).order_by('-pub_date')
     publications_draft_list = Publication.objects.all().filter(author=user, is_draft=True).order_by('-pub_date')
 
-    show_draft = request.user == user
+    show_draft = (request.user == user)
 
     c = {
         'profile': profile,
@@ -120,7 +120,7 @@ def login_view(request):
                 # Yeah auth successful
                 if user.is_active:
                     login(request, user)
-                    request.session['get_token'] = generate_token()
+                    #request.session['get_token'] = generate_token()
 
                     if 'remember' not in request.POST:
                         request.session.set_expiry(0)
@@ -158,9 +158,9 @@ def logout_view(request):
         logout(request)
         request.session.clear() # clean explicitly stored data about the user
         return redirect(reverse('iTeam.pages.views.home'))
-
     # Elsewise we ask the user to submit a form with correct csrf token
-    return render(request, 'member/logout.html')
+    else:
+        return render(request, 'member/logout.html')
 
 
 @sensitive_post_parameters('password', 'password_confirm')
@@ -209,7 +209,7 @@ def settings_view(request):
             request.user.set_password(form.data['password_new'])
             request.user.save()
 
-            return render(request, 'member/settings_account.html', {'errors': [u'Le mot de passe a bien été modifié.'],})
+            return render(request, 'member/settings_account.html', {'msg': u'Le mot de passe a bien été modifié.'})
 
         else:
             return render(request, 'member/settings_account.html', {'form': form, 'errors': form._errors,})

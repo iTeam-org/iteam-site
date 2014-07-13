@@ -28,6 +28,12 @@
                     {% for error in errors %}
                         <small class="error">{{ error }}</small>
                     {% endfor %}
+                    {% if msg %}
+                        <div data-alert class="alert-box success round">
+                            {{ msg }}
+                            <a href="#" class="close">&times;</a>
+                        </div>
+                    {% endif %}
 
                     <fieldset>
                         <legend>Modification du mot de passe</legend>

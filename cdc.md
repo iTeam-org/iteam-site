@@ -2,10 +2,11 @@
 
 ------------------------------------------------------------
 todo :
--> dump iteam.org + tests
+-> dump iteam.org
+-> tests
 
-- better error (in member app)
-
+- publications : tags, multi-page
+ 
 - calendrier
     * doc
         * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
@@ -19,12 +20,23 @@ todo :
 - a propos / l'iteam
 - bitbucket / github
 
-- publication : view supprimer -> admin/ ou group admin for member ?
-- publication:tuto : tag, multi-page
-- member group : admin, tuto, event, ... -> view
-- tests
-
 - better member (mail, citation, bio, ... osef ?)
+
+---------------------------------------------
+
+** permission pour ecrire (admin verif ? nope, trusted reporter) **
+
+Groups :
+-> super-user : superdieu, nomme les groupes (3-4 personnes genre bureau + dev)
+-> staff : ecrit (et publie) les publications + cree les events (5-10 personnes : membres de l'iteam)
+-> default : simple user
+
+Page admin (super-user + staff) pour :
+* changer de group un user
+* valider les event / publications
+* supp publication / event ?
+
+------------------------------------------------------------
 
 ------------------------------------------------------------
 ## News ##
