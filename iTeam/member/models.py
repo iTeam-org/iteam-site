@@ -1,37 +1,16 @@
-# coding: utf-8
-#
-# This file is part of Progdupeupl.
-#
-# Progdupeupl is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Progdupeupl is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with Progdupeupl. If not, see <http://www.gnu.org/licenses/>.
-
-"""
-    models.py
-
-    Define properties of a Profile (= User + special info) and usefull functions
-"""
 
 from hashlib import md5
-from datetime import datetime
 
 from django.db import models
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.ForeignKey(User, unique=True)
     promo = models.IntegerField(null=True)
     avatar_url = models.CharField(max_length=256, null=True, default='')
+
+    is_publisher = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Profil'
@@ -43,12 +22,6 @@ class Profile(models.Model):
         """
         return self.user.username
 
-    def get_absolute_url(self):
-        """
-            Get URL to view this profile.
-        """
-        return reverse('iTeam.member.views.details', args=[self.user.username])
-
     def get_avatar_url(self):
         """
             Get the member's avatar URL.
@@ -58,8 +31,4 @@ class Profile(models.Model):
             return self.avatar_url
         else:
             return 'https://secure.gravatar.com/avatar/{0}?d=identicon&s=50'.format(md5(self.user.username).hexdigest())
-
-
-
-
 

@@ -205,7 +205,7 @@ LOGGING = {
             'format': '\tRequest : %(levelname)s %(status_code)d %(message)s'
         },
         'backends_simple': {
-            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)s'
+            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)f'
         },
         'backends_verbose': {
             'format': '\tBackends : %(levelname)s %(asctime)s %(duration)s %(sql)s %(params)s'

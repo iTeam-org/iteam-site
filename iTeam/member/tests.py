@@ -33,11 +33,20 @@ class MemberIntegrationTests(TestCase):
 
     def test_details(self):
         user = G(User, username='user42')
-        G(Profile, user=user)
+        user.save()
+        profile = G(Profile, user=user)
+        profile.save()
 
-        resp = self.client.get(reverse('member:detail',
-                               args=[user.username]))
+        resp = self.client.get(reverse('member:detail', args=[user.username]))
         self.assertEqual(resp.status_code, 200)
+
+    def test_settings(self):
+        resp = self.client.get(reverse('member:settings_view'))
+        self.assertEqual(resp.status_code, 302)
+
+    def test_publications(self):
+        resp = self.client.get(reverse('member:publications'))
+        self.assertEqual(resp.status_code, 302)
 
     def test_register_view(self):
         resp = self.client.get(reverse('member:register_view'))
@@ -60,6 +69,10 @@ class MemberIntegrationTests(TestCase):
 
         self.assertEqual(self.client.session['_auth_user_id'], user.pk)
 
+    def test_logout_view(self):
+        resp = self.client.get(reverse('member:logout_view'))
+        self.assertEqual(resp.status_code, 302)
+
 
 class AuthenticatedMemberIntegrationTests(TestCase):
 
@@ -78,6 +91,10 @@ class AuthenticatedMemberIntegrationTests(TestCase):
     def test_settings_view(self):
         resp = self.client.get(reverse('member:settings_view'))
         self.assertEqual(resp.status_code, 200)
+
+    def test_publications(self):
+        resp = self.client.get(reverse('member:publications'))
+        self.assertEqual(resp.status_code, 403)
 
     def test_logout_view(self):
         resp = self.client.get(reverse('member:logout_view'))

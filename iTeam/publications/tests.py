@@ -5,14 +5,19 @@ from django.utils import timezone
 from django_dynamic_fixture import G
 
 from iTeam.publications.models import Publication
+from iTeam.member.models import Profile
 
 # Create your tests here.
 
-def setUpGlobal(self):
+def setUpPublication(self):
         # Create user
         self.user = G(User, username='user42')
         self.user.set_password('password')
         self.user.save()
+
+        profile = G(Profile, user=self.user)
+        profile.is_publisher = True
+        profile.save()
 
         # Authenticate user
         self.client.login(username='user42', password='password')
@@ -22,13 +27,17 @@ def setUpGlobal(self):
             title = 'title',
             author = self.user,
             pub_date = timezone.now(),
-            text = 'hello world !')
+            text = 'hello world !',
+            is_draft = False,
+            pk = 1)
         publication.save()
+
+        self.client.logout()
 
 class PublicationsIntegrationTests(TestCase):
 
     def setUp(self):
-        setUpGlobal(self)
+        setUpPublication(self)
 
     def test_index(self):
         resp = self.client.get(reverse('publications:index'))
@@ -38,10 +47,47 @@ class PublicationsIntegrationTests(TestCase):
         resp = self.client.get(reverse('publications:detail', args=[1]))
         self.assertEqual(resp.status_code, 200)
 
+    def test_create(self):
+        resp = self.client.get(reverse('publications:create'))
+        self.assertEqual(resp.status_code, 302)
+
+    def test_edit(self):
+        resp = self.client.get(reverse('publications:edit', args=[1]))
+        self.assertEqual(resp.status_code, 302)
+
+
 class AuthenticatedPublicationsIntegrationTests(TestCase):
 
     def setUp(self):
-        setUpGlobal(self)
+        setUpPublication(self)
+
+        # Create user
+        self.user = G(User, username='user43')
+        self.user.set_password('password')
+        self.user.save()
+
+        profile = G(Profile, user=self.user)
+        profile.save()
+
+        # Authenticate user
+        self.client.login(username='user43', password='password')
+
+    def test_create(self):
+        resp = self.client.get(reverse('publications:create'))
+        self.assertEqual(resp.status_code, 403)
+
+    def test_edit(self):
+        resp = self.client.get(reverse('publications:edit', args=[1]))
+        self.assertEquals(resp.status_code, 403)
+
+
+class AuthenticatedAndPublisherPublicationsIntegrationTests(TestCase):
+
+    def setUp(self):
+        setUpPublication(self)
+
+        # Authenticate user
+        self.client.login(username='user42', password='password')
 
     def test_create(self):
         resp = self.client.get(reverse('publications:create'))
@@ -50,3 +96,4 @@ class AuthenticatedPublicationsIntegrationTests(TestCase):
     def test_edit(self):
         resp = self.client.get(reverse('publications:edit', args=[1]))
         self.assertEquals(resp.status_code, 200)
+

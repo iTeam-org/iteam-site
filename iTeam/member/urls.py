@@ -25,6 +25,7 @@ urlpatterns = patterns(
 
     url(r'^voir/(?P<user_name>.+)/$', views.detail, name='detail'),
     url(r'^parametres/$', views.settings_view, name='settings_view'),
+    url(r'^publications/$', views.publications, name='publications'),
 
     url(r'^inscription/$', views.register_view, name='register_view'),
     url(r'^connexion/$', views.login_view, name='login_view'),

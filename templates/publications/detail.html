@@ -37,7 +37,7 @@
                         {% if user.is_authenticated and user == publication.author %}
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button right">
+                                    <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin right">
                                         Éditer
                                     </a>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="large-12 columns">
                                     <form action="{% url 'publications:detail' publication_id=publication.pk %}" method="post">
                                         {% csrf_token %}
-                                        <button name="toggle_draft" class="button right">
+                                        <button name="toggle_draft" class="button-admin right">
                                             Publier
                                         </button>
                                     </form>

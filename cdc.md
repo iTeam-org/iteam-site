@@ -22,22 +22,6 @@ todo :
 
 - better member (mail, citation, bio, ... osef ?)
 
----------------------------------------------
-
-** permission pour ecrire (admin verif ? nope, trusted reporter) **
-
-Groups :
--> super-user : superdieu, nomme les groupes (3-4 personnes genre bureau + dev)
--> staff : ecrit (et publie) les publications + cree les events (5-10 personnes : membres de l'iteam)
--> default : simple user
-
-Page admin (super-user + staff) pour :
-* changer de group un user
-* valider les event / publications
-* supp publication / event ?
-
-------------------------------------------------------------
-
 ------------------------------------------------------------
 ## News ##
 

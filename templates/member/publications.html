@@ -1,0 +1,54 @@
+{% extends "member/base.html" %}
+
+{% load email_obfuscator %}
+
+{% block title_page %}
+    Détail d'un membre &#183;
+{% endblock %}
+
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">Mes publications</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-8 columns">
+                    <h1>
+                        Mes publications
+                    </h1>
+                </div>
+            </div>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                <h3>Écrits publiés :</h3>
+                {% if publications_list %}
+                    {% with data_list=publications_list %}
+                        {% include "member/publications.table.html" %}
+                    {% endwith %}
+                {% else %}
+                    <p>Aucunes publications trouvées, <a href="{% url 'publications:create' %}">commencez à écrire</a>.</p>
+                {% endif %}
+
+                <h3>Brouillons :</h3>
+                {% if drafts_list %}
+                    {% with data_list=drafts_list %}
+                        {% include "member/publications.table.html" %}
+                    {% endwith %}
+                {% else %}
+                    <p>Aucuns brouillons trouvés, <a href="{% url 'publications:create' %}">commencez à écrire</a>.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

@@ -37,21 +37,16 @@
                                 </dl>
                             </div>
                         </div>
-                        {% if user.is_authenticated %}
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <a href="{% url 'publications:create' %}" class="button small right">
-                                        Rédigez une publication
-                                    </a>
+                        {% if perms.publication.can_add %}
+                            {% if user.is_authenticated %}
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <a href="{% url 'publications:create' %}" class="button-admin small right">
+                                            Rédigez une publication
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <a href="{% url 'member:detail' user.username %}" class="button small right">
-                                        Mes publications
-                                    </a>
-                                </div>
-                            </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

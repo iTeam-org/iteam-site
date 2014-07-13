@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
@@ -11,6 +12,7 @@ import string
 import os
 
 from iTeam.publications.models import Publication
+from iTeam.member.models import Profile
 
 # Create your views here.
 
@@ -52,28 +54,46 @@ def index(request):
 def detail(request, publication_id):
     publication = get_object_or_404(Publication, pk=publication_id)
 
-    if (not publication.is_draft) or (request.user.pk == publication.author.pk): # publication.pub_date > timezone.now()
-        if request.method == 'POST':
-            if 'toggle_draft' in request.POST:
+    # default view, published article
+    if not publication.is_draft:
+        return render(request, 'publications/detail.html', {'publication': publication,})
+    elif request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+
+        # if admin or author
+        if (request.user == publication.author) or (profile.is_admin):
+            if (request.method == 'POST') and ('toggle_draft' in request.POST):
                 publication.is_draft = not publication.is_draft
                 publication.pub_date = timezone.now()
                 publication.save()
-
-        return render(request, 'publications/detail.html', {'publication': publication,})
+            return render(request, 'publications/detail.html', {'publication': publication,})
+        # else : 404
+        else:
+            raise Http404
     else:
         raise Http404
 
 
 @login_required
 def create(request):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if (not profile.is_publisher):
+        raise PermissionDenied
+
     publication = Publication()
     return save_publication(request, 'publications/create.html', publication)
 
 @login_required
 def edit(request, publication_id):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if (not profile.is_publisher):
+        raise PermissionDenied
+
     publication = get_object_or_404(Publication, pk=publication_id)
 
-    if publication.author.pk is request.user.pk:
+    if publication.author == request.user:
         return save_publication(request, 'publications/edit.html', publication)
     else:
         raise Http404

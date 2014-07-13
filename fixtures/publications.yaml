@@ -193,5 +193,26 @@
       coucou *coucou* <h1>coucou</h1>\n"}
   model: publications.Publication
   pk: 7
+- fields: {title: 'Test - Publié', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+      author: 1,
+      pub_date: "2014-06-30T00:00:00+00:00",
+      type: 'P', is_draft: 0,
+      text: "coucou *coucou* <h1>coucou</h1>\n"}
+  model: publications.Publication
+  pk: 8
+- fields: {title: 'Test - Publié 2', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+      author: 1,
+      pub_date: "2014-06-30T00:00:00+00:00",
+      type: 'P', is_draft: 0,
+      text: "coucou *coucou* <h1>coucou</h1>\n"}
+  model: publications.Publication
+  pk: 9
+- fields: {title: 'Test - Brouillon', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+      author: 1,
+      pub_date: "2014-06-30T00:00:00+00:00",
+      type: 'P', is_draft: True,
+      text: "coucou *coucou* <h1>coucou</h1>\n"}
+  model: publications.Publication
+  pk: 10
 
 

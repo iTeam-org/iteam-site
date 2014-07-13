@@ -34,9 +34,6 @@ print '=> Sync db ...'
 system('python manage.py syncdb --noinput')
 print '=> Done'
 
-# add groups
-print '=> WARNING remember to create group staff with proper perms'
-
 ###########
 # ADD DATA
 ###########

@@ -2,18 +2,22 @@
     user: 1
     promo: 2018
     avatar_url: "http://progdupeu.pl/media/tutorials/335/thumb.png"
+    is_admin: True
+    is_publisher: True
   model: member.profile
   pk: 1
 
 - fields:
     user: 2
     promo: 2017
+    is_publisher: True
   model: member.profile
   pk: 2
 
 - fields:
     user: 3
     promo: 2016
+    is_publisher: True
   model: member.profile
   pk: 3
 

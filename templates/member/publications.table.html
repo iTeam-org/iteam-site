@@ -1,0 +1,36 @@
+<table width="100%">
+  <tbody width="100%">
+    {% for data in data_list %}
+    <tr width="100%">
+        <td>
+            <div class="row">
+                <div class="small-2 columns" style="text-align: center;">
+                    <a href="{% url 'publications:detail' publication_id=data.id %}">
+                        <img src="{{ data.image_url }}" alt="" width="50" />
+                    </a>
+                </div>
+                <div class="small-8 columns" style="padding-left: 5px;">
+                    <p>
+                        <a href="{% url 'publications:detail' publication_id=data.id %}">
+                            {{ data.title }}
+                        </a>
+                        <br />
+                        {{ data.subtitle }}
+                    </p>
+                </div>
+                <div class="small-2 columns">
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <a href="{% url 'publications:edit' data.pk %}" class="button small right">
+                                Éditer
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

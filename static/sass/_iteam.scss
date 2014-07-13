@@ -47,6 +47,7 @@ td, th
     height: 50px;
 }
 
+/* warning box (for edit publication) */
 .warning
 {
   @include alert(
@@ -54,7 +55,16 @@ td, th
   );
 }
 
+/* button for all admin / publisher actions */
+.button-admin
+{
+  @include button(
+    $bg: rgb(240, 138, 36)
 
+  );
+}
+
+/* breadcrumbs */
 .breadcrumbs
 {
     margin-top: 20px;

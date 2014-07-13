@@ -36,15 +36,6 @@ from iTeam.member.models import Profile
 from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
 from iTeam.publications.models import Publication
 
-###############################
-#from hashlib import md5
-#from time import time
-
-
-#def generate_token():
-#    return md5('lcdldses?nas. {0} salt'.format(time())).hexdigest()[:12]
-##############################
-
 def index(request):
     """
         Display list of registered users.
@@ -77,6 +68,20 @@ def detail(request, user_name):
     user = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user)
 
+    # admin actions
+    if request.user.is_authenticated():
+        profileRequest = get_object_or_404(Profile, user=request.user)
+
+        if  profileRequest.is_admin and request.method == 'POST':
+            if 'toggle_is_publisher' in request.POST:
+                profile.is_publisher = not profile.is_publisher
+                profile.save()
+            if 'toggle_is_admin' in request.POST:
+                profile.is_admin = not profile.is_admin
+                profile.is_publisher = not profile.is_publisher
+                profile.save()
+
+    # template var
     publications_list = Publication.objects.all().filter(author=user, is_draft=False).order_by('-pub_date')
     publications_draft_list = Publication.objects.all().filter(author=user, is_draft=True).order_by('-pub_date')
 
@@ -120,7 +125,6 @@ def login_view(request):
                 # Yeah auth successful
                 if user.is_active:
                     login(request, user)
-                    #request.session['get_token'] = generate_token()
 
                     if 'remember' not in request.POST:
                         request.session.set_expiry(0)
@@ -216,3 +220,25 @@ def settings_view(request):
     else:
         form = SettingsForm(request.user)
         return render(request, 'member/settings_account.html', {'form': form,})
+
+
+@login_required
+def publications(request):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if not profile.is_publisher:
+        raise PermissionDenied
+
+    user = get_object_or_404(User, username=request.user.username)
+    profile = get_object_or_404(Profile, user=user)
+
+    publications_list = Publication.objects.all().filter(author=user, is_draft=False).order_by('-pub_date')
+    drafts_list = Publication.objects.all().filter(author=user, is_draft=True).order_by('-pub_date')
+
+    c = {
+        'publications_list' : publications_list,
+        'drafts_list' : drafts_list,
+    }
+
+    return render(request, 'member/publications.html', c)
+
