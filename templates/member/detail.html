@@ -34,13 +34,15 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="large-12 columns">
-                                        <a href="{% url 'member:publications' %}" class="button-admin right">
-                                            Mes publications
-                                        </a>
+                                {% if profile.is_publisher %}
+                                    <div class="row">
+                                        <div class="large-12 columns">
+                                            <a href="{% url 'member:publications' %}" class="button-admin right">
+                                                Mes publications
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             {% else %}
                                 {% if user.is_superuser %}
                                     <div class="row">
@@ -101,31 +103,33 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="large-12 columns">
-                <h3>Écrits publiés :</h3>
-                {% for publication in publications_list %}
-                    <div class="row">
-                        <div class="small-2 columns" style="text-align: center;">
-                            <a href="{% url 'publications:detail' publication_id=publication.id %}">
-                                <img src="{{ publication.image_url }}" alt="" width="50" />
-                            </a>
-                        </div>
-                        <div class="small-10 columns" style="padding-left: 5px;">
-                            <p>
+        {% if profile.is_publisher %}
+            <div class="row">
+                <div class="large-12 columns">
+                    <h3>Écrits publiés :</h3>
+                    {% for publication in publications_list %}
+                        <div class="row">
+                            <div class="small-2 columns" style="text-align: center;">
                                 <a href="{% url 'publications:detail' publication_id=publication.id %}">
-                                    {{ publication.title }}
+                                    <img src="{{ publication.image_url }}" alt="" width="50" />
                                 </a>
-                                <br />
-                                {{ publication.subtitle }}
-                            </p>
+                            </div>
+                            <div class="small-10 columns" style="padding-left: 5px;">
+                                <p>
+                                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                        {{ publication.title }}
+                                    </a>
+                                    <br />
+                                    {{ publication.subtitle }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                {% empty %}
-                    <p>Aucunes publications trouvées.</p>
-                {% endfor %}
+                    {% empty %}
+                        <p>Aucunes publications trouvées.</p>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 

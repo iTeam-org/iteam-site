@@ -295,7 +295,7 @@ $list-side-margin: em-calc(20);
 // We use these to style the labels in different ways
 
 // $form-label-pointer: pointer;
-// $form-label-font-size: em-calc(14);
+$form-label-font-size: em-calc(16); /* default 14 */
 // $form-label-font-weight: 500;
 // $form-label-font-color: lighten(#000, 30%);
 // $form-label-bottom-margin: em-calc(3);

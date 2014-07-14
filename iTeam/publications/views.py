@@ -54,9 +54,14 @@ def index(request):
 def detail(request, publication_id):
     publication = get_object_or_404(Publication, pk=publication_id)
 
+    if request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+    else:
+        profile = None
+
     # default view, published article
     if not publication.is_draft:
-        return render(request, 'publications/detail.html', {'publication': publication,})
+        return render(request, 'publications/detail.html', {'publication': publication, 'profile': profile})
     elif request.user.is_authenticated():
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -66,7 +71,7 @@ def detail(request, publication_id):
                 publication.is_draft = not publication.is_draft
                 publication.pub_date = timezone.now()
                 publication.save()
-            return render(request, 'publications/detail.html', {'publication': publication,})
+            return render(request, 'publications/detail.html', {'publication': publication, 'profile': profile})
         # else : 404
         else:
             raise Http404
@@ -93,24 +98,25 @@ def edit(request, publication_id):
 
     publication = get_object_or_404(Publication, pk=publication_id)
 
-    if publication.author == request.user:
-        return save_publication(request, 'publications/edit.html', publication)
+    if (publication.author == request.user) or profile.is_admin:
+        return save_publication(request, 'publications/edit.html', publication, is_admin=profile.is_admin)
     else:
         raise Http404
 
 
-def save_publication(request, template_name, publication):
+def save_publication(request, template_name, publication, is_admin=False):
     # If the form has been submitted ...
     if request.method == 'POST':
         if request.POST['title'] and request.POST['text'] and request.POST['type'] and request.POST['is_draft']:
             # required and auto fields
-            publication.author = request.user
-            publication.pub_date = timezone.now()
+            if (not is_admin):
+                publication.author = request.user
+                publication.pub_date = timezone.now()
 
             publication.title = request.POST['title'][:settings.SIZE_MAX_TITLE]
             publication.text = request.POST['text']
             publication.type = request.POST['type']
-            publication.is_draft = request.POST['is_draft'];
+            publication.is_draft = int(request.POST['is_draft']);
 
             # optional fields
             if 'subtitle' in request.POST:

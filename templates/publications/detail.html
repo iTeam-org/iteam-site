@@ -34,7 +34,7 @@
                 </div>
                 <div class="large-2 columns">
                     <div class="headline-actions">
-                        {% if user.is_authenticated and user == publication.author %}
+                        {% if user == publication.author or profile.is_admin %}
                             <div class="row">
                                 <div class="large-12 columns">
                                     <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin right">

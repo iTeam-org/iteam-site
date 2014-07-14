@@ -44,5 +44,9 @@ class Publication(models.Model):
     def image_url(self):
         if self.image:
             return self.image.url
+        elif self.type == 'T':
+            return '/static/img/tutoriel.png'
+        elif self.type == 'N':
+            return '/static/img/news.png'
         else:
             return '/media/publications/default.png'

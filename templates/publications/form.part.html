@@ -9,22 +9,21 @@
 
     <fieldset>
         <legend>Options</legend>
+        <p>
+            <label for="image">Image (optionnelle) :</label>
+            <input type="file" name="image" id="image">
 
-        <label for="image">Image (optionnelle) :</label>
-        <input type="file" name="image" id="image">
+            <label>Type de la publication :</label>
+            <select name="type">
+                <option value="P" {% if publication.type == "P" %}selected{% endif %}>Autre</option>
+                <option value="N" {% if publication.type == "N" %}selected{% endif %}>News</option>
+                <option value="T" {% if publication.type == "T" %}selected{% endif %}>Tutoriel</option>
+            </select>
 
-        <label>Type de la publication :</label>
-        <select name="type">
-            <option value="P" {% if publication.type == "P" %}selected{% endif %}>Autre</option>
-            <option value="N" {% if publication.type == "N" %}selected{% endif %}>News</option>
-            <option value="T" {% if publication.type == "T" %}selected{% endif %}>Tutoriel</option>
-        </select>
-
-        <label>Status de la publication :</label>
-        <select name="is_draft">
-            <option value="1" {% if publication.is_draft %}selected{% endif %}>Cachée (brouillon)</option>
-            <option value="0" {% if not publication.is_draft %}selected{% endif %}>Publiée</option>
-        </select>
+            <label>Status de la publication :</label>
+            <input type="radio" name="is_draft" value="1" {% if publication.is_draft %}checked{% endif %} /> Brouillon<br />
+            <input type="radio" name="is_draft" value="0" {% if not publication.is_draft %}checked{% endif %} /> Publier immédiatement
+        </p>
     </fieldset>
 
     <fieldset>
