@@ -33,29 +33,27 @@
                     </h1>
                 </div>
                 <div class="large-2 columns">
-                    <div class="headline-actions">
-                        {% if user == publication.author or profile.is_admin %}
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin right">
-                                        Éditer
-                                    </a>
-                                </div>
+                    {% if user == publication.author or profile.is_admin %}
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin right">
+                                    Éditer
+                                </a>
                             </div>
-                        {% endif %}
-                        {% if publication.is_draft %}
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <form action="{% url 'publications:detail' publication_id=publication.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <button name="toggle_draft" class="button-admin right">
-                                            Publier
-                                        </button>
-                                    </form>
-                                </div>
+                        </div>
+                    {% endif %}
+                    {% if publication.is_draft %}
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <form action="{% url 'publications:detail' publication_id=publication.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button name="toggle_draft" class="button-admin right">
+                                        Publier
+                                    </button>
+                                </form>
                             </div>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

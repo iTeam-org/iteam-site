@@ -24,10 +24,13 @@ from iTeam.events.models import Event
 
 def home(request):
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False).order_by('-pub_date')[:5]
-    events_list = Event.objects.all()
+    events_list = Event.objects.all().order_by('-date_start')[:5]
 
     return render(request, 'home.html', {"publications_list": publications_list, 'events_list': events_list,})
 
 def apropos(request):
     return render(request, 'pages/apropos.html')
 
+
+def hallOfFame(request):
+    return render(request, 'pages/hallOfFame.html')

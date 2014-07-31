@@ -42,12 +42,12 @@
         {% for publication in publications_list %}
             <div class="row">
                 <div class="small-2 columns" style="text-align: center;">
-                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                    <a href="{% url 'publications:detail' publication_id=publication.pk %}">
                             <img src="{{ publication.image_url }}" alt="" width="50" />
                     </a>
                 </div>
                 <div class="small-10 columns" style="padding-left: 5px;">
-                    <a href="{% url 'publications:detail' publication_id=publication.id %}">{{ publication.title }}</a>
+                    <a href="{% url 'publications:detail' publication_id=publication.pk %}">{{ publication.title }}</a>
                     <p>Ecrit avec amour par
                         <a href="{% url 'member:detail' user_name=publication.author %}">
                             {{ publication.author }}</a>.
@@ -82,8 +82,8 @@
         {% for event in events_list %}
             <div class="row">
                 <div class="small-12 columns">
-                    <a href="#">{{ event.title }}</a>
-                    <p>Le {{ event.date }}.</p>
+                    <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
+                    <p>Le {{ event.date_start }}.</p>
                 </div>
             </div>
         {% empty %}

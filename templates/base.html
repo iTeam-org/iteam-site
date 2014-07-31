@@ -4,8 +4,8 @@
 <html lang="fr">
 <head>
     <title>
-        {% block title_app %}{% endblock %}
         {% block title_page %}{% endblock %}
+        {% block title_app %}{% endblock %}
         iTeam.org
     </title>
 
@@ -39,7 +39,7 @@
                 <li class="{% block menu_publications %}{% endblock %}">
                     <a href="{% url 'publications:index' %}">Publications</a>
                 </li>
-                <li class="{% block menu_event %}{% endblock %}">
+                <li class="{% block menu_events %}{% endblock %}">
                     <a href="/events/">Événements</a>
                 </li>
             </ul>
@@ -49,10 +49,10 @@
                     <li><a href="{% url 'member:detail' user_name=user.username %}">Profil</a></li>
                     <li><a href="{% url 'member:logout_view' %}" onclick="document.getElementById('disconnect_form').submit(); return false;">Déconnexion</a></li>
                 {% else %}
-                    <li>
+                    <li class="{% block menu_register %}{% endblock %}">
                         <a href="{% url 'member:register_view' %}">Inscription</a>
                     </li>
-                    <li>
+                    <li class="{% block menu_login %}{% endblock %}">
                         <a href="{% url 'member:login_view' %}">Connexion</a>
                     </li>
                 {% endif %}
@@ -87,6 +87,7 @@
         <div class="small-6 columns">
             <ul class="inline-list right">
                 <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                <li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>
                 <li><a href="http://irc.iteam.org">IRC</a></li>
                 <li><a href="http://ece.fr">ECE</a></li>
                 <li><a href="#h">↑</a></li>

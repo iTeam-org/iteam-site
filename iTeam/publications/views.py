@@ -19,6 +19,11 @@ from iTeam.member.models import Profile
 def index(request):
     TYPES = ('N', 'T', 'P')
 
+    if request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+    else:
+        profile = None
+
     # get objects
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False).order_by('-pub_date')
 
@@ -40,7 +45,7 @@ def index(request):
         publications = paginator.page(paginator.num_pages)
 
     # build data for template
-    data = {"data":publications, "cur_type":type}
+    data = {"data":publications, "cur_type":type, "profile":profile}
 
     # add active field to proper filter
     if type in TYPES:

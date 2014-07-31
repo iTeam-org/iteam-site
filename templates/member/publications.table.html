@@ -5,13 +5,13 @@
         <td>
             <div class="row">
                 <div class="small-2 columns" style="text-align: center;">
-                    <a href="{% url 'publications:detail' publication_id=data.id %}">
+                    <a href="{% url 'publications:detail' publication_id=data.pk %}">
                         <img src="{{ data.image_url }}" alt="" width="50" />
                     </a>
                 </div>
                 <div class="small-8 columns" style="padding-left: 5px;">
                     <p>
-                        <a href="{% url 'publications:detail' publication_id=data.id %}">
+                        <a href="{% url 'publications:detail' publication_id=data.pk %}">
                             {{ data.title }}
                         </a>
                         <br />

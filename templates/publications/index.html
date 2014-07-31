@@ -25,30 +25,26 @@
                     </h1>
                 </div>
                 <div class="large-5 columns">
-                    <div class="headline-actions">
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <dl class="sub-nav right">
+                                <dt>Filtrer :</dt>
+                                <dd class="{{ type_all }}"><a href="?">Tout</a></dd>
+                                <dd class="{{ type_N }}"><a href="?type=N">News</a></dd>
+                                <dd class="{{ type_T }}"><a href="?type=T">Tutoriels</a></dd>
+                                <dd class="{{ type_P }}"><a href="?type=P">Autres</a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated and profile.is_publisher %}
                         <div class="row">
                             <div class="large-12 columns">
-                                <dl class="sub-nav right">
-                                    <dt>Filtrer :</dt>
-                                    <dd class="{{ type_all }}"><a href="?">Tout</a></dd>
-                                    <dd class="{{ type_N }}"><a href="?type=N">News</a></dd>
-                                    <dd class="{{ type_T }}"><a href="?type=T">Tutoriels</a></dd>
-                                    <dd class="{{ type_P }}"><a href="?type=P">Autres</a></dd>
-                                </dl>
+                                <a href="{% url 'publications:create' %}" class="button-admin small right">
+                                    Rédigez une publication
+                                </a>
                             </div>
                         </div>
-                        {% if perms.publication.can_add %}
-                            {% if user.is_authenticated %}
-                                <div class="row">
-                                    <div class="large-12 columns">
-                                        <a href="{% url 'publications:create' %}" class="button-admin small right">
-                                            Rédigez une publication
-                                        </a>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

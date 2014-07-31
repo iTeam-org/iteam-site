@@ -19,69 +19,73 @@
             <div class="row">
                 <div class="large-8 columns">
                     <h1>
-                        Détails d'un membre
+                        Détail d'un membre
                     </h1>
                 </div>
 
                 <div class="large-4 columns">
-                    <div class="headline-actions">
-                        {% if user.is_authenticated %}
-                            {% if profile.user == user %}
+                    {% if user.is_authenticated %}
+                        {% if profile.user == user %}
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <a href="{% url 'member:settings_view' %}" class="button right">
+                                        Paramètres
+                                    </a>
+                                </div>
+                            </div>
+                            {% if profile.is_publisher %}
                                 <div class="row">
                                     <div class="large-12 columns">
-                                        <a href="{% url 'member:settings_view' %}" class="button right">
-                                            Paramètres
+                                        <a href="{% url 'member:publications' %}" class="button-admin right">
+                                            Mes publications
                                         </a>
                                     </div>
                                 </div>
-                                {% if profile.is_publisher %}
-                                    <div class="row">
-                                        <div class="large-12 columns">
-                                            <a href="{% url 'member:publications' %}" class="button-admin right">
-                                                Mes publications
-                                            </a>
-                                        </div>
+                            {% endif %}
+                        {% else %}
+                            {% if user.is_superuser %}
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
+                                            {% csrf_token %}
+                                            <button name="toggle_is_publisher" class="button-admin right">
+                                                {% if not profile.is_publisher %}
+                                                    Nommer publisher
+                                                {% else %}
+                                                    Supprimer la fonction publisher
+                                                {% endif %}
+                                            </button>
+                                        </form>
                                     </div>
-                                {% endif %}
-                            {% else %}
-                                {% if user.is_superuser %}
-                                    <div class="row">
-                                        <div class="large-12 columns">
-                                            <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
-                                                {% csrf_token %}
-                                                <button name="toggle_is_publisher" class="button-admin right">
-                                                    {% if not profile.is_publisher %}
-                                                        Nommer publisher
-                                                    {% else %}
-                                                        Supprimer la fonction publisher
-                                                    {% endif %}
-                                                </button>
-                                            </form>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns">
+                                        <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
+                                            {% csrf_token %}
+                                            <button name="toggle_is_admin" class="button-admin right">
+                                                {% if not profile.is_admin %}
+                                                    Nommer admin
+                                                {% else %}
+                                                    Supprimer la fonction admin
+                                                {% endif %}
+                                            </button>
+                                        </form>
                                     </div>
-                                    <div class="row">
-                                        <div class="large-12 columns">
-                                            <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
-                                                {% csrf_token %}
-                                                <button name="toggle_is_admin" class="button-admin right">
-                                                    {% if not profile.is_admin %}
-                                                        Nommer admin
-                                                    {% else %}
-                                                        Supprimer la fonction admin
-                                                    {% endif %}
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                </div>
                             {% endif %}
                         {% endif %}
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {# content #}
         <div class="row">
+            <div class="large-12 columns">
+                <h3>
+                    {{ profile.user.get_username }}
+                    <small>{{ profile.user.get_full_name }}</small>
+                </h3>
+            </div>
             <div class="large-2 columns">
                 <h2>
                     <span>
@@ -90,10 +94,6 @@
                 </h2>
             </div>
             <div class="large-10 columns">
-                <h3>
-                    {{ profile.user.get_username }}
-                    <small>{{ profile.user.get_full_name }}</small>
-                </h3>
                 <ul>
                     {% if profile.user.email %}<li>Email : {{ profile.user.email|obfuscate }}</li>{% endif %}
                     {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
@@ -110,13 +110,13 @@
                     {% for publication in publications_list %}
                         <div class="row">
                             <div class="small-2 columns" style="text-align: center;">
-                                <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                <a href="{% url 'publications:detail' publication_id=publication.pk %}">
                                     <img src="{{ publication.image_url }}" alt="" width="50" />
                                 </a>
                             </div>
                             <div class="small-10 columns" style="padding-left: 5px;">
                                 <p>
-                                    <a href="{% url 'publications:detail' publication_id=publication.id %}">
+                                    <a href="{% url 'publications:detail' publication_id=publication.pk %}">
                                         {{ publication.title }}
                                     </a>
                                     <br />
