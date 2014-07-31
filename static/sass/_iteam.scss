@@ -21,13 +21,15 @@ header
 
 textarea { height: auto; }
 
+/* events (weekly and montly views) */
 
+/**/
 table
 {
     width: 80%;
     margin: auto;
 }
-
+/**/
 tr
 {
     width: 100%;
@@ -35,10 +37,44 @@ tr
 
 td, th
 {
-    border: 1px solid rgb(128, 128, 128);
+    /*border: 1px solid rgb(128, 128, 128);*/
+    /**/border: 3px solid white;
     width: 14%;
     height: 50px;
 }
+
+th
+{
+    background-color: rgb(235, 235, 235);
+}
+
+td
+{
+    background-color: rgb(245, 245, 245);
+}
+
+td div
+{
+    width: 100%;
+}
+
+td .text
+{
+    height: 100%;
+}
+
+$color: darken($iteam_base_color, 10%);
+
+td:hover
+{
+    background-color: $color;
+}
+
+.today
+{
+    background-color: $color;
+}
+/**/
 
 /* warning box (for edit publication) */
 .warning

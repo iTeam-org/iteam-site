@@ -1,0 +1,15 @@
+
+<div class="row">
+    <div class="large-3 columns">
+        <p>
+            <a href="{% url 'publications:detail' event.pk %}">
+                {{ event.title }}
+            </a>
+            <br />
+            Par <a href="{% url 'member:detail' event.author %}">{{ event.author }}</a>
+        </p>
+    </div>
+    <div class="large-9 columns">
+        Le {{ event.date_start|date:"d F Y à H:i" }} à {{ event.place }}.
+    </div>
+</div>

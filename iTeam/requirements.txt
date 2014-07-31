@@ -4,5 +4,3 @@ django-email-obfuscator
 
 requests
 facebook-sdk
-
-django-scheduler

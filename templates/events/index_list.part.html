@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="large-6 columns">
+        {% for event in data %}
+            {% if forloop.counter <= 5 %}
+                {% include "events/index_list_event.part.html" %}
+            {% endif %}
+        {% empty %}
+            <p>Aucunes publications trouvées.</p>
+        {% endfor %}
+    </div>
+    <div class="large-6 columns">
+        {% for event in data %}
+            {% if forloop.counter > 5 %}
+                {% include "events/index_list_event.part.html" %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{# paginator #}
+<div class="pagination-centered">
+    <ul class="pagination">
+        {% for i in data.paginator.page_range %}
+            <li class="{% if data.number == i %}current{% endif %}">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

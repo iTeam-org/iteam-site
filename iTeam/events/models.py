@@ -7,9 +7,26 @@ from django.conf import settings
 # Create your models here.
 
 class Event(models.Model):
-    title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')
+    TYPES = (
+        ('F', u'Formation'),
+        ('C', u'Conference'),
+        ('J', u'Journee portes ouvertes'),
+        ('A', u'AG'),
+        ('O', u'Autre'), # other
+    )
 
+    title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')
     author = models.ForeignKey(User, verbose_name=u'Auteur')
-    date = models.DateTimeField()
+    place = models.TextField()
+
+    date_start = models.DateTimeField()
+    date_end = models.DateTimeField()
 
     text = models.TextField()
+
+    type = models.CharField(
+        u'Type de l\'event',
+        max_length=1,
+        choices=TYPES,
+        default='O',
+    )

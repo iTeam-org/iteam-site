@@ -1,0 +1,42 @@
+{% extends "events/base.html" %}
+
+{% block title_page %}
+    Détail &#183;
+{% endblock %}
+
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">Détail</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <h1>
+                {{ event.title }}
+                <small>
+                    le {{ event.date_start|date:"d F Y à H:i" }}
+                </small>
+            </h1>
+        </div>
+
+        {# content #}
+        <div class="row">
+            <div class="large-3 columns">
+                <p>
+                    <strong>Lieu :</strong> {{ event.place }}<br/>
+                    <strong>Date :</strong> du {{ event.date_start }} au {{ event.date_end }}
+                </p>
+            </div>
+            <div class="large-9 columns">
+                <p>
+                    {{ event.text }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

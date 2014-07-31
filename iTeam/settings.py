@@ -127,7 +127,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'email_obfuscator',
-    'schedule',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -161,18 +160,13 @@ DATABASES = {
 ##########################################
 
 NB_PUBLICATIONS_PER_PAGE = 10
+NB_EVENTS_PER_PAGE = 10
 NB_MEMBERS_PER_PAGE = 10
 
 SIZE_MAX_IMG = 10*1024*1024
 SIZE_MAX_TITLE = 100
 
 LOGIN_URL = '/membres/connexion/'
-
-
-#####################################
-# schedule (django-scheduler)
-#####################################
-FIRST_DAY_OF_WEEK = 1 # default : 0 = Sunday
 
 
 #############################################

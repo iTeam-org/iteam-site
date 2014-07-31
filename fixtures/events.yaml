@@ -1,8 +1,64 @@
 - fields: {title: 'test events 1', author: 2,
-      date: "2013-05-14T00:00:00+00:00",
+      place: "E2-P404",
+      date_start: "2013-05-14T00:00:00+00:00",
+      date_end: "2013-05-15T00:00:00+00:00",
       text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
       Après un retour sur une année chargée en événements, l'ensemble des
       membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
   model: events.Event
   pk: 1
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-06-14T00:00:00+00:00",
+      date_end: "2013-06-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 2
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-07-14T00:00:00+00:00",
+      date_end: "2013-07-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 3
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-08-14T00:00:00+00:00",
+      date_end: "2013-08-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 4
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-09-14T00:00:00+00:00",
+      date_end: "2013-09-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 5
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-10-14T00:00:00+00:00",
+      date_end: "2013-10-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 6
+- fields: {title: 'test events 1', author: 2,
+      place: "E2-P404",
+      date_start: "2013-11-14T00:00:00+00:00",
+      date_end: "2013-11-15T00:00:00+00:00",
+      text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
+      Après un retour sur une année chargée en événements, l'ensemble des
+      membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
+  model: events.Event
+  pk: 7
 

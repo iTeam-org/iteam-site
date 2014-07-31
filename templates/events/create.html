@@ -1,0 +1,41 @@
+{% extends "events/base.html" %}
+
+{% block title_page %}
+    Créer un event &#183;
+{% endblock %}
+
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">Créer un event</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-12 columns">
+        <h1>
+            Créer un event
+        </h1>
+        <p>
+            {% if msg %}
+            <small class="error">{{ msg }}</small>
+            {% endif %}
+        </p>
+                </div>
+            </div>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                <form action="{% url 'events:create' %}" method="post" enctype="multipart/form-data">
+                    {% include "events/create.form.part.html" %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

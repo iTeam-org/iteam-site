@@ -5,6 +5,8 @@ todo :
 -> dump iteam.org
 -> tests
 
+event : create / view / edit
+
 - publications : tags, multi-page
  
 - calendrier
