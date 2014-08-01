@@ -5,6 +5,8 @@ todo :
 -> dump iteam.org
 -> tests
 
+use pk not id
+
 event : create / view / edit
 
 - publications : tags, multi-page
@@ -18,6 +20,13 @@ event : create / view / edit
 - bitbucket / github
 
 - better member (mail, citation, bio, ... osef ?)
+
+ancien iteam.org a lire / parser
+- compte Flickr 
+- nas de Marine Mathieu (là en 2007)
+- tt le site
+- forum.iteam.org
+
 
 ------------------------------------------------------------
 ## News ##

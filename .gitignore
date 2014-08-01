@@ -5,6 +5,7 @@ db.sqlite3
 
 static/.sass-cache
 static/stylesheets/
+img_ignore
 
 #media/
 #static/

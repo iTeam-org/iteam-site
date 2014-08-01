@@ -103,18 +103,23 @@ def edit(request, publication_id):
 
     publication = get_object_or_404(Publication, pk=publication_id)
 
+    if (publication.author != request.user) and profile.is_admin:
+        editing_as_admin = True
+    else:
+        editing_as_admin = False
+
     if (publication.author == request.user) or profile.is_admin:
-        return save_publication(request, 'publications/edit.html', publication, is_admin=profile.is_admin)
+        return save_publication(request, 'publications/edit.html', publication, editing_as_admin=editing_as_admin)
     else:
         raise Http404
 
 
-def save_publication(request, template_name, publication, is_admin=False):
+def save_publication(request, template_name, publication, editing_as_admin=False):
     # If the form has been submitted ...
     if request.method == 'POST':
         if request.POST['title'] and request.POST['text'] and request.POST['type'] and request.POST['is_draft']:
             # required and auto fields
-            if (not is_admin):
+            if (not editing_as_admin):
                 publication.author = request.user
                 publication.pub_date = timezone.now()
 
@@ -157,6 +162,6 @@ def save_publication(request, template_name, publication, is_admin=False):
             return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas \xc3t\xc3 rempli', 'publication': publication})
     # if no post data sent ...
     else:
-        return render(request, template_name, {'publication': publication,})
+        return render(request, template_name, {'publication': publication, 'editing_as_admin': editing_as_admin,})
 
 

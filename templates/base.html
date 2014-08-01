@@ -46,8 +46,12 @@
 
             <ul class="right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'member:detail' user_name=user.username %}">Profil</a></li>
-                    <li><a href="{% url 'member:logout_view' %}" onclick="document.getElementById('disconnect_form').submit(); return false;">Déconnexion</a></li>
+                    <li class="{% block menu_member %}{% endblock %}">
+                        <a href="{% url 'member:detail' user_name=user.username %}">Profil</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'member:logout_view' %}" onclick="document.getElementById('disconnect_form').submit(); return false;">Déconnexion</a>
+                    </li>
                 {% else %}
                     <li class="{% block menu_register %}{% endblock %}">
                         <a href="{% url 'member:register_view' %}">Inscription</a>

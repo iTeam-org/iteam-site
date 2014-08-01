@@ -31,6 +31,12 @@
                         <a href="#" class="close">&times;</a>
                     </div>
                 {% endif %}
+                {% if editing_as_admin %}
+                    <div data-alert class="alert-box warning round">
+                        Attention, en tant qu'administrateur vous éditez une publication dont vous n'êtes pas l'auteur. Spyez encore plus prudent.
+                        <a href="#" class="close">&times;</a>
+                    </div>
+                {% endif %}
                 {% if msg %}
                     <small class="error">{{ msg }}</small>
                 {% endif %}
