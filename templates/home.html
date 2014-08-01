@@ -10,7 +10,7 @@
 
 <header>
     <div class="row">
-        <div class="small-12 large-6 columns">
+        <div class="small-12 large-7 columns">
             <h1>
                 Bienvenue
             </h1>
@@ -19,8 +19,8 @@
                 Passez nous voir en P404 !
             </p>
         </div>
-        <div class="large-6 columns hide-for-small">
-            <img src="{% static "img/logo_full.png" %}" alt="logo_full" />
+        <div class="large-5 columns hide-for-small">
+            <img src="{% static "img/logo_full_095.png" %}" alt="logo_full" />
         </div>
     </div>
 </header>
@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="small-2 columns" style="text-align: center;">
                     <a href="{% url 'publications:detail' publication_id=publication.pk %}">
-                            <img src="{{ publication.image_url }}" alt="" width="50" />
+                        <img src="{{ publication.image_url }}" alt="image of publication" width="50" />
                     </a>
                 </div>
                 <div class="small-10 columns" style="padding-left: 5px;">

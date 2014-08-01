@@ -15,66 +15,9 @@ header
 
 .home-app-title
 {
-    margin-bottom: emCalc(10em);
+    margin-bottom: emCalc(16em);
     border-bottom: solid 1px #ddd;
 }
-
-textarea { height: auto; }
-
-/* events (weekly and montly views) */
-
-/**/
-table
-{
-    width: 80%;
-    margin: auto;
-}
-/**/
-tr
-{
-    width: 100%;
-}
-
-td, th
-{
-    /*border: 1px solid rgb(128, 128, 128);*/
-    /**/border: 3px solid white;
-    width: 14%;
-    height: 50px;
-}
-
-th
-{
-    background-color: rgb(235, 235, 235);
-}
-
-td
-{
-    background-color: rgb(245, 245, 245);
-}
-
-td div
-{
-    width: 100%;
-}
-
-td .text
-{
-    height: 100%;
-}
-
-$color: darken($iteam_base_color, 10%);
-
-td:hover
-{
-    background-color: $color;
-}
-
-.today
-{
-    background-color: $color;
-}
-/**/
 
 /* warning box (for edit publication) */
 .warning
@@ -84,7 +27,7 @@ td:hover
   );
 }
 
-/* button for all admin / publisher actions */
+/* button for all admin and publisher actions */
 .button-admin
 {
   @include button(
@@ -99,3 +42,49 @@ td:hover
     margin-top: 20px;
 }
 
+textarea { height: auto; }
+
+/******************************************
+* TABLE (event / weekly and montly views) *
+******************************************/
+
+.custom_table_event
+{
+    table
+    {
+        width: 80%;
+        margin: auto;
+    }
+
+    td, th
+    {
+        border: 3px solid white;
+        width: 12%; /* 12=100/8 */
+        height: 50px;
+    }
+
+    th
+    {
+        background-color: rgb(235, 235, 235);
+    }
+
+    td
+    {
+        background-color: rgb(245, 245, 245);
+
+        div
+        {
+            width: 100%;
+        }
+
+        .text
+        {
+            height: 100%;
+        }
+    }
+
+    .today
+    {
+        background-color: darken($iteam_base_color, 10%);
+    }
+}

@@ -1,36 +1,54 @@
 <table width="100%">
-  <tbody width="100%">
-    {% for data in data_list %}
-    <tr width="100%">
-        <td>
-            <div class="row">
-                <div class="small-2 columns" style="text-align: center;">
-                    <a href="{% url 'publications:detail' publication_id=data.pk %}">
-                        <img src="{{ data.image_url }}" alt="" width="50" />
-                    </a>
-                </div>
-                <div class="small-8 columns" style="padding-left: 5px;">
-                    <p>
-                        <a href="{% url 'publications:detail' publication_id=data.pk %}">
-                            {{ data.title }}
-                        </a>
-                        <br />
-                        {{ data.subtitle }}
-                    </p>
-                </div>
-                <div class="small-2 columns">
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <a href="{% url 'publications:edit' data.pk %}" class="button small right">
-                                Éditer
-                            </a>
+    <thead>
+        <tr>
+            <th width="30%">Titre</th>
+            <th width="50%">Introduction</th>
+            <th width="20%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in data_list %}
+            <tr>
+                <td>
+                    <div class="row" width="100%">
+                        <div class="large-3 hide-for-small columns">
+                            <img src="{{ data.image_url }}" alt="image of publication" width="50" />
+                        </div>
+                        <div class="large-9 small-12 columns">
+                            <p>
+                                <a href="{% url 'publications:detail' publication_id=data.pk %}">
+                                    {{ data.title }}
+                                </a>
+                                <br />
+                                {{ data.subtitle }}
+                            </p>
                         </div>
                     </div>
+                </td>
 
-                </div>
-            </div>
-        </td>
-    </tr>
-    {% endfor %}
-  </tbody>
+                <td>
+                    <p>
+                        {{ data.text|slice:":200" }} [...]
+                    </p>
+                </td>
+
+                <td>
+                    <div class="button-group ">
+                        <a href="{% url 'publications:edit' data.pk %}" class="button-admin">
+                            Éditer
+                        </a>
+                        {% if data.is_draft %}
+                            <form action="{% url 'publications:detail' publication_id=data.pk %}" method="post">
+                                {% csrf_token %}
+                                <button name="toggle_draft" class="button-admin">
+                                    Publier
+                                </button>
+                            </form>
+                        {% endif %}
+
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
