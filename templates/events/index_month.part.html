@@ -1,7 +1,25 @@
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-12 columns custom_table_event">
 
-        {{ data }}
+        <table>
+            <tr>
+                <th colspan="7" class="month">
+                    <div class="row">
+                        <div class="small-2 columns small-offset-1">
+                            <a href="?view=M&m={{ month_prev }}&y={{ year_prev }}">Précédent</a>
+                        </div>
+                        <div class="small-6 columns" style="text-align: center;">
+                            {{ month_cur }} {{ year_cur }}
+                        </div>
+                        <div class="small-2 columns end" style="text-align: right;">
+                            <a href="?view=M&m={{ month_next }}&y={{ year_next }}">Suivant</a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
 
+            {{ data }}
+
+        </table>
     </div>
 </div>

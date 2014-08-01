@@ -10,6 +10,7 @@ class Event(models.Model):
     TYPES = (
         ('F', u'Formation'),
         ('C', u'Conference'),
+        ('B', u'Bar'),
         ('J', u'Journee portes ouvertes'),
         ('A', u'AG'),
         ('O', u'Autre'), # other

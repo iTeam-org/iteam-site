@@ -48,11 +48,13 @@ textarea { height: auto; }
 * TABLE (event / weekly and montly views) *
 ******************************************/
 
+$custom_table_color: rgb(255, 255, 255);
+
 .custom_table_event
 {
     table
     {
-        width: 80%;
+        width: 100%;
         margin: auto;
     }
 
@@ -65,12 +67,12 @@ textarea { height: auto; }
 
     th
     {
-        background-color: rgb(235, 235, 235);
+        background-color: darken($custom_table_color, 25%);
     }
 
     td
     {
-        background-color: rgb(245, 245, 245);
+        background-color: darken($custom_table_color, 15%);
 
         div
         {
@@ -85,6 +87,11 @@ textarea { height: auto; }
 
     .today
     {
-        background-color: darken($iteam_base_color, 10%);
+        background-color: lighten($iteam_base_color, 0%);
+    }
+
+    .noday
+    {
+        background-color: darken($custom_table_color, 5%);
     }
 }

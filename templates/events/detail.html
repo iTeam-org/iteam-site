@@ -17,20 +17,25 @@
             <h1>
                 {{ event.title }}
                 <small>
-                    le {{ event.date_start|date:"d F Y à H:i" }}
+                    le {{ event.date_start|date:'d F Y à H\hi' }}
                 </small>
             </h1>
         </div>
 
         {# content #}
         <div class="row">
-            <div class="large-3 columns">
-                <p>
-                    <strong>Lieu :</strong> {{ event.place }}<br/>
-                    <strong>Date :</strong> du {{ event.date_start }} au {{ event.date_end }}
-                </p>
+            <div class="large-2 hide-for-small columns">
+                <img src="/media/publications/default.png" width="100" alt="image of event" />
             </div>
-            <div class="large-9 columns">
+            <div class="large-4 small-5 columns">
+                <ul>
+                    <li><strong>Lieu :</strong> {{ event.place }}</li>
+                    <li><strong>Date :</strong> du {{ event.date_start|date:'d F Y à H\hi' }} au {{ event.date_end|date:'d F Y à H\hi' }}</li>
+                    <li><strong>Type :</strong> {{ event.get_type_display }}</li>
+                    <li><strong>Organisateur :</strong> {{ event.author }}</li>
+                </ul>
+            </div>
+            <div class="large-6 small-7 columns">
                 <p>
                     {{ event.text }}
                 </p>

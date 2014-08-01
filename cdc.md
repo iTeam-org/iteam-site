@@ -8,16 +8,11 @@ todo :
 event : create / view / edit
 
 - publications : tags, multi-page
- 
+
 - calendrier
-    * doc
-        * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
-        * https://github.com/llazzaro/django-scheduler)
     * todo
         * list (month, week, day, ... prochain, passés, ...)
         * add / change / delete (for admin) via pk
-- event + formation : formation, jpo, bar, ag, ...
-
 
 - a propos / l'iteam
 - bitbucket / github
