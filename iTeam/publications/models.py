@@ -49,4 +49,4 @@ class Publication(models.Model):
         elif self.type == 'N':
             return '/static/img/news.png'
         else:
-            return '/media/publications/default.png'
+            return '/static/img/publication.png'

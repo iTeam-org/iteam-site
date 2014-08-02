@@ -21,9 +21,10 @@ class Event(models.Model):
     place = models.TextField()
 
     date_start = models.DateTimeField()
-    date_end = models.DateTimeField()
 
     text = models.TextField()
+
+    is_draft = models.BooleanField(u'Est un brouillon', default=True)
 
     type = models.CharField(
         u'Type de l\'event',
@@ -31,3 +32,20 @@ class Event(models.Model):
         choices=TYPES,
         default='O',
     )
+
+    image = models.ImageField(
+        upload_to='publications',
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        elif self.type == 'B':
+            return '/static/img/bar.jpeg'
+        elif self.type == 'F':
+            return '/static/img/formation.jpg'
+        else:
+            return '/static/img/event.jpeg'

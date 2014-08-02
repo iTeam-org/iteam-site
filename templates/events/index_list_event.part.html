@@ -1,6 +1,9 @@
 
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-2 columns">
+        <img src="{{ event.image_url }}" class="hide-for-small" alt="image of event" />
+    </div>
+    <div class="large-10 columns">
         <p>
             <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a> - {{ event.get_type_display }}
             <br />

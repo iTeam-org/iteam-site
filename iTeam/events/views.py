@@ -1,8 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.utils import timezone
+
+from datetime import datetime
 
 from iTeam.events.models import Event
 from iTeam.member.models import Profile
@@ -38,7 +43,7 @@ def index(request):
         year = timezone.now().year
 
     # get events objects
-    events_list = Event.objects.all().order_by('-date_start')
+    events_list = Event.objects.all().filter(is_draft=False).order_by('-date_start')
 
     # profile for groups (can create event ?)
     if request.user.is_authenticated():
@@ -145,11 +150,116 @@ def index_month(request, events_list, year, month):
 def detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
 
-    return render(request, 'events/detail.html', {'event': event})
+    if request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+    else:
+        profile = None
+
+    # default view, published event
+    if not event.is_draft:
+        return render(request, 'events/detail.html', {'event': event, 'profile': profile})
+    elif request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+
+        # if admin or author
+        if (request.user == event.author) or (profile.is_admin):
+            if (request.method == 'POST') and ('toggle_draft' in request.POST):
+                event.is_draft = not event.is_draft
+                event.save()
+            return render(request, 'events/detail.html', {'event': event, 'profile': profile})
+        # else : 404
+        else:
+            raise Http404
+    else:
+        raise Http404
 
 
+
+
+@login_required
 def create(request):
-    return render(request, 'events/create.html')
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if (not profile.is_publisher):
+        raise PermissionDenied
+
+    event = Event()
+    event.date_start = timezone.now()
+    return save_event(request, 'events/create.html', event)
+
+@login_required
+def edit(request, event_id):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if (not profile.is_publisher):
+        raise PermissionDenied
+
+    event = get_object_or_404(Event, pk=event_id)
+
+    if (event.author != request.user) and profile.is_admin:
+        editing_as_admin = True
+    else:
+        editing_as_admin = False
+
+    if (event.author == request.user) or profile.is_admin:
+        return save_event(request, 'events/edit.html', event, editing_as_admin=editing_as_admin)
+    else:
+        raise Http404
+
+
+def save_event(request, template_name, event, editing_as_admin=False):
+    # If the form has been submitted ...
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['text'] and request.POST['type'] and request.POST['is_draft']:
+            # required and auto fields
+            if (not editing_as_admin):
+                event.author = request.user
+
+            event.title = request.POST['title'][:settings.SIZE_MAX_TITLE]
+            event.place = request.POST['place']
+            format = '%d/%m/%Y %H:%M'
+            time = request.POST['date_start']
+            try:
+                event.date_start = datetime.strptime(time, format)
+            except ValueError:
+                event.date_start = timezone.now()
+            event.type = request.POST['type']
+            event.is_draft = int(request.POST['is_draft']);
+            event.text = request.POST['text']
+
+            # save here to get the pk and name the (optional) img with it
+            event.save()
+
+            if 'image' in request.FILES:
+                img = request.FILES['image']
+                ext = string.lower(img.name.split('.')[-1])
+
+                if img.size > settings.SIZE_MAX_IMG:
+                    return render(request, template_name, {'msg' : 'Erreur : Fichier trop lourd', 'event': event})
+                if ext not in ('png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp'):
+                    return render(request, template_name, {'msg' : 'Erreur : Extension non reconnue, le fichier n\'est pas une image', 'publication': publication})
+
+                # remove old img (if one)
+                if event.image.name:
+                    img_path = os.path.join(settings.MEDIA_ROOT, str(event.image.name))
+                    if os.path.exists(img_path):
+                        os.remove(img_path)
+
+                # add publication img
+                event.image = img
+                event.image.name = '.'.join((str(event.pk), ext))
+                event.save()
+
+            # Redirect after successfull POST
+            return HttpResponseRedirect(reverse('events:detail', args=(event.id,)))
+        # missing data
+        else:
+            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas \xc3t\xc3 rempli', 'event': event})
+    # if no post data sent ...
+    else:
+        return render(request, template_name, {'event': event, 'editing_as_admin': editing_as_admin,})
+
+
 
 
 """

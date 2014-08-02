@@ -1,8 +1,8 @@
 - fields: {title: 'Formation git', author: 2,
       place: "E2-P342",
       type: "F",
+      is_draft: 0,
       date_start: "2014-05-14T00:00:00+00:00",
-      date_end: "2014-05-15T00:00:00+00:00",
       text: "Vous en avez marre de copier coller le code de votre voisin via
       dropbox ? Cette formation est faite pour vous !\n"}
   model: events.Event
@@ -10,16 +10,16 @@
 - fields: {title: 'Meetup HumanTalks', author: 2,
       place: "E1-Amphi A",
       type: "C",
+      is_draft: 0,
       date_start: "2014-05-14T00:00:00+00:00",
-      date_end: "2014-05-15T00:00:00+00:00",
       text: "4 conferences de 10mn, sur des sujets varies !\n"}
   model: events.Event
   pk: 2
 - fields: {title: 'Assemblée Générale', author: 2,
       place: "E1-P243",
       type: "A",
+      is_draft: 0,
       date_start: "2014-07-14T00:00:00+00:00",
-      date_end: "2014-07-15T00:00:00+00:00",
       text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
       Après un retour sur une année chargée en événements, l'ensemble des
       membres présents ont participés a l'éléction de notre nouveau bureau !\n"}
@@ -28,8 +28,8 @@
 - fields: {title: 'Formation html/css', author: 2,
       place: "E2-P454",
       type: "F",
+      is_draft: 0,
       date_start: "2014-08-20T00:00:00+00:00",
-      date_end: "2014-08-21T00:00:00+00:00",
       text: "Par ici les n00b ! Ceci n'est pas de la programmation, mais vu de
       l'exterieur ca fait vrai haker !\n"}
   model: events.Event
@@ -37,22 +37,22 @@
 - fields: {title: 'Bar', author: 2,
       place: "Quelque part dans Paris",
       type: "B",
+      is_draft: 0,
       date_start: "2014-09-22T00:00:00+00:00",
-      date_end: "2014-09-23T00:00:00+00:00",
       text: "Retour a un alcoolisme primaire ...\n"}
   model: events.Event
   pk: 5
 - fields: {title: 'Glande au local', author: 2,
+      is_draft: 0,
       place: "E2-P404",
       date_start: "2014-10-24T00:00:00+00:00",
-      date_end: "2014-10-25T00:00:00+00:00",
       text: "\"Et je me touche, touche, touche ...\" (copyright max boublil)\n"}
   model: events.Event
   pk: 6
 - fields: {title: 'event random', author: 2,
+      is_draft: 0,
       place: "E2-P404",
       date_start: "2014-11-26T00:00:00+00:00",
-      date_end: "2014-11-27T00:00:00+00:00",
       text: "La fleme ...\n"}
   model: events.Event
   pk: 7

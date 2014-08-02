@@ -4,24 +4,18 @@
 todo :
 -> dump iteam.org
 -> tests
+-> use pk not id
 
-use pk not id
-
-event : create / view / edit
+- calendrier : list (month, week, day, ... prochain, passés, ...)
 
 - publications : tags, multi-page
-
-- calendrier
-    * todo
-        * list (month, week, day, ... prochain, passés, ...)
-        * add / change / delete (for admin) via pk
 
 - a propos / l'iteam
 - bitbucket / github
 
 - better member (mail, citation, bio, ... osef ?)
 
-ancien iteam.org a lire / parser
+- ancien iteam.org a lire / parser
 - compte Flickr 
 - nas de Marine Mathieu (là en 2007)
 - tt le site

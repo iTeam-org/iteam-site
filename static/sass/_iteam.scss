@@ -94,4 +94,9 @@ $custom_table_color: rgb(255, 255, 255);
     {
         background-color: darken($custom_table_color, 5%);
     }
+
+    ul
+    {
+        margin-bottom: 0px;
+    }
 }

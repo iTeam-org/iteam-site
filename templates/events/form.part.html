@@ -1,0 +1,41 @@
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>Titre, lieu et date</legend>
+
+        <input type="text" placeholder="Titre" name="title" id="title" value="{{ event.title }}" />
+        <input type="text" placeholder="Lieu" name="place" id="place" value="{{ event.place }}" />
+
+        <input type="text" placeholder="Date de début jj/mm/aaaa hh:mm " name="date_start" id="date_start" value="{{ event.date_start|date:'d/m/Y H:i' }}" />
+    </fieldset>
+
+    <fieldset>
+        <legend>Options</legend>
+        <p>
+            <label for="image">Image (optionnelle) :</label>
+            <input type="file" name="image" id="image">
+
+            <label>Type de l'événement :</label>
+            <select name="type">
+                <option value="O" {% if event.type == "O" %}selected{% endif %}>Autre</option>
+                <option value="F" {% if event.type == "F" %}selected{% endif %}>Formation</option>
+                <option value="B" {% if event.type == "B" %}selected{% endif %}>Bar</option>
+                <option value="J" {% if event.type == "J" %}selected{% endif %}>JPO</option>
+                <option value="A" {% if event.type == "A" %}selected{% endif %}>AG</option>
+            </select>
+
+            <label>Status de l'événement :</label>
+            <input type="radio" name="is_draft" value="1" {% if event.is_draft %}checked{% endif %} /> Brouillon<br />
+            <input type="radio" name="is_draft" value="0" {% if not event.is_draft %}checked{% endif %} /> Publier immédiatement
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Texte :</legend>
+
+        <textarea placeholder="Commentaire" name="text" rows="20" >{{ event.text|safe }}</textarea>
+    </fieldset>
+
+    <div class="small-4 small-offset-4" >
+        <input type="submit" value="Enregistrer" class="button expand" />
+    </div>
