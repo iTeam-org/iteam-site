@@ -187,6 +187,7 @@ LOGIN_URL = '/membres/connexion/'
 # CRITICAL: Information describing a critical problem that has occurred.
 ##############################################
 
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
@@ -247,7 +248,7 @@ LOGGING = {
         },
     }
 }
-
+"""
 
 ######################################
 # Production settings

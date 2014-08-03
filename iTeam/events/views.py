@@ -299,10 +299,6 @@ class EventCalendar(HTMLCalendar):
         else:
             return self.day_cell('noday', '&nbsp;')
 
-    def formatmonth(self, year, month):
-        self.year, self.month = year, month
-        return super(EventCalendar, self).formatmonth(year, month)
-
     def group_by_day(self, workouts):
         field = lambda workout: workout.date_start.day
         return dict(

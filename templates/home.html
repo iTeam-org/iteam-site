@@ -41,12 +41,12 @@
         </div>
         {% for publication in publications_list %}
             <div class="row">
-                <div class="small-2 columns" style="text-align: center;">
+                <div class="small-3 columns" style="text-align: center;">
                     <a href="{% url 'publications:detail' publication_id=publication.pk %}">
                         <img src="{{ publication.image_url }}" alt="image of publication" width="50" />
                     </a>
                 </div>
-                <div class="small-10 columns" style="padding-left: 5px;">
+                <div class="small-9 columns">
                     <a href="{% url 'publications:detail' publication_id=publication.pk %}">{{ publication.title }}</a>
                     <p>Ecrit avec amour par
                         <a href="{% url 'member:detail' user_name=publication.author %}">
@@ -62,7 +62,7 @@
             </div>
         {% endfor %}
         <div class="row">
-            <div style="text-align: center">
+            <div class="home_go_to_button">
                 <a href="{% url 'publications:index' %}" class="button">
                     Aller aux publications
                 </a>
@@ -94,7 +94,7 @@
             </div>
         {% endfor %}
         <div class="row">
-            <div style="text-align: center">
+            <div class="home_go_to_button">
                 <a href="{% url 'events:index' %}" class="button">
                     Aller aux events
                 </a>

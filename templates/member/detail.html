@@ -89,7 +89,7 @@
             <div class="large-2 columns">
                 <h2>
                     <span>
-                        <img src="{{ profile.get_avatar_url }}" class="hide-for-small right" style="vertical-align:bottom;" alt="avatar" />
+                        <img src="{{ profile.get_avatar_url }}" class="hide-for-small right" alt="avatar" />
                     </span>
                 </h2>
             </div>
@@ -114,7 +114,7 @@
                                     <img src="{{ publication.image_url }}" alt="image of publication" width="50" />
                                 </a>
                             </div>
-                            <div class="small-10 columns" style="padding-left: 5px;">
+                            <div class="small-10 columns">
                                 <p>
                                     <a href="{% url 'publications:detail' publication_id=publication.pk %}">
                                         {{ publication.title }}

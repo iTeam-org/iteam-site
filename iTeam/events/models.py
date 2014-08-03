@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 
@@ -39,6 +40,18 @@ class Event(models.Model):
         null=True,
         default=None
     )
+
+    def status_style(self):
+        if (self.date_start < timezone.now()):
+            return 'p'
+        else:
+            return 'a'
+
+    def status_str(self):
+        if (self.date_start < timezone.now()):
+            return 'A eu lieu le'
+        else:
+            return 'Aura lieu le'
 
     def image_url(self):
         if self.image:

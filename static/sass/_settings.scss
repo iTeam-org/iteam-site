@@ -125,8 +125,9 @@ $include-html-top-bar-classes: $include-html-classes;
 
 // Media Queries
 
+/* 50em=800px 70em=1120px 90em=1440px */
 $small-screen: 50em; /* !! very important !! */
-$medium-screen: 70em;
+$medium-screen: 70em; /* medium = large (in our design) */
 $large-screen: 90em;
 
 $screen: "only screen";

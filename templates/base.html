@@ -13,7 +13,7 @@
 
     <link href="{% static "stylesheets/normalize.css" %}" media="all" rel="stylesheet" type="text/css" /> <!-- usefull ? -->
     <link href="{% static "stylesheets/app.css" %}" media="all" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, target-densitydpi=device-dpi" />
 
     <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
 </head>
@@ -27,7 +27,7 @@
             <li class="name">
                 <a href="/">
                     <span>
-                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" style="padding:3px;" />
+                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" styl="padding:3px;" />
                     </span>
                 </a>
             </li>
@@ -46,10 +46,10 @@
 
             <ul class="right">
                 {% if user.is_authenticated %}
-                    <li class="{% block menu_member %}{% endblock %}">
+                    <li class="{% block menu_member_profil %}{% endblock %}">
                         <a href="{% url 'member:detail' user_name=user.username %}">Profil</a>
                     </li>
-                    <li>
+                    <li class="{% block menu_member_logout %}{% endblock %}">
                         <a href="{% url 'member:logout_view' %}" onclick="document.getElementById('disconnect_form').submit(); return false;">Déconnexion</a>
                     </li>
                 {% else %}
@@ -79,7 +79,7 @@
 
     {% block content %}{% endblock %}
 
-    {# Footer #}
+    {# Footer - duplicate footer for mobile layout #}
 
     <hr />
     <footer class="row">
@@ -88,7 +88,16 @@
                 iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</a>
             </p>
         </div>
-        <div class="small-6 columns">
+        <div class="small-6 columns hide-for-large hide-for-medium">
+            <ul class="inline-list left">
+                <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                <li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>
+                <li><a href="http://irc.iteam.org">IRC</a></li>
+                <li><a href="http://ece.fr">ECE</a></li>
+                <li><a href="#h">↑</a></li>
+            </ul>
+        </div>
+        <div class="small-6 columns hide-for-small">
             <ul class="inline-list right">
                 <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
                 <li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>

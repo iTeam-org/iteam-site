@@ -13,6 +13,13 @@ header
     }
 }
 
+/* logo */
+.top-bar img
+{
+    padding:3px;
+}
+
+/* title */
 .home-app-title
 {
     margin-bottom: emCalc(16em);
@@ -43,6 +50,11 @@ header
 }
 
 textarea { height: auto; }
+
+.home_go_to_button
+{
+    text-align: center;
+}
 
 /******************************************
 * TABLE (event / weekly and montly views) *
@@ -99,4 +111,36 @@ $custom_table_color: rgb(255, 255, 255);
     {
         margin-bottom: 0px;
     }
+
+    overflow-x: auto;
+}
+
+/*******************
+* EVENT index list *
+*******************/
+
+.event_index_list_type
+{
+    color: rgb(150, 150, 150);
+}
+
+.event_a p, .event_p p
+{
+    margin-bottom: 0px;
+}
+
+.event_p
+{
+    background-color: rgb(230, 230, 230);
+}
+
+.row .event_a, .row .event_p
+{
+    padding:5px;
+    margin-bottom:10px;
+}
+
+.event_detail_img
+{
+    margin: auto;
 }

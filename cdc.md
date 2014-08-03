@@ -1,24 +1,29 @@
 # CDC site web #
 
 ------------------------------------------------------------
-todo :
+todo long run
 -> dump iteam.org
 -> tests
+
 -> use pk not id
+-> no style in html template -> css
 
-- calendrier : list (month, week, day, ... prochain, passés, ...)
-
+to do now
+- calendar : weekly view
 - publications : tags, multi-page
+- media sociaux (syncro fb, twitter, google)
 
 - a propos / l'iteam
 - bitbucket / github
 
+osef ?
+- calendar : list (prochain, passés, ...)
 - better member (mail, citation, bio, ... osef ?)
 
+to do later
 - ancien iteam.org a lire / parser
 - compte Flickr 
 - nas de Marine Mathieu (là en 2007)
-- tt le site
 - forum.iteam.org
 
 
