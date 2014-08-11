@@ -25,9 +25,9 @@
                         <div class="large-12 columns">
                             <dl class="sub-nav right">
                                 <dt>Vue :</dt>
-                                <dd class="{{ view_L }}"><a href="?view=L">Liste</a></dd>
-                                <dd class="{{ view_W }}"><a href="?view=W">Semaine</a></dd>
-                                <dd class="{{ view_M }}"><a href="?view=M">Mois</a></dd>
+                                <dd class="{% if view == 'list' %}active{% endif %}"><a href="{% url 'events:index_list' %}">Liste</a></dd>
+                                <dd class="{% if view == 'week' %}active{% endif %}"><a href="{% url 'events:index_week' 0 0 0 %}">Semaine</a></dd>
+                                <dd class="{% if view == 'month' %}active{% endif %}"><a href="{% url 'events:index_month' 0 0 %}">Mois</a></dd>
                             </dl>
                         </div>
                     </div>
@@ -45,11 +45,11 @@
         </div>
 
         {# content #}
-        {% if view_L %}
+        {% if view == 'list' %}
             {% include 'events/index_list.part.html' %}
-        {% elif view_W %}
+        {% elif view == 'week' %}
             {% include 'events/index_week.part.html' %}
-        {% elif view_M %}
+        {% elif view == 'month' %}
             {% include 'events/index_month.part.html' %}
         {% endif %}
 

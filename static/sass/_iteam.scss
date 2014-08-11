@@ -62,7 +62,7 @@ textarea { height: auto; }
 
 $custom_table_color: rgb(255, 255, 255);
 
-.custom_table_event
+.custom_table_event_month
 {
     table
     {
@@ -73,27 +73,30 @@ $custom_table_color: rgb(255, 255, 255);
     td, th
     {
         border: 3px solid white;
-        width: 12%; /* 12=100/8 */
-        height: 50px;
+        width: 14%; /* 14 = 100% / 7 days */
+        height: 75px;
     }
 
     th
     {
         background-color: darken($custom_table_color, 25%);
+        text-align: center;
     }
 
     td
     {
         background-color: darken($custom_table_color, 15%);
+        vertical-align: text-top;
 
-        div
+        p
         {
-            width: 100%;
+            text-align: right;
+            margin-bottom: 0px;
         }
 
-        .text
+        ul
         {
-            height: 100%;
+            margin-bottom: 0px;
         }
     }
 
@@ -104,12 +107,7 @@ $custom_table_color: rgb(255, 255, 255);
 
     .noday
     {
-        background-color: darken($custom_table_color, 5%);
-    }
-
-    ul
-    {
-        margin-bottom: 0px;
+        background-color: darken($custom_table_color, 7%);
     }
 
     overflow-x: auto;

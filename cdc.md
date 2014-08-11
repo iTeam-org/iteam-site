@@ -12,6 +12,7 @@ to do now
 - calendar : weekly view
 - publications : tags, multi-page
 - media sociaux (syncro fb, twitter, google)
+- noscript : menu, (logout ok)
 
 - a propos / l'iteam
 - bitbucket / github

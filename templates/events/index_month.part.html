@@ -1,24 +1,51 @@
 <div class="row">
-    <div class="large-12 columns custom_table_event">
+    <div class="large-12 columns custom_table_event_month">
 
         <table>
             <tr>
                 <th colspan="7" class="month">
                     <div class="row">
-                        <div class="small-2 columns small-offset-1">
-                            <a href="?view=M&m={{ month_prev }}&y={{ year_prev }}">Précédent</a>
+                        <div class="small-4 columns">
+                            <a href="{% url 'events:index_month' year_prev month_prev_int %}">Précédent <br> {{ month_prev_str }} {{ year_prev }}</a>
                         </div>
-                        <div class="small-6 columns" style="text-align: center;">
-                            {{ month_cur }} {{ year_cur }}
+                        <div class="small-4 columns">
+                            {{ month_cur_str }} {{ year_cur }}
                         </div>
-                        <div class="small-2 columns end" style="text-align: right;">
-                            <a href="?view=M&m={{ month_next }}&y={{ year_next }}">Suivant</a>
+                        <div class="small-4 columns">
+                            <a href="{% url 'events:index_month' year_next month_next_int %}">Suivant <br> {{ month_next_str }} {{ year_next }}</a>
                         </div>
                     </div>
                 </th>
             </tr>
 
-            {{ data }}
+            <tr>
+                {% for day in days_str %}
+                    <th>{{ day }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for week in cal %}
+            <tr>
+                {% for day in week %}
+                    {% if day.noday %}
+                        <td class="noday">&nbsp;</td>
+                    {% else %}
+                        <td {% if day.today %}class="today"{% endif %} >
+                            <p>
+                                {{ day.day }}
+                            </p>
+                            <ul>
+                                {% for event in day.data %}
+                                    <li>
+                                        <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
 
         </table>
     </div>

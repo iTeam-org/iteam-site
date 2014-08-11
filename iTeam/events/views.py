@@ -12,9 +12,42 @@ from datetime import datetime
 from iTeam.events.models import Event
 from iTeam.member.models import Profile
 
-# Create your views here.
 
-def index(request):
+def index_list(request):
+    # get events objects
+    events_list = Event.objects.all().filter(is_draft=False).order_by('-date_start')
+
+    # paginator
+    paginator = Paginator(events_list, settings.NB_EVENTS_PER_PAGE)
+
+    page = request.GET.get('page')
+    try:
+        events_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        events_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        events_list = paginator.page(paginator.num_pages)
+
+    # profile for groups (can create event ?)
+    if request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+    else:
+        profile = None
+
+    # data for template
+    data = {
+        'view': 'list',
+        'events_list': events_list,
+        'profile': profile,
+    }
+
+    return render(request, 'events/index.html', data)
+
+
+def index_week(request, year, month, week_of_month):
+    """
     VIEWS = ('L', 'W', 'M')
     month_str = [
         'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
@@ -84,29 +117,84 @@ def index(request):
 
     data['month_cur'] = month_str[month-1]
     data['year_cur'] = year
+    """
+
+    return render(request, 'events/index.html')
+
+
+def index_month(request, year, month):
+    month_str = ['', # january = 1, february = 2, ...
+        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
+    ]
+    days_str = [
+        'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
+    ]
+
+    year = int(year)
+    if (year < 1970):
+        year = timezone.now().year
+
+    month = int(month)
+    if (month < 1) or (month > 12):
+        month = timezone.now().month
+
+    # get events objects
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month)
+    cal_data = ViewMonth(events_list).formatmonth(year, month)
+
+    # profile for groups (can create event ?)
+    if request.user.is_authenticated():
+        profile = get_object_or_404(Profile, user=request.user)
+    else:
+        profile = None
+
+    # links : prev and next
+    month_prev = month-1
+    month_next = month+1
+    year_prev = year
+    year_next = year
+
+    if month_prev <= 0:
+        year_prev -= 1
+        month_prev += 12
+
+    if month_next > 12:
+        year_next += 1
+        month_next -= 12
+
+    # data for template
+    data = {
+        'view': 'month',
+        'cal': cal_data,
+        'profile': profile,
+        'days_str': days_str,
+        'month_prev_str': month_str[month_prev],
+        'month_cur_str': month_str[month],
+        'month_next_str': month_str[month_next],
+        'month_prev_int': month_prev,
+        'month_next_int': month_next,
+        'year_prev': year_prev,
+        'year_cur': year,
+        'year_next': year_next,
+    }
 
     return render(request, 'events/index.html', data)
 
 
-def index_list(request, events_list):
-    # paginator (for listed view)
-    paginator = Paginator(events_list, settings.NB_EVENTS_PER_PAGE)
+import datetime
 
-    page = request.GET.get('page')
-    try:
-        events_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        events_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        events_list = paginator.page(paginator.num_pages)
+def index_week(request, events_list, year, week):
+    date_from = timezone.now() - datetime.timedelta(days=7)
+    date_to = timezone.now()
 
-    return events_list
+    events_list = events_list.filter(date_start__gte=date_from).filter(date_start__lte=date_to)
+    cal = ViewWeek(events_list).formatweek(year, week)
 
+    return mark_safe(cal)
 
-def index_week(request, events_list):
     DAYS = ('', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi')
+
     ret = ''
 
     ret += '<div class="class="custom_table_for_events">'
@@ -136,14 +224,6 @@ def index_week(request, events_list):
     ret += '</div>'
 
     return mark_safe(ret)
-
-
-def index_month(request, events_list, year, month):
-    events_list = events_list.filter(date_start__year=year, date_start__month=month)
-    cal = EventCalendar(events_list).formatmonth(year, month)
-
-    return mark_safe(cal)
-
 
 
 
@@ -272,13 +352,54 @@ from calendar import HTMLCalendar
 from datetime import date
 from itertools import groupby
 
-class EventCalendar(HTMLCalendar):
+class ViewMonth(HTMLCalendar):
 
     def __init__(self, workouts):
-        super(EventCalendar, self).__init__()
+        super(ViewMonth, self).__init__()
         self.workouts = self.group_by_day(workouts)
 
-    def formatday(self, day, weekday):
+    def group_by_day(self, workouts):
+        field = lambda workout: workout.date_start.day
+        return dict(
+            [(day, list(items)) for day, items in groupby(workouts, field)]
+        )
+
+    def formatmonth(self, theyear, themonth, withyear=True):
+        data =  self.monthdays2calendar(theyear, themonth)
+
+        ret = []
+
+        for week in data:
+            tmp_week = []
+            for day, dayweek in week:
+                # for each day of month
+
+                tmp_day = {'day': day, 'noday': False, 'data': None, 'today': False}
+
+                # if in current month
+                if day != 0:
+                    # if events this day, add them
+                    if day in self.workouts:
+                        tmp_events = []
+                        for workout in self.workouts[day]:
+                            tmp_events.append({'title': workout.title, 'pk': workout.pk})
+                        tmp_day['data'] = tmp_events
+                    # default : day in current month, no events
+                    else:
+                        pass
+
+                    # set today field if needed
+                    if date.today() == date(theyear, themonth, day):
+                        tmp_day['today'] = True
+                        tmp_day['day'] = ' - '.join((str(tmp_day['day']), 'Aujourd\'hui'))
+                # mark this day no in current month
+                else:
+                    tmp_day['noday'] = True
+
+                tmp_week.append(tmp_day)
+            ret.append(tmp_week)
+
+        return ret
         if day != 0:
             head = '<div style="text-align: right;">%d</div>' % day
 

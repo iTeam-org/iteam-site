@@ -74,7 +74,7 @@
     <div class="large-6 columns">
         <div class="home-app-title">
             <h1>
-                <a href="{% url 'events:index' %}">
+                <a href="{% url 'events:index_list' %}">
                     Événements
                 </a>
             </h1>
@@ -95,7 +95,7 @@
         {% endfor %}
         <div class="row">
             <div class="home_go_to_button">
-                <a href="{% url 'events:index' %}" class="button">
+                <a href="{% url 'events:index_list' %}" class="button">
                     Aller aux events
                 </a>
             </div>
