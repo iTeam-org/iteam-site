@@ -9,8 +9,8 @@ todo long run
 -> no style in html template -> css
 
 to do now
-- calendar : weekly view
-- publications : tags, multi-page
+- calendar : weekly view : week_of_month
+- add event to "mes publicatons"
 - media sociaux (syncro fb, twitter, google)
 - noscript : menu, (logout ok)
 
@@ -19,6 +19,7 @@ to do now
 
 osef ?
 - calendar : list (prochain, passés, ...)
+- publications : tags, multi-page
 - better member (mail, citation, bio, ... osef ?)
 
 to do later

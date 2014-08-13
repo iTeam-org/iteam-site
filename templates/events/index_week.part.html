@@ -1,24 +1,26 @@
 <div class="row">
-    <div class="large-12 columns custom_table_event_month">
+    <div class="large-12 columns custom_table_event_week">
 
         <table>
             <tr>
                 <th colspan="8">
                     <div class="row">
                         <div class="small-4 columns">
-                            <a href="{% url 'events:index_month' 0 0 %}">Précédent <br> {{ month_prev_str }} {{ year_prev }}</a>
+                            <a href="{% url 'events:index_week' year_prev month_prev week_prev %}">Précédent</a>
                         </div>
                         <div class="small-4 columns">
                             {{ month_cur_str }} {{ year_cur }}
                         </div>
                         <div class="small-4 columns">
-                            <a href="{% url 'events:index_month' 0 0 %}">Suivant <br> {{ month_next_str }} {{ year_next }}</a>
+                            <a href="{% url 'events:index_week' year_next month_next week_next %}">Suivant</a>
                         </div>
                     </div>
                 </th>
             </tr>
 
             <tr>
+                <th></th>
+
                 {% for day in days_str %}
                     <th>{{ day }}</th>
                 {% endfor %}
@@ -28,7 +30,7 @@
             <tr>
                 {% for day in hour %}
                     {% if day.hour %}
-                        <td>{{ day.hour }}h</td>
+                        <th>{{ day.hour }}h</th>
                     {% else %}
                         <td>
                             <ul>
@@ -43,7 +45,5 @@
             {% endfor %}
 
         </table>
-
-        {{data}}
     </div>
 </div>

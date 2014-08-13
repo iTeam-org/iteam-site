@@ -48,7 +48,7 @@ def index_list(request):
 
 def index_week(request, year, month, week_of_month):
     days_str = [
-        '', 'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
+        'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
     ]
 
     year = int(year)
@@ -60,11 +60,14 @@ def index_week(request, year, month, week_of_month):
         month = timezone.now().month
 
     week_of_month = int(week_of_month)
-    if (week_of_month < 1) or (week_of_month > 4):
+    if (week_of_month < 1) or (week_of_month > 5):
         week_of_month = 3
 
     events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month)
-    cal = ViewWeek(events_list).formatweek(year, month, week_of_month)
+    cal, days_nb = ViewWeek(events_list).formatweek(year, month, week_of_month)
+
+    for i in range(0, 7):
+        days_str[i] = '%s %s' % (days_str[i], days_nb[i])
 
     # profile for groups (can create event ?)
     if request.user.is_authenticated():
@@ -72,11 +75,44 @@ def index_week(request, year, month, week_of_month):
     else:
         profile = None
 
+    # links : prev and next
+    week_prev = week_of_month-1
+    week_next = week_of_month+1
+    month_prev = month
+    month_next = month
+    year_prev = year
+    year_next = year
+
+    if week_prev < 1:
+        month_prev -= 1
+        week_prev += 5
+
+    if week_next > 5:
+        month_next += 1
+        week_next -= 5
+
+    if month_prev < 1:
+        year_prev -= 1
+        month_prev += 12
+
+    if month_next > 12:
+        year_next += 1
+        month_next -= 12
+
+    # data for template
     data = {
         'view': 'week',
         'cal': cal,
-        'days_str': days_str,
         'profile': profile,
+        'days_str': days_str,
+
+        'week_prev': week_prev,
+        'week_next': week_next,
+        'month_prev': month_prev,
+        'month_next': month_next,
+        'year_prev': year_prev,
+        'year_next': year_next,
+        'week_of_month': week_of_month,
     }
 
     return render(request, 'events/index.html', data)
@@ -214,15 +250,16 @@ def save_event(request, template_name, event, editing_as_admin=False):
 
             event.title = request.POST['title'][:settings.SIZE_MAX_TITLE]
             event.place = request.POST['place']
+            event.type = request.POST['type']
+            event.is_draft = int(request.POST['is_draft']);
+            event.text = request.POST['text']
+
             format = '%d/%m/%Y %H:%M'
             time = request.POST['date_start']
             try:
                 event.date_start = datetime.strptime(time, format)
             except ValueError:
-                event.date_start = timezone.now()
-            event.type = request.POST['type']
-            event.is_draft = int(request.POST['is_draft']);
-            event.text = request.POST['text']
+                return render(request, template_name, {'msg' : 'Erreur : Date mal formatee', 'event': event})
 
             # save here to get the pk and name the (optional) img with it
             event.save()
@@ -234,7 +271,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
                 if img.size > settings.SIZE_MAX_IMG:
                     return render(request, template_name, {'msg' : 'Erreur : Fichier trop lourd', 'event': event})
                 if ext not in ('png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp'):
-                    return render(request, template_name, {'msg' : 'Erreur : Extension non reconnue, le fichier n\'est pas une image', 'publication': publication})
+                    return render(request, template_name, {'msg' : 'Erreur : Extension non reconnue, le fichier n\'est pas une image', 'event': event})
 
                 # remove old img (if one)
                 if event.image.name:
@@ -251,7 +288,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
             return HttpResponseRedirect(reverse('events:detail', args=(event.id,)))
         # missing data
         else:
-            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas \xc3t\xc3 rempli', 'event': event})
+            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas ete rempli', 'event': event})
     # if no post data sent ...
     else:
         return render(request, template_name, {'event': event, 'editing_as_admin': editing_as_admin,})
@@ -340,6 +377,7 @@ class ViewWeek(HTMLCalendar):
         data = self.monthdays2calendar(theyear, themonth)
 
         ret = []
+        days_nb = []
         current_week = 1
         current_hour = 8
 
@@ -376,9 +414,11 @@ class ViewWeek(HTMLCalendar):
                             pass
 
                         tmp_hour_row.append(tmp_hour_cell)
+
+                        days_nb.append(day)
                     ret.append(tmp_hour_row)
 
             current_week += 1
 
-        return ret
+        return ret, days_nb
 

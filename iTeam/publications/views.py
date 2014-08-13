@@ -159,7 +159,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
             return HttpResponseRedirect(reverse('publications:detail', args=(publication.id,)))
         # missing data
         else:
-            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas \xc3t\xc3 rempli', 'publication': publication})
+            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas ete rempli', 'publication': publication})
     # if no post data sent ...
     else:
         return render(request, template_name, {'publication': publication, 'editing_as_admin': editing_as_admin,})
