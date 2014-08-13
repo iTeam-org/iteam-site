@@ -47,36 +47,24 @@ def index_list(request):
 
 
 def index_week(request, year, month, week_of_month):
-    """
-    VIEWS = ('L', 'W', 'M')
-    month_str = [
-        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-        'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
+    days_str = [
+        '', 'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
     ]
 
-    # get param
-    view = request.GET.get('view')
-    if view not in VIEWS:
-        view = 'L' # default
-
-    if 'm' in request.GET:
-        try:
-            month = int(request.GET['m'])
-        except ValueError:
-            month = timezone.now().month
-    if ('m' not in request.GET) or (month <= 0) or (month > 12):
-        month = timezone.now().month
-
-    if 'y' in request.GET:
-        try:
-            year = int(request.GET['y'])
-        except ValueError:
-            year = timezone.now().year
-    if ('y' not in request.GET) or (year < 1950) or (year > 2500):
+    year = int(year)
+    if (year < 1970):
         year = timezone.now().year
 
-    # get events objects
-    events_list = Event.objects.all().filter(is_draft=False).order_by('-date_start')
+    month = int(month)
+    if (month < 1) or (month > 12):
+        month = timezone.now().month
+
+    week_of_month = int(week_of_month)
+    if (week_of_month < 1) or (week_of_month > 4):
+        week_of_month = 3
+
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month)
+    cal = ViewWeek(events_list).formatweek(year, month, week_of_month)
 
     # profile for groups (can create event ?)
     if request.user.is_authenticated():
@@ -84,46 +72,20 @@ def index_week(request, year, month, week_of_month):
     else:
         profile = None
 
-    # data for template
-    data = {'profile': profile}
+    data = {
+        'view': 'week',
+        'cal': cal,
+        'days_str': days_str,
+        'profile': profile,
+    }
 
-    # events display, function of the view choosen by the user
-    if view == 'W':
-        data['data'] = index_week(request, events_list)
-    elif view == 'M':
-        data['data'] = index_month(request, events_list, year, month)
-    else: # default : L
-        data['data'] = index_list(request, events_list)
-
-    # add active field to proper filter (for view : list, week, month)
-    if view in VIEWS:
-        data[''.join(("view_", view))] = "active"
-    else: # default
-        data['view_L'] = "active"
-
-    # data for month view
-    data['month_prev'] = month-1
-    data['month_next'] = month+1
-    data['year_prev'] = year
-    data['year_next'] = year
-
-    if data['month_prev'] <= 0:
-        data['year_prev'] -= 1
-        data['month_prev'] += 12
-
-    if data['month_next'] > 12:
-        data['year_next'] += 1
-        data['month_next'] -= 12
-
-    data['month_cur'] = month_str[month-1]
-    data['year_cur'] = year
-    """
-
-    return render(request, 'events/index.html')
+    return render(request, 'events/index.html', data)
 
 
 def index_month(request, year, month):
-    month_str = ['', # january = 1, february = 2, ...
+    # month_str : january = 1, february = 2, ...
+    month_str = [
+        '',
         'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
         'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
     ]
@@ -180,51 +142,6 @@ def index_month(request, year, month):
     }
 
     return render(request, 'events/index.html', data)
-
-
-import datetime
-
-def index_week(request, events_list, year, week):
-    date_from = timezone.now() - datetime.timedelta(days=7)
-    date_to = timezone.now()
-
-    events_list = events_list.filter(date_start__gte=date_from).filter(date_start__lte=date_to)
-    cal = ViewWeek(events_list).formatweek(year, week)
-
-    return mark_safe(cal)
-
-    DAYS = ('', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi')
-
-    ret = ''
-
-    ret += '<div class="class="custom_table_for_events">'
-    ret += '<table class="class="custom_table_for_events">'
-
-    # head
-    ret += '<thead>'
-    ret += '<tr>'
-    for day in DAYS:
-        ret += '<th>%s</th>' % day
-    ret += '</tr>'
-    ret += '</thead>'
-
-    # body
-    ret += '<tbody>'
-    for hour in range(8, 20):
-        ret += '<tr>'
-        for day in DAYS:
-            if day == '':
-                ret += '<th>%dh</th>' % hour
-            else:
-                ret += '<td>Coucou</td>'
-        ret += '</tr>'
-    ret += '</tbody>'
-
-    ret += '</table>'
-    ret += '</div>'
-
-    return mark_safe(ret)
-
 
 
 def detail(request, event_id):
@@ -365,7 +282,7 @@ class ViewMonth(HTMLCalendar):
         )
 
     def formatmonth(self, theyear, themonth, withyear=True):
-        data =  self.monthdays2calendar(theyear, themonth)
+        data = self.monthdays2calendar(theyear, themonth)
 
         ret = []
 
@@ -400,51 +317,68 @@ class ViewMonth(HTMLCalendar):
             ret.append(tmp_week)
 
         return ret
-        if day != 0:
-            head = '<div style="text-align: right;">%d</div>' % day
 
-            cssclass = self.cssclasses[weekday]
-            if date.today() == date(self.year, self.month, day):
-                cssclass += ' today'
-            if day in self.workouts:
-                cssclass += ' filled'
-                body = []
-                body.append('<div class="left"><ul>')
-                for workout in self.workouts[day]:
-                    body.append('<a href="view/%d">' % workout.pk) # '#' -> event url
-                    body.append('<li>%s</li>' % workout.title) # body.append(esc(workout.title))
-                    body.append('</a>')
-                body.append('</ul></div>')
-                return self.day_cell(cssclass, '%s %s' % (head, ''.join(body)))
-            return self.day_cell(cssclass, head)
-        else:
-            return self.day_cell('noday', '&nbsp;')
+
+class ViewWeek(HTMLCalendar):
+
+    def __init__(self, workouts):
+        super(ViewWeek, self).__init__()
+        self.workouts = self.group_by_day(workouts)
+        print self.workouts
 
     def group_by_day(self, workouts):
-        field = lambda workout: workout.date_start.day
+        field = lambda workout: self.key(workout.date_start.day, workout.date_start.hour)
         return dict(
             [(day, list(items)) for day, items in groupby(workouts, field)]
         )
 
-    def day_cell(self, cssclass, body):
-        return '<td class="%s">%s</td>' % (cssclass, body)
+    def key(self, day, hour):
+        return day*100 + hour
 
-    def formatweekday(self, day):
-        """
-        Return a weekday name as a table header.
-        """
-        day_abbr = ['Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    def formatweek(self, theyear, themonth, weekofmonth, withyear=True):
 
-        return '<th class="%s">%s</th>' % (self.cssclasses[day], day_abbr[day])
+        data = self.monthdays2calendar(theyear, themonth)
 
-    def formatmonth(self, theyear, themonth, withyear=True):
-        self.year, self.month = theyear, themonth
-        v = []
-        a = v.append
-        a(self.formatweekheader())
-        a('\n')
-        for week in self.monthdays2calendar(theyear, themonth):
-            a(self.formatweek(week))
-            a('\n')
-        return ''.join(v)
+        ret = []
+        current_week = 1
+        current_hour = 8
+
+        for week in data:
+            if current_week == weekofmonth:
+                for hour in range(8, 18+1):
+                    tmp_hour_row = []
+
+                    tmp_hour_row.append({'event': False, 'data': None, 'hour': current_hour})
+                    current_hour += 1
+
+                    for day, dayweek in week:
+                        tmp_hour_cell = {'event': False, 'data': None, 'hour': None}
+
+                        # if in current month
+                        if day != 0:
+                            # if events this day, this hour, add them
+                            key = self.key(day, hour)
+                            if key in self.workouts:
+                                tmp_events = []
+                                for workout in self.workouts[key]:
+                                    tmp_events.append({'title': workout.title, 'pk': workout.pk})
+                                tmp_hour_cell['data'] = tmp_events
+                            # default : day in current month, no events
+                            else:
+                                pass
+
+                            ## set today field if needed
+                            #if date.today() == date(theyear, themonth, day):
+                            #    tmp_day['today'] = True
+                            #    tmp_day['day'] = ' - '.join((str(tmp_day['day']), 'Aujourd\'hui'))
+                        # mark this day no in current month
+                        else:
+                            pass
+
+                        tmp_hour_row.append(tmp_hour_cell)
+                    ret.append(tmp_hour_row)
+
+            current_week += 1
+
+        return ret
 
