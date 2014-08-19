@@ -1,5 +1,10 @@
 
+/*  ========================================================================
+    iTeam.org custom css
+    Adrien Chardon - 2014
+    ========================================================================  */
 
+/* home page header */
 header
 {
     background-image: url('../img/header_background.png');
@@ -11,6 +16,11 @@ header
         color: white;
         font-weight: normal;
     }
+}
+
+.home_go_to_button
+{
+    text-align: center;
 }
 
 /* logo */
@@ -38,7 +48,8 @@ header
 .button-admin
 {
   @include button(
-    $bg: rgb(240, 138, 36)
+    $bg: rgb(240, 138, 36),
+    $radius: true
 
   );
 }
@@ -51,30 +62,21 @@ header
 
 textarea { height: auto; }
 
-.home_go_to_button
-{
-    text-align: center;
-}
-
-/******************************************
-* TABLE (event / weekly and montly views) *
-******************************************/
+/*  ========================================================================
+    TABLE (event / weekly and montly views)
+    ========================================================================  */
 
 $custom_table_color: rgb(255, 255, 255);
 
-.custom_table_event_month
+.custom_table_event_month, .custom_table_event_week
 {
+    overflow-x: auto;
+
     table
     {
         width: 100%;
         margin: auto;
-    }
-
-    td, th
-    {
-        border: 3px solid white;
-        width: 14%; /* 14 = 100% / 7 days */
-        height: 75px;
+        min-width: 900px;
     }
 
     th
@@ -85,7 +87,6 @@ $custom_table_color: rgb(255, 255, 255);
 
     td
     {
-        background-color: darken($custom_table_color, 15%);
         vertical-align: text-top;
 
         p
@@ -99,6 +100,22 @@ $custom_table_color: rgb(255, 255, 255);
             margin-bottom: 0px;
         }
     }
+}
+
+
+.custom_table_event_month
+{
+    td, th
+    {
+        border: 3px solid white;
+        width: 14%; /* 14 = 100% / 7 days */
+        height: 75px;
+    }
+
+    td
+    {
+        background-color: darken($custom_table_color, 15%);
+    }
 
     .today
     {
@@ -109,13 +126,20 @@ $custom_table_color: rgb(255, 255, 255);
     {
         background-color: darken($custom_table_color, 7%);
     }
-
-    overflow-x: auto;
 }
 
-/*******************
-* EVENT index list *
-*******************/
+.custom_table_event_week
+{
+    td, th
+    {
+        width: 12%; /* 12 = 100% / (7 days + 1) */
+        vertical-align: text-top;
+    }
+}
+
+/*  ========================================================================
+    EVENT index list
+    ========================================================================  */
 
 .event_index_list_type
 {

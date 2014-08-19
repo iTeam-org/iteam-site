@@ -37,7 +37,7 @@
             </div>
         {% else %}
             <div class="row">
-                <div class="large-4 large-centered columns">
+                <div class="small-10 small-centered large-6 columns">
                     <form action="{% url 'member:logout_view' %}" method="post">
                         {% csrf_token %}
                         <input type="submit" class="button expand" value="Cliquez ici pour vous déconnecter" />

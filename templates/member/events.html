@@ -1,13 +1,11 @@
 {% extends "member/base.html" %}
 
-{% load email_obfuscator %}
-
 {% block title_page %}
-    Mes publications &#183;
+    Mes événements &#183;
 {% endblock %}
 
 {% block breadcrumb_page %}
-    <li class="current"><a href="#">Mes publications</a></li>
+    <li class="current"><a href="#">Mes événements</a></li>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +17,7 @@
             <div class="row">
                 <div class="large-8 columns">
                     <h1>
-                        Mes publications
+                        Mes événements
                     </h1>
                 </div>
             </div>
@@ -27,22 +25,22 @@
         {# content #}
         <div class="row">
             <div class="large-12 columns">
-                <h3>Écrits publiés :</h3>
-                {% if publications_list %}
-                    {% with data_list=publications_list %}
-                        {% include "member/publications.table.html" %}
+                <h3>Événements publiés :</h3>
+                {% if events_list %}
+                    {% with data_list=events_list %}
+                        {% include "member/events.table.html" %}
                     {% endwith %}
                 {% else %}
-                    <p>Aucunes publications trouvées, <a href="{% url 'publications:create' %}">commencez à écrire</a>.</p>
+                    <p>Aucuns événements trouvés, <a href="{% url 'events:create' %}">faites une invitation</a>.</p>
                 {% endif %}
 
                 <h3>Brouillons :</h3>
                 {% if drafts_list %}
                     {% with data_list=drafts_list %}
-                        {% include "member/publications.table.html" %}
+                        {% include "member/events.table.html" %}
                     {% endwith %}
                 {% else %}
-                    <p>Aucuns brouillons trouvés, <a href="{% url 'publications:create' %}">commencez à écrire</a>.</p>
+                    <p>Aucuns brouillons trouvés, <a href="{% url 'events:create' %}">faites une invitation</a>.</p>
                 {% endif %}
             </div>
         </div>

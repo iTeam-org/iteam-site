@@ -7,24 +7,24 @@
 {% endblock %}
 
 {% block header %}
-
-<header>
-    <div class="row">
-        <div class="small-12 large-7 columns">
-            <h1>
-                Bienvenue
-            </h1>
-            <p>
-                Bienvenue sur le site de l'iTeam, une association de l'ECE pour la promotion du logiciel libre et de l'open source : par exemple le navigateur Firefox, la suite OpenOffice ou le système Linux.<br />
-                Passez nous voir en P404 !
-            </p>
-        </div>
-        <div class="large-5 columns hide-for-small">
-            <img src="{% static "img/logo_full_095.png" %}" alt="logo_full" />
-        </div>
-    </div>
-</header>
-
+    {% if not user.is_authenticated %}
+        <header>
+            <div class="row">
+                <div class="small-12 large-7 columns">
+                    <h1>
+                        Bienvenue
+                    </h1>
+                    <p>
+                        Bienvenue sur le site de l'iTeam, une association de l'ECE pour la promotion du logiciel libre et de l'open source : par exemple le navigateur Firefox, la suite OpenOffice ou le système Linux.<br />
+                        Passez nous voir en P404 !
+                    </p>
+                </div>
+                <div class="large-5 columns hide-for-small">
+                    <img src="{% static "img/logo_full_095.png" %}" alt="logo_full" />
+                </div>
+            </div>
+        </header>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -63,7 +63,7 @@
         {% endfor %}
         <div class="row">
             <div class="home_go_to_button">
-                <a href="{% url 'publications:index' %}" class="button">
+                <a href="{% url 'publications:index' %}" class="button radius">
                     Aller aux publications
                 </a>
             </div>
@@ -95,7 +95,7 @@
         {% endfor %}
         <div class="row">
             <div class="home_go_to_button">
-                <a href="{% url 'events:index_list' %}" class="button">
+                <a href="{% url 'events:index_list' %}" class="button radius">
                     Aller aux events
                 </a>
             </div>

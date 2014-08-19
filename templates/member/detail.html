@@ -3,7 +3,17 @@
 {% load email_obfuscator %}
 
 {% block title_page %}
-    Détail d'un membre &#183;
+    {% if user.is_authenticated and profile.user == user %}
+        Mon profil &#183;
+    {% else %}
+        Détail d'un membre &#183;
+    {% endif %}
+{% endblock %}
+
+{% block menu_member_profil %}
+    {% if user.is_authenticated and profile.user == user %}
+        active
+    {% endif %}
 {% endblock %}
 
 {% block breadcrumb_page %}
@@ -17,18 +27,22 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-6 columns">
                     <h1>
-                        Détail d'un membre
+                        {% if user.is_authenticated and profile.user == user %}
+                            Mon profil
+                        {% else %}
+                            Détail d'un membre
+                        {% endif %}
                     </h1>
                 </div>
 
-                <div class="large-4 columns">
+                <div class="large-6 columns">
                     {% if user.is_authenticated %}
                         {% if profile.user == user %}
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <a href="{% url 'member:settings_view' %}" class="button right">
+                                    <a href="{% url 'member:settings_view' %}" class="button radius right">
                                         Paramètres
                                     </a>
                                 </div>
@@ -36,9 +50,18 @@
                             {% if profile.is_publisher %}
                                 <div class="row">
                                     <div class="large-12 columns">
-                                        <a href="{% url 'member:publications' %}" class="button-admin right">
-                                            Mes publications
-                                        </a>
+                                        <ul class="button-group right">
+                                            <li>
+                                                <a href="{% url 'member:publications' %}" class="button-admin">
+                                                    Mes publications
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'member:events' %}" class="button-admin">
+                                                    Mes événements
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             {% endif %}

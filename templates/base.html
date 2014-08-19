@@ -3,31 +3,71 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="utf-8" />
+
     <title>
         {% block title_page %}{% endblock %}
         {% block title_app %}{% endblock %}
         iTeam.org
     </title>
 
-    <meta charset="utf-8" />
+    {# meta #}
+    <meta name="language" content="fr">
+    <meta http-equiv="content-language" content="fr">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="iTeam.org est le site d'une association de l'ECE pour la promotion du logiciel libre et de l'open source : par exemple le navigateur Firefox, la suite OpenOffice ou le système Linux.">
 
-    <link href="{% static "stylesheets/normalize.css" %}" media="all" rel="stylesheet" type="text/css" /> <!-- usefull ? -->
+    {# og #}
+    {# TODO <meta property="og:site_name" content="Zeste de Savoir"> #}
+
+    {# css #}
+    <link href="{% static "stylesheets/normalize.css" %}" media="all" rel="stylesheet" type="text/css" />
     <link href="{% static "stylesheets/app.css" %}" media="all" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, target-densitydpi=device-dpi" />
 
+    {# icon #}
     <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
+    {# TODO icon for apple-touch-icon #}
 </head>
+
+<!--
+
+#################################################################
+#                                                               #
+#  #####  #####  #####   ###    #    #      ###   ####    ####  #
+#    #      #    #      #   #   ##  ##     #   #  #   #  #      #
+#    #      #    ####   #####   # ## #     #   #  ####   #  ##  #
+#    #      #    #      #   #   #    #     #   #  #  #   #   #  #
+#  #####    #    #####  #   #   #    #  #   ###   #   #   ###   #
+#                                                               #
+#################################################################
+
+Hello petit curieux !
+
+-->
 
 <body>
     <div id="h"></div>
 
-    {#  Top bar #}
+    <!--[if lt IE 8]>
+        <p class="chromeframe">
+            Vous utilisez un navigateur <strong>dépassé</strong>. Merci de
+            <a href="http://browsehappy.com/">mettre à jour celui-ci</a> pour
+            améliorer votre expérience.
+        </p>
+    <![endif]-->
+
+    <noscript>
+        Votre javascript semble désactivé. Ce site l'utilise avec parcimonie :
+        la seule fonction en dépendant est le menu sur mobile.
+    </noscript>
+
+    {#  Top bar : menu #}
     <nav class="top-bar" data-topbar>
         <ul class="title-area">
             <li class="name">
                 <a href="/">
                     <span>
-                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" styl="padding:3px;" />
+                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" />
                     </span>
                 </a>
             </li>
@@ -64,6 +104,7 @@
         </section>
     </nav>
 
+    {# header for home page #}
     {% block header %}{% endblock %}
 
     {# breadcrumbs #}
@@ -79,27 +120,28 @@
 
     {% block content %}{% endblock %}
 
-    {# Footer - duplicate footer for mobile layout #}
-
+    {# Footer - duplicate menu for mobile layout #}
     <hr />
     <footer class="row">
-        <div class="small-6 columns">
+        <div class="large-6 columns">
             <p>
                 iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</a>
             </p>
         </div>
-        <div class="small-6 columns hide-for-large hide-for-medium">
+        <div class="large-6 columns hide-for-large hide-for-medium">
             <ul class="inline-list left">
                 <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                <li><a href="{% url 'pages:cookies' %}">Cookies</a></li>
                 <li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>
                 <li><a href="http://irc.iteam.org">IRC</a></li>
                 <li><a href="http://ece.fr">ECE</a></li>
                 <li><a href="#h">↑</a></li>
             </ul>
         </div>
-        <div class="small-6 columns hide-for-small">
+        <div class="large-6 columns hide-for-small">
             <ul class="inline-list right">
                 <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                <li><a href="{% url 'pages:cookies' %}">Cookies</a></li>
                 <li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>
                 <li><a href="http://irc.iteam.org">IRC</a></li>
                 <li><a href="http://ece.fr">ECE</a></li>
@@ -115,11 +157,11 @@
         </form>
     {% endif %}
 
+    {# js #}
     <script src="{% static "javascripts/vendor/jquery.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.alerts.js" %}"></script>
-    <!-- Other JS plugins can be included here -->
 
     <script>
         $(document).foundation();

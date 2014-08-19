@@ -35,6 +35,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from iTeam.member.models import Profile
 from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
 from iTeam.publications.models import Publication
+from iTeam.events.models import Event
 
 def index(request):
     """
@@ -241,4 +242,25 @@ def publications(request):
     }
 
     return render(request, 'member/publications.html', c)
+
+
+@login_required
+def events(request):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if not profile.is_publisher:
+        raise PermissionDenied
+
+    user = get_object_or_404(User, username=request.user.username)
+    profile = get_object_or_404(Profile, user=user)
+
+    events_list = Event.objects.all().filter(author=user, is_draft=False).order_by('-date_start')
+    drafts_list = Event.objects.all().filter(author=user, is_draft=True).order_by('-date_start')
+
+    c = {
+        'events_list' : events_list,
+        'drafts_list' : drafts_list,
+    }
+
+    return render(request, 'member/events.html', c)
 

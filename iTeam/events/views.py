@@ -63,7 +63,7 @@ def index_week(request, year, month, week_of_month):
     if (week_of_month < 1) or (week_of_month > 5):
         week_of_month = 3
 
-    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month)
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month).order_by('-date_start')
     cal, days_nb = ViewWeek(events_list).formatweek(year, month, week_of_month)
 
     for i in range(0, 7):
@@ -138,7 +138,7 @@ def index_month(request, year, month):
         month = timezone.now().month
 
     # get events objects
-    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month)
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month).order_by('-date_start')
     cal_data = ViewMonth(events_list).formatmonth(year, month)
 
     # profile for groups (can create event ?)
@@ -299,6 +299,10 @@ def save_event(request, template_name, event, editing_as_admin=False):
 """
     Overload of default class for displaying an html calendar, due to custom
     attributes (models) and actions (template)
+
+    note :
+    arg 'workouts' passed to __init__() func must be sorted by the same attr as
+    the lambda func used in group_by_day() (currently : date_start attr of events)
 """
 
 
@@ -361,7 +365,6 @@ class ViewWeek(HTMLCalendar):
     def __init__(self, workouts):
         super(ViewWeek, self).__init__()
         self.workouts = self.group_by_day(workouts)
-        print self.workouts
 
     def group_by_day(self, workouts):
         field = lambda workout: self.key(workout.date_start.day, workout.date_start.hour)

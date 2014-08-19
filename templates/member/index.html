@@ -1,5 +1,7 @@
 {% extends "member/base.html" %}
 
+{% load publications_tags %}
+
 {% block title_page %}
     Liste des membres &#183;
 {% endblock %}
@@ -25,17 +27,24 @@
         {# content #}
         <div class="row">
             <div class="large-8 columns large-offset-2">
-                {% if data %}
-                    <ul class="left">
-                        {% for member_one in data %}
-                            <li><a href="{% url 'member:detail' user_name=member_one.username %}">{{ member_one.username }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>
-                        No members found.
+                <ul class="left inline-list">
+                    {% for member_one in data %}
+                        {% with profile=member_one|profile %}
+                            <li>
+                                <a href="{% url 'member:detail' user_name=member_one.username %}">
+                                    <img src="{{ profile.get_avatar_url }}" alt="avatar" width="75px" />
+                                </a>
+                                <a href="{% url 'member:detail' user_name=member_one.username %}" style="text-align:center;">
+                                    {{ member_one.username }}
+                                </a>
+                            </li>
+                        {% endwith %}
+                    {% empty %}
+                     <p>
+                        Aucun membres trouvés.
                     </p>
-                {% endif %}
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 

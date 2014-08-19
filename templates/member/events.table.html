@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th width="30%">Titre</th>
-            <th width="50%">Introduction</th>
+            <th width="50%">Type d'événement, lieu et date</th>
             <th width="20%">Actions</th>
         </tr>
     </thead>
@@ -16,11 +16,9 @@
                         </div>
                         <div class="large-9 small-12 columns">
                             <p>
-                                <a href="{% url 'publications:detail' data.pk %}">
+                                <a href="{% url 'events:detail' data.pk %}">
                                     {{ data.title }}
                                 </a>
-                                <br />
-                                {{ data.subtitle }}
                             </p>
                         </div>
                     </div>
@@ -28,17 +26,17 @@
 
                 <td>
                     <p>
-                        {{ data.text|slice:":200" }} [...]
+                        {{ data.get_type_display }} - {{ data.place }} - {{ data.date_start }}
                     </p>
                 </td>
 
                 <td>
                     <div class="button-group ">
-                        <a href="{% url 'publications:edit' data.pk %}" class="button-admin">
+                        <a href="{% url 'events:edit' data.pk %}" class="button-admin">
                             Éditer
                         </a>
                         {% if data.is_draft %}
-                            <form action="{% url 'publications:detail' data.pk %}" method="post">
+                            <form action="{% url 'events:detail' data.pk %}" method="post">
                                 {% csrf_token %}
                                 <button name="toggle_draft" class="button-admin">
                                     Publier

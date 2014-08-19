@@ -34,3 +34,6 @@ def apropos(request):
 
 def hallOfFame(request):
     return render(request, 'pages/hallOfFame.html')
+
+def cookies(request):
+    return render(request, 'pages/cookies.html')
