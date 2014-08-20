@@ -12,18 +12,14 @@ Fomulaires :
         title = form.cleaned_data['title']
 ```
 
-check
 -> use pk not id
 -> no style in html template -> css
 -> <img> : alt
 -> button radius
 
 to do now
-- tests (+ follow links)
-- revoir le workflow des erreur / redirection (403, 404, login)
 - iTeam.event : add file upload
 - form
-- menu for mobile layout
 
 to do later
 - calendar : weekly view : week_of_month

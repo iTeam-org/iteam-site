@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.safestring import mark_safe
 from django.utils import timezone
 
@@ -200,13 +202,11 @@ def detail(request, event_id):
                 event.is_draft = not event.is_draft
                 event.save()
             return render(request, 'events/detail.html', {'event': event, 'profile': profile})
-        # else : 404
+        # not admin nor author
         else:
-            raise Http404
-    else:
-        raise Http404
-
-
+            raise PermissionDenied
+    else: # draft + not logged
+        return redirect(reverse('member:login_view'))
 
 
 @login_required
@@ -220,24 +220,21 @@ def create(request):
     event.date_start = timezone.now()
     return save_event(request, 'events/create.html', event)
 
+
 @login_required
 def edit(request, event_id):
     profile = get_object_or_404(Profile, user=request.user)
-
-    if (not profile.is_publisher):
-        raise PermissionDenied
-
     event = get_object_or_404(Event, pk=event_id)
+
+    if ((not profile.is_publisher) or event.author != request.user) and not profile.is_admin:
+        raise PermissionDenied
 
     if (event.author != request.user) and profile.is_admin:
         editing_as_admin = True
     else:
         editing_as_admin = False
 
-    if (event.author == request.user) or profile.is_admin:
-        return save_event(request, 'events/edit.html', event, editing_as_admin=editing_as_admin)
-    else:
-        raise Http404
+    return save_event(request, 'events/edit.html', event, editing_as_admin=editing_as_admin)
 
 
 def save_event(request, template_name, event, editing_as_admin=False):

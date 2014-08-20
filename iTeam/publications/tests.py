@@ -1,57 +1,79 @@
-from django.test import TestCase
+
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.utils import timezone
 from django_dynamic_fixture import G
 
 from iTeam.publications.models import Publication
 from iTeam.member.models import Profile
+from iTeam.member.tests import MemberSetUp
 
-# Create your tests here.
 
-def setUpPublication(self):
-        # Create user
-        self.user = G(User, username='user42')
-        self.user.set_password('password')
-        self.user.save()
+def PublicatonSetUp():
+    MemberSetUp()
 
-        profile = G(Profile, user=self.user)
-        profile.is_publisher = True
-        profile.save()
+    user = User.objects.get(username='publisher1')
+    publication = G(Publication,
+        title = 'title',
+        author = user,
+        pub_date = timezone.now(),
+        text = 'hello world !',
+        pk = 1
+    )
+    publication.save()
+    publication = G(Publication,
+        title = 'title',
+        author = user,
+        pub_date = timezone.now(),
+        text = 'hello world !',
+        is_draft = False,
+        pk = 2
+    )
+    publication.save()
 
-        # Authenticate user
-        self.client.login(username='user42', password='password')
+    user = User.objects.get(username='publisher2')
+    publication = G(Publication,
+        title = 'title',
+        author = user,
+        pub_date = timezone.now(),
+        text = 'hello world !',
+        pk = 3
+    )
+    publication.save()
+    publication = G(Publication,
+        title = 'title',
+        author = user,
+        pub_date = timezone.now(),
+        text = 'hello world !',
+        is_draft = False,
+        pk = 4
+    )
+    publication.save()
 
-        # Create one publication
-        publication = G(Publication,
-            title = 'title',
-            author = self.user,
-            pub_date = timezone.now(),
-            text = 'hello world !',
-            is_draft = False,
-            pk = 1)
-        publication.save()
-
-        self.client.logout()
 
 class PublicationsIntegrationTests(TestCase):
 
     def setUp(self):
-        setUpPublication(self)
+        PublicatonSetUp()
 
-    def test_index(self):
+    def test_index_view(self):
         resp = self.client.get(reverse('publications:index'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_detail(self):
+    def test_detail_view_draft(self):
         resp = self.client.get(reverse('publications:detail', args=[1]))
+        self.assertEqual(resp.status_code, 302)
+
+    def test_detail_view_notdraft(self):
+        resp = self.client.get(reverse('publications:detail', args=[2]))
         self.assertEqual(resp.status_code, 200)
 
-    def test_create(self):
+    def test_create_view(self):
         resp = self.client.get(reverse('publications:create'))
         self.assertEqual(resp.status_code, 302)
 
-    def test_edit(self):
+    def test_edit_view(self):
         resp = self.client.get(reverse('publications:edit', args=[1]))
         self.assertEqual(resp.status_code, 302)
 
@@ -59,41 +81,95 @@ class PublicationsIntegrationTests(TestCase):
 class AuthenticatedPublicationsIntegrationTests(TestCase):
 
     def setUp(self):
-        setUpPublication(self)
+        PublicatonSetUp()
+        self.client.login(username='member', password='password')
 
-        # Create user
-        self.user = G(User, username='user43')
-        self.user.set_password('password')
-        self.user.save()
+    def test_index_view(self):
+        resp = self.client.get(reverse('publications:index'))
+        self.assertEqual(resp.status_code, 200)
 
-        profile = G(Profile, user=self.user)
-        profile.save()
+    def test_detail_view_draft(self):
+        resp = self.client.get(reverse('publications:detail', args=[1]))
+        self.assertEqual(resp.status_code, 403)
 
-        # Authenticate user
-        self.client.login(username='user43', password='password')
+    def test_detail_view_notdraft(self):
+        resp = self.client.get(reverse('publications:detail', args=[2]))
+        self.assertEqual(resp.status_code, 200)
 
-    def test_create(self):
+    def test_create_view(self):
         resp = self.client.get(reverse('publications:create'))
         self.assertEqual(resp.status_code, 403)
 
-    def test_edit(self):
+    def test_edit_view(self):
         resp = self.client.get(reverse('publications:edit', args=[1]))
         self.assertEquals(resp.status_code, 403)
 
 
-class AuthenticatedAndPublisherPublicationsIntegrationTests(TestCase):
+class PublisherPublicationsIntegrationTests(TestCase):
 
     def setUp(self):
-        setUpPublication(self)
+        PublicatonSetUp()
+        self.client.login(username='publisher1', password='password')
 
-        # Authenticate user
-        self.client.login(username='user42', password='password')
+    def test_index_view(self):
+        resp = self.client.get(reverse('publications:index'))
+        self.assertEqual(resp.status_code, 200)
 
-    def test_create(self):
+    def test_detail_view_own_draft(self):
+        resp = self.client.get(reverse('publications:detail', args=[1]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_own_notdraft(self):
+        resp = self.client.get(reverse('publications:detail', args=[2]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_notown_draft(self):
+        resp = self.client.get(reverse('publications:detail', args=[3]))
+        self.assertEqual(resp.status_code, 403)
+
+    def test_detail_view_notown_notdraft(self):
+        resp = self.client.get(reverse('publications:detail', args=[4]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_create_view(self):
         resp = self.client.get(reverse('publications:create'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_edit(self):
+    def test_edit_view_own(self):
         resp = self.client.get(reverse('publications:edit', args=[1]))
         self.assertEquals(resp.status_code, 200)
 
+    def test_edit_view_notown(self):
+        resp = self.client.get(reverse('publications:edit', args=[3]))
+        self.assertEquals(resp.status_code, 403)
+
+
+class AdminPublicationsIntegrationTests(TestCase):
+
+    def setUp(self):
+        PublicatonSetUp()
+        self.client.login(username='admin', password='password')
+
+    def test_index_view(self):
+        resp = self.client.get(reverse('publications:index'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_draft(self):
+        resp = self.client.get(reverse('publications:detail', args=[1]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_notdraft(self):
+        resp = self.client.get(reverse('publications:detail', args=[2]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_create_view(self):
+        resp = self.client.get(reverse('publications:create'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_edit_view_draft(self):
+        resp = self.client.get(reverse('publications:edit', args=[1]))
+        self.assertEquals(resp.status_code, 200)
+
+    def test_edit_view_notdraft(self):
+        resp = self.client.get(reverse('publications:edit', args=[2]))
+        self.assertEquals(resp.status_code, 200)

@@ -11,7 +11,7 @@ class Publication(models.Model):
     TYPES = (
         ('N', u'News'),
         ('T', u'Tutoriel'),
-        ('P', u'Publication')
+        ('P', u'Publication') # default
     )
 
     title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')

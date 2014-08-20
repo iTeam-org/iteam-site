@@ -1,8 +1,9 @@
+
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from django.conf import settings
@@ -77,18 +78,17 @@ def detail(request, publication_id):
                 publication.pub_date = timezone.now()
                 publication.save()
             return render(request, 'publications/detail.html', {'publication': publication, 'profile': profile})
-        # else : 404
-        else:
-            raise Http404
-    else:
-        raise Http404
+        else: # not admin nor author
+            raise PermissionDenied
+    else: # draft + not logged
+        return redirect(reverse('member:login_view'))
 
 
 @login_required
 def create(request):
     profile = get_object_or_404(Profile, user=request.user)
 
-    if (not profile.is_publisher):
+    if (not profile.is_publisher) and (not profile.is_admin):
         raise PermissionDenied
 
     publication = Publication()
@@ -97,21 +97,17 @@ def create(request):
 @login_required
 def edit(request, publication_id):
     profile = get_object_or_404(Profile, user=request.user)
-
-    if (not profile.is_publisher):
-        raise PermissionDenied
-
     publication = get_object_or_404(Publication, pk=publication_id)
+
+    if ((not profile.is_publisher) or publication.author != request.user) and not profile.is_admin:
+        raise PermissionDenied
 
     if (publication.author != request.user) and profile.is_admin:
         editing_as_admin = True
     else:
         editing_as_admin = False
 
-    if (publication.author == request.user) or profile.is_admin:
-        return save_publication(request, 'publications/edit.html', publication, editing_as_admin=editing_as_admin)
-    else:
-        raise Http404
+    return save_publication(request, 'publications/edit.html', publication, editing_as_admin=editing_as_admin)
 
 
 def save_publication(request, template_name, publication, editing_as_admin=False):
