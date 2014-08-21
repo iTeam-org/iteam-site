@@ -1,3 +1,26 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: Adrien Chardon
+# @Date:   2014-08-21 18:34:56
+# @Last Modified by:   Adrien Chardon
+# @Last Modified time: 2014-08-22 17:02:41
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
+#
+# iTeam.org is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# iTeam.org is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
 
 import string
 import os
@@ -18,7 +41,7 @@ class Publication(models.Model):
     TYPES = (
         ('N', u'News'),
         ('T', u'Tutoriel'),
-        ('P', u'Publication') # default
+        ('P', u'Publication')  # default
     )
 
     title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')
@@ -35,7 +58,6 @@ class Publication(models.Model):
     )
 
     type = models.CharField(
-        u'Type de la publication',
         max_length=1,
         choices=TYPES,
         default='P',
@@ -43,7 +65,7 @@ class Publication(models.Model):
 
     text = models.TextField()
 
-    is_draft = models.BooleanField(u'Est un brouillon', default=True)
+    is_draft = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.title

@@ -1,19 +1,26 @@
-# coding: utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: Adrien Chardon
+# @Date:   2014-08-19 17:38:33
+# @Last Modified by:   Adrien Chardon
+# @Last Modified time: 2014-08-22 17:02:41
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
 #
-# This file is part of Progdupeupl.
-#
-# Progdupeupl is free software: you can redistribute it and/or modify
+# iTeam.org is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Progdupeupl is distributed in the hope that it will be useful,
+# iTeam.org is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with Progdupeupl. If not, see <http://www.gnu.org/licenses/>.
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
 
 from django.conf.urls import patterns, url
 
@@ -32,3 +39,5 @@ urlpatterns = patterns(
     url(r'^connexion/$', views.login_view, name='login_view'),
     url(r'^deconnexion/$', views.logout_view, name='logout_view'),
 )
+
+# Note : '_view' because of weird recursive function call ...

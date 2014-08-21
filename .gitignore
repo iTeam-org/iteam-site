@@ -1,5 +1,3 @@
-iteam/settings_prod_dont_import.py
-
 *.pyc
 db.sqlite3
 

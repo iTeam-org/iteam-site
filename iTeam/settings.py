@@ -23,9 +23,9 @@ import os
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'fr-FR' #en-us'
+LANGUAGE_CODE = 'fr-FR'  # default : 'en-us'
 
-TIME_ZONE = 'Europe/Paris' # default : 'UTC'
+TIME_ZONE = 'Europe/Paris'  # default : 'UTC'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -58,7 +58,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-#STATIC_ROOT = os.path.join(SITE_ROOT, 'static') # dont uncomment, the css are not found anymore
+# STATIC_ROOT = os.path.join(SITE_ROOT, 'static') # dont uncomment, the css are not found anymore
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -163,7 +163,7 @@ NB_PUBLICATIONS_PER_PAGE = 10
 NB_EVENTS_PER_PAGE = 10
 NB_MEMBERS_PER_PAGE = 10
 
-SIZE_MAX_IMG = 5*1024*1024 # 5 Mo
+SIZE_MAX_IMG = 5*1024*1024  # 5 Mo
 SIZE_MAX_TITLE = 100
 
 LOGIN_URL = '/membres/connexion/'

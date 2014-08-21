@@ -1,21 +1,42 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: Adrien Chardon
+# @Date:   2014-08-21 18:22:36
+# @Last Modified by:   Adrien Chardon
+# @Last Modified time: 2014-08-22 17:08:11
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
+#
+# iTeam.org is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# iTeam.org is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
+
+import os
 
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
-
-import os
 
 from iTeam.publications.models import Publication
 from iTeam.publications.forms import PublicationForm
 from iTeam.member.models import Profile
 
-# Create your views here.
 
 def index(request):
     TYPES = ('N', 'T', 'P')
@@ -26,7 +47,8 @@ def index(request):
         profile = None
 
     # get objects
-    publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False).order_by('-pub_date')
+    publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False). \
+        order_by('-pub_date')
 
     type = request.GET.get('type')
     if type in TYPES:
@@ -46,7 +68,7 @@ def index(request):
         publications = paginator.page(paginator.num_pages)
 
     # build data for template
-    data = {"data":publications, "cur_type":type, "profile":profile}
+    data = {"data": publications, "cur_type": type, "profile": profile}
 
     # add active field to proper filter
     if type in TYPES:
@@ -67,7 +89,8 @@ def detail(request, publication_id):
 
     # default view, published article
     if not publication.is_draft:
-        return render(request, 'publications/detail.html', {'publication': publication, 'profile': profile})
+        data = {'publication': publication, 'profile': profile}
+        return render(request, 'publications/detail.html', data)
     elif request.user.is_authenticated():
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -77,10 +100,12 @@ def detail(request, publication_id):
                 publication.is_draft = not publication.is_draft
                 publication.pub_date = timezone.now()
                 publication.save()
-            return render(request, 'publications/detail.html', {'publication': publication, 'profile': profile})
-        else: # not admin nor author
+
+            data = {'publication': publication, 'profile': profile}
+            return render(request, 'publications/detail.html', data)
+        else:  # not admin nor author
             raise PermissionDenied
-    else: # draft + not logged
+    else:  # draft + not logged
         return redirect(reverse('member:login_view'))
 
 
@@ -93,6 +118,7 @@ def create(request):
 
     publication = Publication()
     return save_publication(request, 'publications/create.html', publication)
+
 
 @login_required
 def edit(request, publication_id):
@@ -123,7 +149,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
             publication.title = form.cleaned_data['title'][:settings.SIZE_MAX_TITLE]
             publication.text = form.cleaned_data['text']
             publication.type = form.cleaned_data['type']
-            publication.is_draft = int(form.cleaned_data['is_draft']);
+            publication.is_draft = int(form.cleaned_data['is_draft'])
 
             # optional fields
             if 'subtitle' in request.POST:
@@ -146,7 +172,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
             publication.save()
             return HttpResponseRedirect(reverse('publications:detail', args=(publication.id,)))
 
-    else: # method == GET
+    else:  # method == GET
         form = PublicationForm()
 
         if publication is not None:
@@ -160,5 +186,5 @@ def save_publication(request, template_name, publication, editing_as_admin=False
                 form.fields['is_draft'].initial = '0'
 
     # if no post data sent ...
-    return render(request, template_name, {'form': form, 'editing_as_admin': editing_as_admin, 'publication_pk': publication.pk})
-
+    data = {'form': form, 'editing_as_admin': editing_as_admin, 'publication_pk': publication.pk}
+    return render(request, template_name, data)

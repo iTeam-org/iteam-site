@@ -8,6 +8,7 @@ todo long run
 -> no style in html template -> css
 -> <img> : alt
 -> button radius
+-> flake8 compliant (pep8 + other stuff)
 
 to do now
 - iTeam.event : add file upload

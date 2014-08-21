@@ -1,6 +1,6 @@
 # Iteam.org
 
-[ITeam](http://iteam.org) is a french association of the french engineering school [ECE](http://ece.fr).
+[ITeam](http://iteam.org) is a french association for promoting free softwares from the french engineering school [ECE](http://ece.fr).
 
 Notes :
 
@@ -40,21 +40,43 @@ python manage.py runserver
 ```
 The server will be available at <http://localhost:8000>
 
-## Tests
+## Tests and initial datas
 
-* Generating fake datas
+* Clearing everything and loading initial datas
 ```shell
 python loadFixtures.py
 ```
 
-* Cleaning the stuff that has just been created (or just comment the proper line in loadFixtures.py and run it again)
+* launching test
 ```shell
-python manage.py sqlclear member | python manage.py dbshell
-python manage.py sqlclear auth | python manage.py dbshell
-python manage.py sqlclear news | python manage.py dbshell
+./manage.py test
 ```
 
-## Copyright
+## License and Copyright
 
-ITeam uses some code of the [AGPL licensed](http://bitbucket.org/MicroJoe/progdupeupl/) project [Progdupeu.pl](http://progdupeu.pl)
+ITeam.org is brought to you under GNU Affero General Public Licence version 3+. For further informations please read the LICENSE file.
 
+Special thanks to the open source projects [Progdupeu.pl](http://progdupeu.pl) (<http://bitbucket.org/MicroJoe/progdupeupl/>) and [zestedesavoir.com](http://zestedesavoir.com) (<https://github.com/zestedesavoir/zds-site>). Some code may come from them.
+
+
+## Dev
+### test coverage
+coverage erase && coverage run --omit="/Library/*","manage","medias" --branch --timid ./manage.py test
+coverage html && open htmlcov/index.html
+
+### code checking (pep8)
+flake8 . --max-line-length=120 --exclude=medias
+
+### db dump
+python manage.py dumpdata --format=yaml --natural member > data.yaml
+
+## prod
+
+https://docs.djangoproject.com/en/1.6/topics/security/
+
+./manage.py clearsessions
+
+apt-get install Apache2 Django
+apt-get install libapache2-mod-wsgi
+
+configure apache2 -> cf tuto zds

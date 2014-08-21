@@ -39,7 +39,10 @@ print '=> Done'
 ###########
 # create super user
 print '=> Creating super user ...'
-system('echo "from django.contrib.auth.models import User; User.objects.create_superuser(\'Nodraak\', \'nodraak@mail.fr\', \'mdp\')" | ./manage.py shell')
+system(
+    'echo "from django.contrib.auth.models import User; User.objects.create_superuser('
+    '\'Nodraak\', \'nodraak@mail.fr\', \'mdp\')" | ./manage.py shell'
+)
 print '=> Done'
 
 # load data

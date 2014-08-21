@@ -1,3 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: Adrien Chardon
+# @Date:   2014-08-21 18:57:25
+# @Last Modified by:   Adrien Chardon
+# @Last Modified time: 2014-08-22 17:07:22
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
+#
+# iTeam.org is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# iTeam.org is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
+
+from datetime import datetime
 
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -8,8 +33,6 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.safestring import mark_safe
 from django.utils import timezone
-
-from datetime import datetime
 
 from iTeam.events.models import Event
 from iTeam.events.forms import EventForm
@@ -66,7 +89,8 @@ def index_week(request, year, month, week_of_month):
     if (week_of_month < 1) or (week_of_month > 5):
         week_of_month = 3
 
-    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month).order_by('-date_start')
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month). \
+        order_by('-date_start')
     cal, days_nb = ViewWeek(events_list).formatweek(year, month, week_of_month)
 
     for i in range(0, 7):
@@ -125,8 +149,8 @@ def index_month(request, year, month):
     # month_str : january = 1, february = 2, ...
     month_str = [
         '',
-        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-        'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
+        'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
     ]
     days_str = [
         'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
@@ -141,7 +165,8 @@ def index_month(request, year, month):
         month = timezone.now().month
 
     # get events objects
-    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month).order_by('-date_start')
+    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month). \
+        order_by('-date_start')
     cal_data = ViewMonth(events_list).formatmonth(year, month)
 
     # profile for groups (can create event ?)
@@ -206,7 +231,7 @@ def detail(request, event_id):
         # not admin nor author
         else:
             raise PermissionDenied
-    else: # draft + not logged
+    else:  # draft + not logged
         return redirect(reverse('member:login_view'))
 
 
@@ -250,7 +275,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
             event.title = form.cleaned_data['title'][:settings.SIZE_MAX_TITLE]
             event.place = form.cleaned_data['place']
             event.type = form.cleaned_data['type']
-            event.is_draft = int(form.cleaned_data['is_draft']);
+            event.is_draft = int(form.cleaned_data['is_draft'])
             event.text = form.cleaned_data['text']
 
             event.date_start = form.cleaned_data['date_start']
@@ -275,7 +300,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
             event.save()
             return HttpResponseRedirect(reverse('events:detail', args=(event.id,)))
 
-    else: # method == GET
+    else:  # method == GET
         form = EventForm()
 
         if event is not None:
@@ -290,9 +315,8 @@ def save_event(request, template_name, event, editing_as_admin=False):
                 form.fields['is_draft'].initial = '0'
 
     # if no post data sent ...
-    return render(request, template_name, {'form': form, 'editing_as_admin': editing_as_admin, 'event_pk': event.pk})
-
-
+    data = {'form': form, 'editing_as_admin': editing_as_admin, 'event_pk': event.pk}
+    return render(request, template_name, data)
 
 
 """
@@ -308,6 +332,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
 from calendar import HTMLCalendar
 from datetime import date
 from itertools import groupby
+
 
 class ViewMonth(HTMLCalendar):
 
@@ -407,8 +432,8 @@ class ViewWeek(HTMLCalendar):
                             else:
                                 pass
 
-                            ## set today field if needed
-                            #if date.today() == date(theyear, themonth, day):
+                            # # set today field if needed
+                            # if date.today() == date(theyear, themonth, day):
                             #    tmp_day['today'] = True
                             #    tmp_day['day'] = ' - '.join((str(tmp_day['day']), 'Aujourd\'hui'))
                         # mark this day no in current month
@@ -423,4 +448,3 @@ class ViewWeek(HTMLCalendar):
             current_week += 1
 
         return ret, days_nb
-

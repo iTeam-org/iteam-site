@@ -3,7 +3,24 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:30
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-20 19:33:09
+# @Last Modified time: 2014-08-22 17:07:37
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
+#
+# iTeam.org is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# iTeam.org is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
 
 from django import forms
 
@@ -62,7 +79,7 @@ class RegisterForm(forms.Form):
     )
     email = forms.EmailField(
         label='Email',
-        error_messages={'invalid':('Saisissez une adresse email valable.'),},
+        error_messages={'invalid': 'Saisissez une adresse email valable.'},
         widget=forms.EmailInput(
             attrs={
                 'placeholder': 'Email'
@@ -91,7 +108,7 @@ class RegisterForm(forms.Form):
         # Check that the user doesn't exist yet
         username = cleaned_data.get('username')
 
-        if username is not None :
+        if username is not None:
             if username.strip() == '':
                 msg = u'Le nom d\'utilisateur ne peut-être vide'
                 self._errors['username'] = self.error_class([msg])
@@ -118,7 +135,7 @@ class RegisterForm(forms.Form):
         # Check that the email is unique
         email = cleaned_data.get('email')
         if User.objects.filter(email=email).count() > 0:
-            msg = u'Votre adresse courriel est déjà utilisée.'
+            msg = u'Votre adresse email est déjà utilisée.'
             self._errors['email'] = self.error_class([msg])
 
         return cleaned_data

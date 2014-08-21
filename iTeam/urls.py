@@ -7,7 +7,8 @@ admin.autodiscover()
 
 from iTeam.pages import views
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Examples:
     # url(r'^$', 'iTeam.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
@@ -22,4 +23,3 @@ urlpatterns = patterns('',
 
     url(r'^$', views.home),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
