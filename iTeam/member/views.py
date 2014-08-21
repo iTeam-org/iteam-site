@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:08:00
+# @Last Modified time: 2014-08-22 17:11:48
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -52,7 +52,6 @@ def index(request):
 
     try:
         shown_members = paginator.page(page)
-        page = int(page)
     except PageNotAnInteger:
         shown_members = paginator.page(1)
         page = 1
@@ -69,6 +68,7 @@ def index(request):
 def detail(request, user_name):
     user = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user)
+    profileRequest = None
 
     # admin actions
     if request.user.is_authenticated():
@@ -91,7 +91,8 @@ def detail(request, user_name):
     show_draft = (request.user == user)
 
     c = {
-        'profile': profile,
+        'profile_detail': profile,
+        'profile_request': profileRequest,
         'publications_list': publications_list,
         'publications_draft_list': publications_drafts,
         'show_draft': show_draft,
@@ -133,13 +134,13 @@ def login_view(request):
                 else:
                     error = (u'Le compte a été désactivé. Pour toute '
                              u'réclamation, merci de contacter '
-                             u'l\'administrateur')
+                             u'l\'administrateur.')
             else:
                 # auth failed
-                error = u'Les identifiants fournis ne sont pas valides'
+                error = u'Les identifiants fournis ne sont pas valides.'
         else:
             error = (u'Veuillez spécifier votre identifiant '
-                     u'et votre mot de passe')
+                     u'et votre mot de passe.')
     else:
         form = LoginForm()
 

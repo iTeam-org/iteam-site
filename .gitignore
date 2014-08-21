@@ -5,6 +5,9 @@ static/.sass-cache
 static/stylesheets/
 img_ignore
 
+htmlcov
+.coverage
+
 #media/
 #static/
 

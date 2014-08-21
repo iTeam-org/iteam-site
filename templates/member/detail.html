@@ -3,7 +3,7 @@
 {% load email_obfuscator %}
 
 {% block title_page %}
-    {% if user.is_authenticated and profile.user == user %}
+    {% if user.is_authenticated and profile_detail.user == user %}
         Mon profil &#183;
     {% else %}
         Détail d'un membre &#183;
@@ -11,13 +11,13 @@
 {% endblock %}
 
 {% block menu_member_profil %}
-    {% if user.is_authenticated and profile.user == user %}
+    {% if user.is_authenticated and profile_detail.user == user %}
         active
     {% endif %}
 {% endblock %}
 
 {% block breadcrumb_page %}
-    <li class="current"><a href="#">{{ profile.user.get_username}}</a></li>
+    <li class="current"><a href="#">{{ profile_detail.user.get_username }}</a></li>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="large-6 columns">
                     <h1>
-                        {% if user.is_authenticated and profile.user == user %}
+                        {% if user.is_authenticated and profile_detail.user == user %}
                             Mon profil
                         {% else %}
                             Détail d'un membre
@@ -39,7 +39,7 @@
 
                 <div class="large-6 columns">
                     {% if user.is_authenticated %}
-                        {% if profile.user == user %}
+                        {% if profile_detail.user == user %}
                             <div class="row">
                                 <div class="large-12 columns">
                                     <a href="{% url 'member:settings_view' %}" class="button radius right">
@@ -47,7 +47,7 @@
                                     </a>
                                 </div>
                             </div>
-                            {% if profile.is_publisher %}
+                            {% if profile_detail.is_publisher %}
                                 <div class="row">
                                     <div class="large-12 columns">
                                         <ul class="button-group right">
@@ -66,13 +66,13 @@
                                 </div>
                             {% endif %}
                         {% else %}
-                            {% if user.is_superuser %}
+                            {% if profile_request.is_admin %}
                                 <div class="row">
                                     <div class="large-12 columns">
-                                        <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
+                                        <form action="{% url 'member:detail' user_name=profile_detail.user.username %}" method="post">
                                             {% csrf_token %}
                                             <button name="toggle_is_publisher" class="button-admin right">
-                                                {% if not profile.is_publisher %}
+                                                {% if not profile_detail.is_publisher %}
                                                     Nommer publisher
                                                 {% else %}
                                                     Supprimer la fonction publisher
@@ -83,10 +83,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="large-12 columns">
-                                        <form action="{% url 'member:detail' user_name=profile.user.username %}" method="post">
+                                        <form action="{% url 'member:detail' user_name=profile_detail.user.username %}" method="post">
                                             {% csrf_token %}
                                             <button name="toggle_is_admin" class="button-admin right">
-                                                {% if not profile.is_admin %}
+                                                {% if not profile_detail.is_admin %}
                                                     Nommer admin
                                                 {% else %}
                                                     Supprimer la fonction admin
@@ -105,28 +105,28 @@
         <div class="row">
             <div class="large-12 columns">
                 <h3>
-                    {{ profile.user.get_username }}
-                    <small>{{ profile.user.get_full_name }}</small>
+                    {{ profile_detail.user.get_username }}
+                    <small>{{ profile_detail.user.get_full_name }}</small>
                 </h3>
             </div>
             <div class="large-2 columns">
                 <h2>
                     <span>
-                        <img src="{{ profile.get_avatar_url }}" class="hide-for-small right" alt="avatar" />
+                        <img src="{{ profile_detail.get_avatar_url }}" class="hide-for-small right" alt="avatar" />
                     </span>
                 </h2>
             </div>
             <div class="large-10 columns">
                 <ul>
-                    {% if profile.user.email %}<li>Email : {{ profile.user.email|obfuscate }}</li>{% endif %}
-                    {% if profile.promo %}<li>Promotion : {{ profile.promo }}</li>{% endif %}
-                    <li>Date d'inscription : {{ profile.user.date_joined|date:'d-m-Y' }}</li>
-                    <li>Dernière connexion : {{ profile.user.last_login|date:'d-m-Y' }}</li>
+                    {% if profile_detail.user.email %}<li>Email : {{ profile_detail.user.email|obfuscate }}</li>{% endif %}
+                    {% if profile_detail.promo %}<li>Promotion : {{ profile_detail.promo }}</li>{% endif %}
+                    <li>Date d'inscription : {{ profile_detail.user.date_joined|date:'d-m-Y' }}</li>
+                    <li>Dernière connexion : {{ profile_detail.user.last_login|date:'d-m-Y' }}</li>
                 </ul>
             </div>
         </div>
 
-        {% if profile.is_publisher %}
+        {% if profile_detail.is_publisher %}
             <div class="row">
                 <div class="large-12 columns">
                     <h3>Écrits publiés :</h3>

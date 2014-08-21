@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:30
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:07:37
+# @Last Modified time: 2014-08-22 17:11:05
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -95,7 +95,7 @@ class RegisterForm(forms.Form):
         password_confirm = cleaned_data.get('password_confirm')
 
         if not password_confirm == password:
-            msg = u'Les mots de passe sont différents'
+            msg = u'Les mots de passe sont différents.'
             self._errors['password'] = self.error_class([msg])
             self._errors['password_confirm'] = self.error_class([msg])
 

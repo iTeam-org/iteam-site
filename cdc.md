@@ -12,6 +12,7 @@ todo long run
 
 to do now
 - iTeam.event : add file upload
+- test : view ok, now actions
 
 to do later
 - calendar : weekly view : week_of_month

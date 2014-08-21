@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:20:08
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:07:52
+# @Last Modified time: 2014-08-22 17:11:41
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,7 +32,7 @@ from iTeam.member.models import Profile
 
 
 def MemberSetUp():
-    user = G(User, username='member')
+    user = G(User, username='member', email='member@gmail.com')
     user.set_password('password')
     user.save()
     profile = G(Profile, user=user)
@@ -58,6 +58,7 @@ def MemberSetUp():
     profile = G(Profile, user=user)
     profile.is_publisher = True
     profile.is_admin = True
+    profile.avatar_url = 'http://progdupeu.pl/media/tutorials/335/thumb.png'
     profile.save()
 
 
@@ -70,8 +71,20 @@ class MemberIntegrationTests(TestCase):
         resp = self.client.get(reverse('member:index'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_detail_view(self):
+    def test_index_view_page_two(self):
+        resp = self.client.get(reverse('member:index')+'?page=2')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_nonexistant(self):
+        resp = self.client.get(reverse('member:index')+'?page=999999')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_member(self):
         resp = self.client.get(reverse('member:detail', args=['member']))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_detail_view_admin(self):
+        resp = self.client.get(reverse('member:detail', args=['admin']))
         self.assertEqual(resp.status_code, 200)
 
     def test_settings_view(self):
@@ -95,17 +108,132 @@ class MemberIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_login_action(self):
-        user = User.objects.get(username='member')
         data = {
             'username': 'member',
             'password': 'password'
         }
-        self.client.post(reverse('member:login_view'), data)
-        self.assertEqual(self.client.session['_auth_user_id'], user.pk)
+        resp = self.client.post(reverse('member:login_view'), data, follow=True)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('iTeam.pages.views.home'))
+
+    def test_login_action_next(self):
+        data = {
+            'username': 'member',
+            'password': 'password'
+        }
+        url = reverse('member:login_view') + '?next=' + reverse('member:detail', args=['member'])
+
+        resp = self.client.post(url, data, follow=True)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:detail', args=['member']))
+
+    def test_login_action_autologin(self):
+        data = {
+            'username': 'member',
+            'password': 'password',
+            'auto_login': True
+        }
+
+        resp = self.client.post(reverse('member:login_view'), data, follow=True)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('iTeam.pages.views.home'))
+
+    def test_login_action_empty(self):
+        data = {
+            'username': '',
+            'password': ''
+        }
+        resp = self.client.post(reverse('member:login_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:login_view'))
+
+    def test_login_action_fail(self):
+        data = {
+            'username': 'nonexistant',
+            'password': 'nonexistant'
+        }
+        resp = self.client.post(reverse('member:login_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:login_view'))
 
     def test_logout_view(self):
         resp = self.client.get(reverse('member:logout_view'))
         self.assertEqual(resp.status_code, 302)
+
+    def test_register_action_error_pseudo_void(self):
+        data = {
+            'username': '',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_error_pseudo_used(self):
+        data = {
+            'username': 'member',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_error_pseudo_coma(self):
+        data = {
+            'username': 'super,Hacker',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_error_pseudo_space(self):
+        data = {
+            'username': ' superHacker ',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_error_password_diff(self):
+        data = {
+            'username': 'superHacker',
+            'password': 'password_different',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_error_same_username_password(self):
+        data = {
+            'username': 'same',
+            'password': 'same',
+            'password_confirm': 'same',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action_mail_used(self):
+        data = {
+            'username': 'superHacker',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'member@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:register_view'))
+
+    def test_register_action(self):
+        data = {
+            'username': 'superHacker',
+            'password': 'password',
+            'password_confirm': 'password',
+            'email': 'user@gmail.com'
+        }
+        resp = self.client.post(reverse('member:register_view'), data)
+        self.assertEqual(resp.status_code, 200)
 
 
 class AuthenticatedMemberIntegrationTests(TestCase):
@@ -145,6 +273,32 @@ class AuthenticatedMemberIntegrationTests(TestCase):
     def test_logout_view(self):
         resp = self.client.get(reverse('member:logout_view'))
         self.assertEquals(resp.status_code, 200)
+
+    def test_settings_action(self):
+        user = User.objects.get(username='member')
+
+        # change password via form
+        data = {
+            'password_old': 'password',
+            'password_new': 'pass',
+            'password_confirm': 'pass',
+        }
+        resp = self.client.post(reverse('member:settings_view'), data, follow=True)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:settings_view'))
+
+        # logout
+        # (assert : status_code = 200 found + user_id no more in session data + url equals home)
+        self.client.post(reverse('member:logout_view'), {}, follow=True)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue('_auth_user_id' not in self.client.session)
+
+        # login with the new password
+        self.client.login(username='member', password='pass')
+        self.assertEqual(self.client.session['_auth_user_id'], user.pk)
+
+        # set old password back
+        user.set_password('password')
+        user.save()
 
 
 class PublisherMemberIntegrationTests(TestCase):
@@ -223,3 +377,31 @@ class AdminMemberIntegrationTests(TestCase):
     def test_logout_view(self):
         resp = self.client.get(reverse('member:logout_view'))
         self.assertEquals(resp.status_code, 200)
+
+    """
+    def test_member_name_publisher_and_admin(self):
+        user = User.objects.get(username='member')
+        member = Profile.objects.get(user=user)
+        toggle_is_publisher = {'toggle_is_publisher': ''}
+        toggle_is_admin = {'toggle_is_admin': ''}
+
+        # default
+        self.assertEquals(member.is_publisher, False)
+        self.assertEquals(member.is_admin, False)
+
+        # publisher
+        resp = self.client.post(reverse('member:detail', args=['member']), toggle_is_publisher, follow=True)
+        self.assertEquals(member.is_publisher, True)
+
+        resp = self.client.post(reverse('member:detail', args=['member']), toggle_is_publisher, follow=True)
+        self.assertEquals(member.is_publisher, False)
+
+        # admin
+        resp = self.client.post(reverse('member:detail', args=['member']), toggle_is_admin, follow=True)
+        self.assertEquals(member.is_admin, True)
+        self.assertEquals(member.is_publisher, True)
+
+        resp = self.client.post(reverse('member:detail', args=['member']), toggle_is_admin, follow=True)
+        self.assertEquals(member.is_admin, False)
+        self.assertEquals(member.is_publisher, False)
+    """

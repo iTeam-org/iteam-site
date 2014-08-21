@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:35:58
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:07:44
+# @Last Modified time: 2014-08-22 17:11:33
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -35,9 +35,6 @@ class Profile(models.Model):
 
     is_publisher = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        return self.user.username
 
     def get_avatar_url(self):
         if self.avatar_url:
