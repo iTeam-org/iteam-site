@@ -25,9 +25,6 @@
                 <form action="{% url 'member:settings_view' %}" method="post">
                     {% csrf_token %}
 
-                    {% for error in errors %}
-                        <small class="error">{{ error }}</small>
-                    {% endfor %}
                     {% if msg %}
                         <div data-alert class="alert-box success round">
                             {{ msg }}
@@ -38,14 +35,13 @@
                     <fieldset>
                         <legend>Modification du mot de passe</legend>
 
-                        <label for="password_old">Ancien mot de passe :</label>
-                        <input type="password" placeholder="Ancien mot de passe" name="password_old" maxlength="76" id="password_old" />
-
-                        <label for="password_new">Nouveau mot de passe :</label>
-                        <input type="password" placeholder="Nouveau mot de passe" name="password_new" maxlength="76" id="password_new" />
-
-                        <label for="password_confirm">Confirmation :</label>
-                        <input type="password" placeholder="Confirmation" name="password_confirm" maxlength="76" id="password_confirm" />
+                        {% for field in form %}
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <small class="error">{{ error }}</small>
+                            {% endfor %}
+                        {% endfor %}
 
                     </fieldset>
 

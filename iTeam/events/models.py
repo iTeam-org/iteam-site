@@ -1,3 +1,6 @@
+import string
+import os
+
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -5,7 +8,13 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
 
-# Create your models here.
+
+def image_path(instance, filename):
+    ext = string.lower(filename.split('.')[-1])
+    filename = u'{}_original.{}'.format(str(instance.pk), ext)
+
+    return os.path.join('evenements', filename)
+
 
 class Event(models.Model):
     TYPES = (

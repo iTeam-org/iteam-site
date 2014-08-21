@@ -1,10 +1,17 @@
-from django.db import models
 
-from django.contrib.auth.models import User
+import string
+import os
 
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.db import models
 
-# Create your models here.
+
+def image_path(instance, filename):
+    ext = string.lower(filename.split('.')[-1])
+    filename = u'{}_original.{}'.format(str(instance.pk), ext)
+
+    return os.path.join('publications', filename)
 
 
 class Publication(models.Model):
@@ -21,7 +28,7 @@ class Publication(models.Model):
     pub_date = models.DateTimeField('Date de publication')
 
     image = models.ImageField(
-        upload_to='publications',
+        upload_to=image_path,
         blank=True,
         null=True,
         default=None

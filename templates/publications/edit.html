@@ -37,15 +37,12 @@
                         <a href="#" class="close">&times;</a>
                     </div>
                 {% endif %}
-                {% if msg %}
-                    <small class="error">{{ msg }}</small>
-                {% endif %}
             </div>
         </div>
         {# content #}
         <div class="row">
             <div class="large-12 columns">
-                <form action="{% url 'publications:edit' publication_id=publication.pk %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'publications:edit' publication_pk %}" method="post" enctype="multipart/form-data">
                     {% include "publications/form.part.html" %}
                 </form>
             </div>

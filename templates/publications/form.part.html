@@ -3,33 +3,47 @@
     <fieldset>
         <legend>Titre et sous-titre</legend>
 
-        <input type="text" placeholder="Titre" name="title" id="title" value="{{ publication.title }}" />
-        <input type="text" placeholder="Sous-titre (optionnel)" name="subtitle" id="subtitle" value="{{ publication.subtitle }}" />
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
+
+        {{ form.subtitle.label_tag }}
+        {{ form.subtitle }}
+        {% for error in form.subtitle.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
     </fieldset>
 
     <fieldset>
         <legend>Options</legend>
-        <p>
-            <label for="image">Image (optionnelle) :</label>
-            <input type="file" name="image" id="image">
 
-            <label>Type de la publication :</label>
-            <select name="type">
-                <option value="P" {% if publication.type == "P" %}selected{% endif %}>Autre</option>
-                <option value="N" {% if publication.type == "N" %}selected{% endif %}>News</option>
-                <option value="T" {% if publication.type == "T" %}selected{% endif %}>Tutoriel</option>
-            </select>
+            {{ form.image.label_tag }}
+            {{ form.image }}
+            {% for error in form.image.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
 
-            <label>Status de la publication :</label>
-            <input type="radio" name="is_draft" value="1" {% if publication.is_draft %}checked{% endif %} /> Brouillon<br />
-            <input type="radio" name="is_draft" value="0" {% if not publication.is_draft %}checked{% endif %} /> Publier immédiatement
-        </p>
+            {{ form.type.label_tag }}
+            {{ form.type }}
+            {% for error in form.type.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
+
+            {{ form.is_draft.label_tag }}
+            {{ form.is_draft }}
+            {% for error in form.is_draft.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
     </fieldset>
 
     <fieldset>
         <legend>Texte :</legend>
-
-        <textarea placeholder="Texte" name="text" rows="30" >{{ publication.text|safe }}</textarea>
+            {{ form.text }}
+            {% for error in form.text.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
     </fieldset>
 
     <div class="small-4 small-offset-4" >

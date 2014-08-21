@@ -12,6 +12,7 @@ from django.utils import timezone
 from datetime import datetime
 
 from iTeam.events.models import Event
+from iTeam.events.forms import EventForm
 from iTeam.member.models import Profile
 
 
@@ -240,35 +241,25 @@ def edit(request, event_id):
 def save_event(request, template_name, event, editing_as_admin=False):
     # If the form has been submitted ...
     if request.method == 'POST':
-        if request.POST['title'] and request.POST['text'] and request.POST['type'] and request.POST['is_draft']:
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
             # required and auto fields
             if (not editing_as_admin):
                 event.author = request.user
 
-            event.title = request.POST['title'][:settings.SIZE_MAX_TITLE]
-            event.place = request.POST['place']
-            event.type = request.POST['type']
-            event.is_draft = int(request.POST['is_draft']);
-            event.text = request.POST['text']
+            event.title = form.cleaned_data['title'][:settings.SIZE_MAX_TITLE]
+            event.place = form.cleaned_data['place']
+            event.type = form.cleaned_data['type']
+            event.is_draft = int(form.cleaned_data['is_draft']);
+            event.text = form.cleaned_data['text']
 
-            format = '%d/%m/%Y %H:%M'
-            time = request.POST['date_start']
-            try:
-                event.date_start = datetime.strptime(time, format)
-            except ValueError:
-                return render(request, template_name, {'msg' : 'Erreur : Date mal formatee', 'event': event})
+            event.date_start = form.cleaned_data['date_start']
 
             # save here to get the pk and name the (optional) img with it
             event.save()
 
             if 'image' in request.FILES:
                 img = request.FILES['image']
-                ext = string.lower(img.name.split('.')[-1])
-
-                if img.size > settings.SIZE_MAX_IMG:
-                    return render(request, template_name, {'msg' : 'Erreur : Fichier trop lourd', 'event': event})
-                if ext not in ('png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp'):
-                    return render(request, template_name, {'msg' : 'Erreur : Extension non reconnue, le fichier n\'est pas une image', 'event': event})
 
                 # remove old img (if one)
                 if event.image.name:
@@ -276,19 +267,30 @@ def save_event(request, template_name, event, editing_as_admin=False):
                     if os.path.exists(img_path):
                         os.remove(img_path)
 
-                # add publication img
-                event.image = img
-                event.image.name = '.'.join((str(event.pk), ext))
+                # add event img
                 event.save()
+                event.image = img
 
-            # Redirect after successfull POST
+            # save event + Redirect after successfull POST
+            event.save()
             return HttpResponseRedirect(reverse('events:detail', args=(event.id,)))
-        # missing data
-        else:
-            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas ete rempli', 'event': event})
+
+    else: # method == GET
+        form = EventForm()
+
+        if event is not None:
+            form.fields['title'].initial = event.title
+            form.fields['place'].initial = event.place
+            form.fields['date_start'].initial = event.date_start
+            form.fields['type'].initial = event.type
+            form.fields['text'].initial = event.text
+            if event.is_draft:
+                form.fields['is_draft'].initial = '1'
+            else:
+                form.fields['is_draft'].initial = '0'
+
     # if no post data sent ...
-    else:
-        return render(request, template_name, {'event': event, 'editing_as_admin': editing_as_admin,})
+    return render(request, template_name, {'form': form, 'editing_as_admin': editing_as_admin, 'event_pk': event.pk})
 
 
 

@@ -9,10 +9,10 @@ from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
-import string
 import os
 
 from iTeam.publications.models import Publication
+from iTeam.publications.forms import PublicationForm
 from iTeam.member.models import Profile
 
 # Create your views here.
@@ -113,32 +113,24 @@ def edit(request, publication_id):
 def save_publication(request, template_name, publication, editing_as_admin=False):
     # If the form has been submitted ...
     if request.method == 'POST':
-        if request.POST['title'] and request.POST['text'] and request.POST['type'] and request.POST['is_draft']:
+        form = PublicationForm(request.POST, request.FILES)
+        if form.is_valid():
             # required and auto fields
             if (not editing_as_admin):
                 publication.author = request.user
                 publication.pub_date = timezone.now()
 
-            publication.title = request.POST['title'][:settings.SIZE_MAX_TITLE]
-            publication.text = request.POST['text']
-            publication.type = request.POST['type']
-            publication.is_draft = int(request.POST['is_draft']);
+            publication.title = form.cleaned_data['title'][:settings.SIZE_MAX_TITLE]
+            publication.text = form.cleaned_data['text']
+            publication.type = form.cleaned_data['type']
+            publication.is_draft = int(form.cleaned_data['is_draft']);
 
             # optional fields
             if 'subtitle' in request.POST:
-                publication.subtitle = request.POST['subtitle'][:settings.SIZE_MAX_TITLE]
-
-            # save here to get the pk and name the (optional) img with it
-            publication.save()
+                publication.subtitle = form.cleaned_data['subtitle'][:settings.SIZE_MAX_TITLE]
 
             if 'image' in request.FILES:
                 img = request.FILES['image']
-                ext = string.lower(img.name.split('.')[-1])
-
-                if img.size > settings.SIZE_MAX_IMG:
-                    return render(request, template_name, {'msg' : 'Erreur : Fichier trop lourd', 'publication': publication})
-                if ext not in ('png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp'):
-                    return render(request, template_name, {'msg' : 'Erreur : Extension non reconnue, le fichier n\'est pas une image', 'publication': publication})
 
                 # remove old img (if one)
                 if publication.image.name:
@@ -146,18 +138,27 @@ def save_publication(request, template_name, publication, editing_as_admin=False
                     if os.path.exists(img_path):
                         os.remove(img_path)
 
-                # add publication img
-                publication.image = img
-                publication.image.name = '.'.join((str(publication.pk), ext))
+                # save here to get the pk of the publication and name the img with it
                 publication.save()
+                publication.image = img
 
-            # Redirect after successfull POST
+            # save publication + Redirect after successfull POST
+            publication.save()
             return HttpResponseRedirect(reverse('publications:detail', args=(publication.id,)))
-        # missing data
-        else:
-            return render(request, template_name, {'msg': 'Erreur : un champ obligatoire n\'a pas ete rempli', 'publication': publication})
-    # if no post data sent ...
-    else:
-        return render(request, template_name, {'publication': publication, 'editing_as_admin': editing_as_admin,})
 
+    else: # method == GET
+        form = PublicationForm()
+
+        if publication is not None:
+            form.fields['title'].initial = publication.title
+            form.fields['subtitle'].initial = publication.subtitle
+            form.fields['type'].initial = publication.type
+            form.fields['text'].initial = publication.text
+            if publication.is_draft:
+                form.fields['is_draft'].initial = '1'
+            else:
+                form.fields['is_draft'].initial = '0'
+
+    # if no post data sent ...
+    return render(request, template_name, {'form': form, 'editing_as_admin': editing_as_admin, 'publication_pk': publication.pk})
 

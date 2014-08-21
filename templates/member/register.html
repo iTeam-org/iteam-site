@@ -27,10 +27,9 @@
         </div>
         <div class="row">
             <div class="large-12 columns">
-                {% if not user.is_authenticated %}
-                    {% if error %}
-                        {{ error }}
-                    {% endif %}
+                {% if user.is_authenticated %}
+                    <p>Vous êtes déjà connecté.</p>
+                {% else %}
                     <p>
                         <strong>Vous êtes sur le point de vous inscrire sur iTeam.org</strong> ; Si vous
                         possédez déjà un compte, merci de <a href="{% url 'member:login_view' %}">vous connecter</a>
@@ -44,33 +43,23 @@
                     <form action="{% url 'member:register_view' %}" method="post">
                         {% csrf_token %}
 
-                        {% for error in errors %}
-                            <small class="error">{{ error }}</small>
-                        {% endfor %}
-
                         <fieldset>
                             <legend>Identifiants</legend>
 
-                            <label for="username">Nom d'utilisateur :</label>
-                            <input type="text" placeholder="Tux" name="username" id="username" maxlength="30" value="{{ username }}" />
+                            {% for field in form %}
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% for error in field.errors %}
+                                    <small class="error">{{ error }}</small>
+                                {% endfor %}
+                            {% endfor %}
 
-                            <label for="password">Mot de passe :</label>
-                            <input type="password" placeholder="Mot de passe" name="password" maxlength="76" id="password" />
-
-                            <label for="password_confirm">Confirmation :</label>
-                            <input type="password" placeholder="Confirmation" name="password_confirm" maxlength="76" id="password_confirm" />
-
-                            <label for="email">Email :</label>
-                            <input type="email" placeholder="tux@linux.org" name="email" id="email" value="{{ email }}" />
                         </fieldset>
 
                         <div class="small-8 small-offset-2 large-4 large-offset-4" >
                             <input type="submit" value="Valider mon inscription" class="button radius expand" />
                         </div>
-
                     </form>
-                {% else %}
-                    <p>Vous êtes déjà connecté.</p>
                 {% endif %}
             </div>
         </div>

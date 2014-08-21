@@ -45,7 +45,7 @@
         {# content #}
         <div class="row">
             <div class="large-12 columns">
-                <form action="{% url 'events:edit' event_id=event.pk %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'events:edit' event_pk %}" method="post" enctype="multipart/form-data">
                     {% include "events/form.part.html" %}
                 </form>
             </div>

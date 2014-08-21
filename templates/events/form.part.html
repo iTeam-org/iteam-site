@@ -3,37 +3,55 @@
     <fieldset>
         <legend>Titre, lieu et date</legend>
 
-        <input type="text" placeholder="Titre" name="title" id="title" value="{{ event.title }}" />
-        <input type="text" placeholder="Lieu" name="place" id="place" value="{{ event.place }}" />
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
 
-        <input type="text" placeholder="Date de début jj/mm/aaaa hh:mm " name="date_start" id="date_start" value="{{ event.date_start|date:'d/m/Y H:i' }}" />
+        {{ form.place.label_tag }}
+        {{ form.place }}
+        {% for error in form.place.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
+
+        {{ form.date_start.label_tag }}
+        {{ form.date_start }}
+        {% for error in form.date_start.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
     </fieldset>
 
     <fieldset>
         <legend>Options</legend>
-        <p>
-            <label for="image">Image (optionnelle) :</label>
-            <input type="file" name="image" id="image">
 
-            <label>Type de l'événement :</label>
-            <select name="type">
-                <option value="O" {% if event.type == "O" %}selected{% endif %}>Autre</option>
-                <option value="F" {% if event.type == "F" %}selected{% endif %}>Formation</option>
-                <option value="B" {% if event.type == "B" %}selected{% endif %}>Bar</option>
-                <option value="J" {% if event.type == "J" %}selected{% endif %}>JPO</option>
-                <option value="A" {% if event.type == "A" %}selected{% endif %}>AG</option>
-            </select>
+        {{ form.image.label_tag }}
+        {{ form.image }}
+        {% for error in form.image.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
 
-            <label>Status de l'événement :</label>
-            <input type="radio" name="is_draft" value="1" {% if event.is_draft %}checked{% endif %} /> Brouillon<br />
-            <input type="radio" name="is_draft" value="0" {% if not event.is_draft %}checked{% endif %} /> Publier immédiatement
-        </p>
+        {{ form.type.label_tag }}
+        {{ form.type }}
+        {% for error in form.type.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
+
+        {{ form.is_draft.label_tag }}
+        {{ form.is_draft }}
+        {% for error in form.is_draft.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
     </fieldset>
 
     <fieldset>
         <legend>Texte :</legend>
 
-        <textarea placeholder="Commentaire" name="text" rows="20" >{{ event.text|safe }}</textarea>
+        {{ form.text.label_tag }}
+        {{ form.text }}
+        {% for error in form.text.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
     </fieldset>
 
     <div class="small-4 small-offset-4" >

@@ -100,12 +100,6 @@ def detail(request, user_name):
 
 @sensitive_post_parameters('password')
 def login_view(request):
-    """
-        Allow users to log into their accounts.
-
-        If the 'next' HTTP GET field is given, then this view will redirect the
-        user to the given URL after successful auth.
-    """
     csrf_tk = {}
     csrf_tk.update(csrf(request))
 
@@ -113,12 +107,13 @@ def login_view(request):
         csrf_tk['next'] = request.GET['next']
 
     error = False
-    if request.method == 'POST':
+
+    if request.method == "POST":
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
             user = authenticate(username=username, password=password)
 
@@ -126,8 +121,7 @@ def login_view(request):
                 # Yeah auth successful
                 if user.is_active:
                     login(request, user)
-
-                    if 'remember' not in request.POST:
+                    if not 'auto_login' in request.POST:
                         request.session.set_expiry(0)
 
                     if 'next' in request.GET:
@@ -176,11 +170,11 @@ def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            data = form.data
             user = User.objects.create_user(
-                data['username'],
-                data['email'],
-                data['password'])
+                form.cleaned_data['username'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password']
+            )
 
             profile = Profile(user=user)
             profile.save()
@@ -190,16 +184,9 @@ def register_view(request):
             login(request, user)
 
             return render(request, 'member/register_success.html')
-        else:
-            c = {
-                'errors': form._errors,
-                'username': form.data['username'],
-                'email': form.data['email']
-            }
-            return render(request, 'member/register.html', c)
     else: # method == GET
         form = RegisterForm()
-        return render(request, 'member/register.html', {'form': form})
+    return render(request, 'member/register.html', {'form': form})
 
 
 @login_required
@@ -211,16 +198,14 @@ def settings_view(request):
         form = SettingsForm(request.user, request.POST)
 
         if form.is_valid():
-            request.user.set_password(form.data['password_new'])
+            request.user.set_password(form.cleaned_data['password_new'])
             request.user.save()
 
-            return render(request, 'member/settings_account.html', {'msg': u'Le mot de passe a bien été modifié.'})
-
-        else:
-            return render(request, 'member/settings_account.html', {'form': form, 'errors': form._errors,})
+            return render(request, 'member/settings_account.html', {'form': form, 'msg': u'Le mot de passe a bien été modifié.'})
     else:
         form = SettingsForm(request.user)
-        return render(request, 'member/settings_account.html', {'form': form,})
+
+    return render(request, 'member/settings_account.html', {'form': form,})
 
 
 @login_required

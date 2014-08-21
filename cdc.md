@@ -4,14 +4,6 @@
 todo long run
 -> dump iteam.org
 -> tests
-
-Fomulaires :
-```
-    form = ContactForm(request.POST)
-    if form.is_valid():
-        title = form.cleaned_data['title']
-```
-
 -> use pk not id
 -> no style in html template -> css
 -> <img> : alt
@@ -19,7 +11,6 @@ Fomulaires :
 
 to do now
 - iTeam.event : add file upload
-- form
 
 to do later
 - calendar : weekly view : week_of_month
