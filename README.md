@@ -56,19 +56,25 @@ python loadFixtures.py
 
 ITeam.org is brought to you under GNU Affero General Public Licence version 3+. For further informations please read the LICENSE file.
 
-Special thanks to the open source projects [Progdupeu.pl](http://progdupeu.pl) (<http://bitbucket.org/MicroJoe/progdupeupl/>) and [zestedesavoir.com](http://zestedesavoir.com) (<https://github.com/zestedesavoir/zds-site>). Some code may come from them.
+Special thanks to the open source projects [Progdupeu.pl](http://progdupeu.pl) ([source code](http://bitbucket.org/MicroJoe/progdupeupl/)) and [zestedesavoir.com](http://zestedesavoir.com) ([source code](https://github.com/zestedesavoir/zds-site)). Some code may come from them.
 
 
 ## Dev
 ### test coverage
-coverage erase && coverage run --omit="/Library/*","manage","medias" --branch --timid ./manage.py test
+```shell
+coverage erase && coverage run --omit="/Library/*" --branch --timid ./manage.py test
 coverage html && open htmlcov/index.html
+```
 
 ### code checking (pep8)
+```shell
 flake8 . --max-line-length=120 --exclude=medias
+```
 
 ### db dump
+```shell
 python manage.py dumpdata --format=yaml --natural member > data.yaml
+```
 
 ## prod
 

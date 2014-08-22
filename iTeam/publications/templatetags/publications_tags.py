@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 17:04:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:08:16
+# @Last Modified time: 2014-08-22 17:14:48
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -36,12 +36,3 @@ register = template.Library()
 def iteam_markdown(value):
     html = markdown.markdown(value, safe_mode='escape', extensions=['codehilite(linenums=True)', 'extra'])
     return mark_safe(html)
-
-
-@register.filter
-def profile(user):
-    try:
-        profile = Profile.objects.get(user=user)
-    except Profile.DoesNotExist:
-        profile = None
-    return profile

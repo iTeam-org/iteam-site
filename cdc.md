@@ -18,6 +18,7 @@ to do later
 - calendar : weekly view : week_of_month
 - media sociaux (syncro fb, twitter, google)
 - noscript : menu, (logout ok)
+- syndication (rss + atom)
 
 - a propos / l'iteam
 - bitbucket / github

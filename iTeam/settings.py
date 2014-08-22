@@ -143,7 +143,7 @@ ROOT_URLCONF = 'iTeam.urls'
 WSGI_APPLICATION = 'iTeam.wsgi.application'
 
 ############################################
-# Database
+# Database + Cache
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 ############################################
 
@@ -154,6 +154,20 @@ DATABASES = {
     }
 }
 
+"""
+CACHES = {
+    'hd': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'tmp/cache',
+        #'LOCATION': '/var/tmp/django_cache',
+    },
+    'ram': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'cache_django_iTeam'
+    }
+    # sql, memcached (cf tuto zds)
+}
+"""
 
 ##########################################
 # iTeam settings
@@ -203,7 +217,7 @@ LOGGING = {
             'format': '\tBackends : %(levelname)s %(asctime)s %(duration)f'
         },
         'backends_verbose': {
-            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)s %(sql)s %(params)s'
+            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)f %(sql)s'
         },
     },
 
@@ -221,7 +235,7 @@ LOGGING = {
         'backends':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'backends_simple'
+            'formatter': 'backends_verbose'
         },
         #'db':{
         #    'level': 'INFO',

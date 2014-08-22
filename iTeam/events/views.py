@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:07:22
+# @Last Modified time: 2014-08-22 17:13:23
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -56,17 +56,10 @@ def index_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         events_list = paginator.page(paginator.num_pages)
 
-    # profile for groups (can create event ?)
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
     # data for template
     data = {
         'view': 'list',
         'events_list': events_list,
-        'profile': profile,
     }
 
     return render(request, 'events/index.html', data)
@@ -96,12 +89,6 @@ def index_week(request, year, month, week_of_month):
     for i in range(0, 7):
         days_str[i] = '%s %s' % (days_str[i], days_nb[i])
 
-    # profile for groups (can create event ?)
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
     # links : prev and next
     week_prev = week_of_month-1
     week_next = week_of_month+1
@@ -130,7 +117,6 @@ def index_week(request, year, month, week_of_month):
     data = {
         'view': 'week',
         'cal': cal,
-        'profile': profile,
         'days_str': days_str,
 
         'week_prev': week_prev,
@@ -169,12 +155,6 @@ def index_month(request, year, month):
         order_by('-date_start')
     cal_data = ViewMonth(events_list).formatmonth(year, month)
 
-    # profile for groups (can create event ?)
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
     # links : prev and next
     month_prev = month-1
     month_next = month+1
@@ -193,7 +173,6 @@ def index_month(request, year, month):
     data = {
         'view': 'month',
         'cal': cal_data,
-        'profile': profile,
         'days_str': days_str,
         'month_prev_str': month_str[month_prev],
         'month_cur_str': month_str[month],
@@ -211,33 +190,29 @@ def index_month(request, year, month):
 def detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
 
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
-    # default view, published event
+    # default view, published events
     if not event.is_draft:
-        return render(request, 'events/detail.html', {'event': event, 'profile': profile})
-    elif request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-
-        # if admin or author
-        if (request.user == event.author) or (profile.is_admin):
+        return render(request, 'events/detail.html', {'event': event})
+    # draft
+    else:
+        # not loged -> redirect login
+        if not request.user.is_authenticated():
+            return redirect(reverse('member:login_view'))
+        # if admin or author -> view
+        elif (request.user == event.author) or (request.user.profile.is_admin):
             if (request.method == 'POST') and ('toggle_draft' in request.POST):
                 event.is_draft = not event.is_draft
                 event.save()
-            return render(request, 'events/detail.html', {'event': event, 'profile': profile})
-        # not admin nor author
+
+            return render(request, 'events/detail.html', {'event': event})
+        # logged user -> 403
         else:
             raise PermissionDenied
-    else:  # draft + not logged
-        return redirect(reverse('member:login_view'))
 
 
 @login_required
 def create(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile = request.user.profile  # login_required
 
     if (not profile.is_publisher):
         raise PermissionDenied
@@ -249,7 +224,7 @@ def create(request):
 
 @login_required
 def edit(request, event_id):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile = request.user.profile  # login_required
     event = get_object_or_404(Event, pk=event_id)
 
     if ((not profile.is_publisher) or event.author != request.user) and not profile.is_admin:

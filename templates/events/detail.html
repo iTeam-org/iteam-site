@@ -26,7 +26,7 @@
                     </h1>
                 </div>
                 <div class="large-2 columns">
-                    {% if user == event.author or profile.is_admin %}
+                    {% if user == event.author or user.profile.is_admin %}
                         <div class="row">
                             <div class="large-12 columns">
                                 <a href="{% url 'events:edit' event_id=event.pk %}" class="button-admin right">

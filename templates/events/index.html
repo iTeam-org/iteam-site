@@ -31,7 +31,7 @@
                             </dl>
                         </div>
                     </div>
-                    {% if user.is_authenticated and profile.is_publisher %}
+                    {% if user.is_authenticated and user.profile.is_publisher %}
                         <div class="row">
                             <div class="large-12 columns">
                                 <a href="{% url 'events:create' %}" class="button-admin small right">

@@ -1,7 +1,5 @@
 {% extends "member/base.html" %}
 
-{% load publications_tags %}
-
 {% block title_page %}
     Liste des membres &#183;
 {% endblock %}
@@ -29,16 +27,14 @@
             <div class="large-8 columns large-offset-2">
                 <ul class="left inline-list">
                     {% for member_one in data %}
-                        {% with profile=member_one|profile %}
-                            <li>
-                                <a href="{% url 'member:detail' user_name=member_one.username %}">
-                                    <img src="{{ profile.get_avatar_url }}" alt="avatar" width="75px" />
-                                </a>
-                                <a href="{% url 'member:detail' user_name=member_one.username %}" style="text-align:center;">
-                                    {{ member_one.username }}
-                                </a>
-                            </li>
-                        {% endwith %}
+                        <li>
+                            <a href="{% url 'member:detail' user_name=member_one.username %}">
+                                <img src="{{ user.profile.get_avatar_url }}" alt="avatar" width="75px" />
+                            </a>
+                            <a href="{% url 'member:detail' user_name=member_one.username %}" style="text-align:center;">
+                                {{ member_one.username }}
+                            </a>
+                        </li>
                     {% empty %}
                      <p>
                         Aucun membres trouvés.

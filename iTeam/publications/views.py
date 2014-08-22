@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:08:11
+# @Last Modified time: 2014-08-22 17:14:34
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -41,11 +41,6 @@ from iTeam.member.models import Profile
 def index(request):
     TYPES = ('N', 'T', 'P')
 
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
     # get objects
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False). \
         order_by('-pub_date')
@@ -68,7 +63,7 @@ def index(request):
         publications = paginator.page(paginator.num_pages)
 
     # build data for template
-    data = {"data": publications, "cur_type": type, "profile": profile}
+    data = {"data": publications, "cur_type": type}
 
     # add active field to proper filter
     if type in TYPES:
@@ -82,37 +77,32 @@ def index(request):
 def detail(request, publication_id):
     publication = get_object_or_404(Publication, pk=publication_id)
 
-    if request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-    else:
-        profile = None
-
     # default view, published article
     if not publication.is_draft:
-        data = {'publication': publication, 'profile': profile}
+        data = {'publication': publication}
         return render(request, 'publications/detail.html', data)
-    elif request.user.is_authenticated():
-        profile = get_object_or_404(Profile, user=request.user)
-
-        # if admin or author
-        if (request.user == publication.author) or (profile.is_admin):
+    # draft
+    else:
+        # not loged -> redirect login
+        if not request.user.is_authenticated():
+            return redirect(reverse('member:login_view'))
+        # if admin or author -> view
+        elif (request.user == publication.author) or (request.user.profile.is_admin):
             if (request.method == 'POST') and ('toggle_draft' in request.POST):
                 publication.is_draft = not publication.is_draft
                 publication.pub_date = timezone.now()
                 publication.save()
 
-            data = {'publication': publication, 'profile': profile}
+            data = {'publication': publication}
             return render(request, 'publications/detail.html', data)
-        else:  # not admin nor author
+        # logged user -> 403
+        else:
             raise PermissionDenied
-    else:  # draft + not logged
-        return redirect(reverse('member:login_view'))
 
 
 @login_required
 def create(request):
-    profile = get_object_or_404(Profile, user=request.user)
-
+    profile = request.user.profile  # login_required
     if (not profile.is_publisher) and (not profile.is_admin):
         raise PermissionDenied
 
@@ -122,7 +112,7 @@ def create(request):
 
 @login_required
 def edit(request, publication_id):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile = request.user.profile  # login_required
     publication = get_object_or_404(Publication, pk=publication_id)
 
     if ((not profile.is_publisher) or publication.author != request.user) and not profile.is_admin:

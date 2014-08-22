@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:11:48
+# @Last Modified time: 2014-08-22 17:23:08
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -75,20 +75,28 @@ def detail(request, user_name):
         profileRequest = get_object_or_404(Profile, user=request.user)
 
         if profileRequest.is_admin and request.method == 'POST':
+            need_redirect = False
+
             if 'toggle_is_publisher' in request.POST:
                 profile.is_publisher = not profile.is_publisher
                 profile.save()
+                need_redirect = True
             if 'toggle_is_admin' in request.POST:
                 profile.is_admin = not profile.is_admin
                 profile.is_publisher = not profile.is_publisher
                 profile.save()
+                need_redirect = True
+
+            if need_redirect:
+                redirect(reverse('member:detail', args=[user_name]))
 
     # template var
     publications_all = Publication.objects.all().order_by('-pub_date')
     publications_list = publications_all.filter(author=user, is_draft=False)
     publications_drafts = publications_all.filter(author=user, is_draft=True)
 
-    show_draft = (request.user == user)
+    is_admin = request.user.is_authenticated() and request.user.profile.is_admin
+    show_draft = (request.user == user) or is_admin
 
     c = {
         'profile_detail': profile,
@@ -187,6 +195,7 @@ def register_view(request):
 
 
 @login_required
+@sensitive_post_parameters('password_old', 'password_new', 'password_confirm')
 def settings_view(request):
     if request.method == 'POST':
         form = SettingsForm(request.user, request.POST)
@@ -205,16 +214,14 @@ def settings_view(request):
 
 @login_required
 def publications(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile = request.user.profile  # login_required
 
     if not profile.is_publisher:
         raise PermissionDenied
 
-    user = get_object_or_404(User, username=request.user.username)
-    profile = get_object_or_404(Profile, user=user)
-
-    publications_list = Publication.objects.all().filter(author=user, is_draft=False).order_by('-pub_date')
-    drafts_list = Publication.objects.all().filter(author=user, is_draft=True).order_by('-pub_date')
+    publications_all = Publication.objects.all().filter(author=request.user).order_by('-pub_date')
+    publications_list = publications_all.filter(is_draft=False)
+    drafts_list = publications_all.filter(is_draft=True)
 
     c = {
         'publications_list': publications_list,
@@ -226,16 +233,14 @@ def publications(request):
 
 @login_required
 def events(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    profile = request.user.profile  # login_required
 
     if not profile.is_publisher:
         raise PermissionDenied
 
-    user = get_object_or_404(User, username=request.user.username)
-    profile = get_object_or_404(Profile, user=user)
-
-    events_list = Event.objects.all().filter(author=user, is_draft=False).order_by('-date_start')
-    drafts_list = Event.objects.all().filter(author=user, is_draft=True).order_by('-date_start')
+    events_all = Event.objects.all().filter(author=request.user).order_by('-date_start')
+    events_list = events_all.filter(is_draft=False)
+    drafts_list = events_all.filter(is_draft=True)
 
     c = {
         'events_list': events_list,

@@ -10,10 +10,10 @@ apps = (
 )
 
 fixtures = (
-    'fixtures/auth.yaml',
-    'fixtures/member.yaml',
-    'fixtures/publications.yaml',
-    'fixtures/events.yaml',
+    'auth.yaml',
+    'member.yaml',
+    'publications.yaml',
+    'events.yaml',
 )
 
 ###########
