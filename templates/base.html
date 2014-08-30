@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
     <meta charset="utf-8" />
 
@@ -21,11 +21,12 @@
     {# TODO <meta property="og:site_name" content="Zeste de Savoir"> #}
 
     {# css #}
-    <link href="{% static "stylesheets/normalize.css" %}" media="all" rel="stylesheet" type="text/css" />
     <link href="{% static "stylesheets/app.css" %}" media="all" rel="stylesheet" type="text/css" />
 
+    <script src="{% static "javascripts/vendor/custom.modernizr.js" %}"></script>
+
     {# icon #}
-    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static "images/favicon.ico" %}" />
     {# TODO icon for apple-touch-icon #}
 </head>
 
@@ -49,17 +50,17 @@ Hello petit curieux !
     <div id="h"></div>
 
     <!--[if lt IE 8]>
-        <p class="chromeframe">
-            Vous utilisez un navigateur <strong>dépassé</strong>. Merci de
+        <div class="browsehappy">
+            Vous utilisez un navigateur dépassé. Merci de
             <a href="http://browsehappy.com/">mettre à jour celui-ci</a> pour
             améliorer votre expérience.
-        </p>
+        </div>
     <![endif]-->
 
-    <noscript>
-        Votre javascript semble désactivé. Ce site l'utilise avec parcimonie :
-        la seule fonction en dépendant est le menu sur mobile.
-    </noscript>
+    <div class="warning_js">
+        Votre javascript semble désactivé. Ce site l'utilise avec parcimonie et
+        nous vous conseillons de le réactiver.
+    </div>
 
     {#  Top bar : menu #}
     <nav class="top-bar" data-topbar>
@@ -67,7 +68,7 @@ Hello petit curieux !
             <li class="name">
                 <a href="/">
                     <span>
-                        <img src="{% static "img/logo_light.png" %}" alt="logo_light" />
+                        <img src="{% static "images/logo_light.png" %}" alt="logo_light" />
                     </span>
                 </a>
             </li>
@@ -97,7 +98,7 @@ Hello petit curieux !
                         <a href="{% url 'member:register_view' %}">Inscription</a>
                     </li>
                     <li class="{% block menu_login %}{% endblock %}">
-                        <a href="{% url 'member:login_view' %}">Connexion</a>
+                        <a href="{% url 'member:login_view' %}?next={{ request.path }}">Connexion</a>
                     </li>
                 {% endif %}
             </ul>
@@ -158,10 +159,8 @@ Hello petit curieux !
     {% endif %}
 
     {# js #}
-    <script src="{% static "javascripts/vendor/jquery.js" %}"></script>
+    <script src="{% static "javascripts/vendor/jquery.js" %}"></script> <!-- usefull ? -->
     <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.alerts.js" %}"></script>
 
     <script>
         $(document).foundation();

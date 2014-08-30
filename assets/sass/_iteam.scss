@@ -7,7 +7,7 @@
 /* home page header */
 header
 {
-    background-image: url('../img/header_background.png');
+    background-image: url('../images/header_background.png');
     background-color: darken($topbar-bg-color, 10%);
     color: white;
 
@@ -166,3 +166,39 @@ $custom_table_color: rgb(255, 255, 255);
 {
     margin: auto;
 }
+
+
+
+
+
+.browsehappy
+{
+    padding: 10px;
+    text-align: center;
+    background-color: #FF4136;
+
+    a
+    {
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+
+.warning_js
+{
+    padding: 10px;
+    text-align: center;
+}
+
+.no-js .warning_js
+{
+    background-color: #FF4136;
+}
+
+.js .warning_js
+{
+    display: none;
+}
+
+

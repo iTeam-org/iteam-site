@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:34:56
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-08-27 19:42:52
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -74,8 +74,8 @@ class Publication(models.Model):
         if self.image:
             return self.image.url
         elif self.type == 'T':
-            return '/static/img/tutoriel.png'
+            return '/static/images/tutoriel.png'
         elif self.type == 'N':
-            return '/static/img/news.png'
+            return '/static/images/news.png'
         else:
-            return '/static/img/publication.png'
+            return '/static/images/publication.png'

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:43:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:40
+# @Last Modified time: 2014-08-27 19:43:04
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -82,8 +82,8 @@ class Event(models.Model):
         if self.image:
             return self.image.url
         elif self.type == 'B':
-            return '/static/img/bar.jpeg'
+            return '/static/images/bar.jpeg'
         elif self.type == 'F':
-            return '/static/img/formation.jpg'
+            return '/static/images/formation.jpg'
         else:
-            return '/static/img/event.jpeg'
+            return '/static/images/event.jpeg'

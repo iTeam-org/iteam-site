@@ -69,7 +69,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, 'static'),
+    os.path.join(SITE_ROOT, 'assets'),
 )
 
 # Absolute path to template directory (/Library/Python/2.7/site-packages/django)

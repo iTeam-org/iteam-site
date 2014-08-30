@@ -1,14 +1,13 @@
+*.DS_Store
 *.pyc
 db.sqlite3
 
-static/.sass-cache
-static/stylesheets/
+.sass-cache
+assets/.sass-cache
+assets/stylesheets
+media
+
 img_ignore
 
 htmlcov
 .coverage
-
-#media/
-#static/
-
-#doc/_build
