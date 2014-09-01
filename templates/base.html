@@ -98,7 +98,9 @@ Hello petit curieux !
                         <a href="{% url 'member:register_view' %}">Inscription</a>
                     </li>
                     <li class="{% block menu_login %}{% endblock %}">
-                        <a href="{% url 'member:login_view' %}?next={{ request.path }}">Connexion</a>
+                        <a href="{% url 'member:login_view' %}{% if request.path != '/' %}?next={{ request.path }}{% endif %}">
+                            Connexion
+                        </a>
                     </li>
                 {% endif %}
             </ul>
@@ -126,7 +128,7 @@ Hello petit curieux !
     <footer class="row">
         <div class="large-6 columns">
             <p>
-                iTeam 2014 - <a href="https://bitbucket.org/Nodraak">open source</a>
+                iTeam 2014 - <a href="https://github.com/Nodraak/iTeam.org">open source</a>
             </p>
         </div>
         <div class="large-6 columns hide-for-large hide-for-medium">
@@ -161,6 +163,8 @@ Hello petit curieux !
     {# js #}
     <script src="{% static "javascripts/vendor/jquery.js" %}"></script> <!-- usefull ? -->
     <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
+    <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
+    <script src="{% static "javascripts/foundation/foundation.alerts.js" %}"></script>
 
     <script>
         $(document).foundation();

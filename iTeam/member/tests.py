@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:20:08
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:13:42
+# @Last Modified time: 2014-09-01 16:46:10
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -77,6 +77,10 @@ class MemberIntegrationTests(TestCase):
 
     def test_index_view_page_nonexistant(self):
         resp = self.client.get(reverse('member:index')+'?page=999999')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_none(self):
+        resp = self.client.get(reverse('member:index')+'?page=')
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_member(self):

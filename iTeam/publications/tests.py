@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:09:26
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-09-01 16:50:18
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -86,6 +86,18 @@ class PublicationsIntegrationTests(TestCase):
 
     def test_index_view(self):
         resp = self.client.get(reverse('publications:index'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_two(self):
+        resp = self.client.get(reverse('publications:index')+'?page=2')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_nonexistant(self):
+        resp = self.client.get(reverse('publications:index')+'?page=999999')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_none(self):
+        resp = self.client.get(reverse('publications:index')+'?page=')
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_draft(self):

@@ -28,10 +28,10 @@
                 <ul class="left inline-list">
                     {% for member_one in data %}
                         <li>
-                            <a href="{% url 'member:detail' user_name=member_one.username %}">
-                                <img src="{{ user.profile.get_avatar_url }}" alt="avatar" width="75px" />
+                            <a href="{% url 'member:detail' member_one.username %}">
+                                <img src="{{ member_one.profile.get_avatar_url }}" alt="avatar" width="75px" />
                             </a>
-                            <a href="{% url 'member:detail' user_name=member_one.username %}" style="text-align:center;">
+                            <a href="{% url 'member:detail' member_one.username %}" style="text-align:center;">
                                 {{ member_one.username }}
                             </a>
                         </li>

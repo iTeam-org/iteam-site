@@ -1,0 +1,16 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+source =
+    .
+omit =
+    /Library/*
+    manage.py
+    loadFixtures.py
+    iTeam/wsgi.py
+    iTeam/media/*
+timid = True
+
+[report]
+precision = 1
+show_missing = True
