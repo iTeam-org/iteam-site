@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 13:33:37
+# @Last Modified time: 2014-09-02 14:33:25
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -28,11 +28,9 @@ import pytz
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.utils import timezone
 from django_dynamic_fixture import G
 
 from iTeam.events.models import Event
-from iTeam.member.models import Profile
 from iTeam.member.tests import MemberSetUp
 
 
@@ -45,7 +43,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=10, minute=30, second=0, tzinfo=pytz.utc),
+        date_start=datetime(year=2014, month=9, day=2, hour=10, minute=30, tzinfo=pytz.utc),
         text='hello world !',
         pk=1
     )
@@ -55,7 +53,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=12, minute=30, second=0, tzinfo=pytz.utc),
+        date_start=datetime(year=2014, month=9, day=2, hour=12, minute=30, tzinfo=pytz.utc),
         text='hello world !',
         is_draft=False,
         pk=2
@@ -68,7 +66,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=14, minute=30, second=0, tzinfo=pytz.utc),
+        date_start=datetime(year=2014, month=9, day=2, hour=14, minute=30, tzinfo=pytz.utc),
         text='hello world !',
         pk=1
     )
@@ -78,7 +76,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=16, minute=30, second=0, tzinfo=pytz.utc),
+        date_start=datetime(year=2014, month=9, day=2, hour=16, minute=30, tzinfo=pytz.utc),
         text='hello world !',
         is_draft=False,
         pk=2
@@ -205,13 +203,9 @@ class PublisherEventsIntegrationTests(TestCase):
         resp = self.client.get(reverse('events:index_month', args=[2014, 8]))
         self.assertEqual(resp.status_code, 200)
 
-    """ FAIL
-    """
     def test_detail_view_own_draft(self):
         resp = self.client.get(reverse('events:detail', args=[1]))
         self.assertEqual(resp.status_code, 200)
-    """
-    """
 
     def test_detail_view_own_notdraft(self):
         resp = self.client.get(reverse('events:detail', args=[2]))
@@ -236,6 +230,18 @@ class PublisherEventsIntegrationTests(TestCase):
     def test_edit_view_not_own(self):
         resp = self.client.get(reverse('events:edit', args=[3]))
         self.assertEqual(resp.status_code, 403)
+
+    def test_create_action(self):
+        data = {
+            'title': 'Test_create_action',
+            'place': 'Somewhere',
+            'date_start': '2014-09-01 12:30:00',
+            'text': 'This is a test !',
+            'is_draft': 1,
+            'type': 'O',
+        }
+        resp = self.client.post(reverse('events:create'), data)
+        self.assertEqual(resp.status_code, 302)
 
 
 class AdminEventsIntegrationTests(TestCase):

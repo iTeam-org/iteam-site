@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:43:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-27 19:43:04
+# @Last Modified time: 2014-09-02 14:53:19
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -39,15 +39,6 @@ def image_path(instance, filename):
 
 
 class Event(models.Model):
-    TYPES = (
-        ('F', u'Formation'),
-        ('C', u'Conférence'),
-        ('B', u'Bar'),
-        ('J', u'Journée portes ouvertes'),
-        ('A', u'AG'),
-        ('O', u'Autre'),  # other
-    )
-
     title = models.CharField(max_length=settings.SIZE_MAX_TITLE)
     author = models.ForeignKey(User)
     place = models.TextField()
@@ -56,7 +47,7 @@ class Event(models.Model):
     is_draft = models.BooleanField(default=True)
     type = models.CharField(
         max_length=1,
-        choices=TYPES,
+        choices=settings.EVENTS_MODEL_TYPES,
         default='O',
     )
     image = models.ImageField(
@@ -67,13 +58,13 @@ class Event(models.Model):
     )
 
     def status_style(self):
-        if (self.date_start < timezone.now()):
+        if self.date_start < timezone.now():
             return 'p'
         else:
             return 'a'
 
     def status_str(self):
-        if (self.date_start < timezone.now()):
+        if self.date_start < timezone.now():
             return 'A eu lieu le'
         else:
             return 'Aura lieu le'

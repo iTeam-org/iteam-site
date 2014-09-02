@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 12:17:28
+# @Last Modified time: 2014-09-02 14:53:19
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -214,6 +214,28 @@ NB_MEMBERS_PER_PAGE = 10
 
 SIZE_MAX_IMG = 5*1024*1024  # 5 Mo
 SIZE_MAX_TITLE = 100
+
+PUBLICATIONS_TYPES = ('N', 'T', 'P')
+
+PUBLICATIONS_MODEL_TYPES = (
+    ('N', u'News'),
+    ('T', u'Tutoriel'),
+    ('P', u'Publication')  # default
+)
+
+MODEL_IS_DRAFT = (
+    ('1', u'Brouillon'),
+    ('0', u'Publier immédiatement'),
+)
+
+EVENTS_MODEL_TYPES = (
+    ('F', u'Formation'),
+    ('C', u'Conférence'),
+    ('B', u'Bar'),
+    ('J', u'Journée portes ouvertes'),
+    ('A', u'AG'),
+    ('O', u'Autre'),  # other
+)
 
 # month_str : january = 1, february = 2, ...
 MONTH_STR = [

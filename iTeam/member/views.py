@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:23:08
+# @Last Modified time: 2014-09-02 15:20:34
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -27,7 +27,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -36,7 +35,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.views.decorators.debug import sensitive_post_parameters
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import Http404
 
 from iTeam.member.models import Profile
 from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
@@ -54,10 +52,8 @@ def index(request):
         shown_members = paginator.page(page)
     except PageNotAnInteger:
         shown_members = paginator.page(1)
-        page = 1
     except EmptyPage:
         shown_members = paginator.page(paginator.num_pages)
-        page = paginator.num_pages
 
     return render(request, 'member/index.html', {
         'data': shown_members,
@@ -83,7 +79,7 @@ def detail(request, user_name):
                 need_redirect = True
             if 'toggle_is_admin' in request.POST:
                 profile.is_admin = not profile.is_admin
-                profile.is_publisher = not profile.is_publisher
+                profile.is_publisher = profile.is_admin
                 profile.save()
                 need_redirect = True
 

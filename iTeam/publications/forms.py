@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:23
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-09-02 14:58:36
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -23,26 +23,10 @@
 
 
 from django import forms
-
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-
 from django.conf import settings
 
 
 class PublicationForm(forms.Form):
-
-    TYPES = (
-        ('P', u'Autre (défault)'),  # default
-        ('N', u'News'),
-        ('T', u'Tutoriel'),
-    )
-
-    IS_DRAFT = (
-        ('1', u'Brouillon'),
-        ('0', u'Publier immédiatement'),
-    )
-
     title = forms.CharField(
         label='Titre',
         widget=forms.TextInput(
@@ -69,7 +53,7 @@ class PublicationForm(forms.Form):
     type = forms.ChoiceField(
         label='Type de la publication',
         widget=forms.RadioSelect,
-        choices=TYPES,
+        choices=settings.PUBLICATIONS_MODEL_TYPES,
         initial='P',
         required=False,
     )
@@ -77,7 +61,7 @@ class PublicationForm(forms.Form):
     is_draft = forms.ChoiceField(
         label='Status de la publication',
         widget=forms.RadioSelect,
-        choices=IS_DRAFT,
+        choices=settings.MODEL_IS_DRAFT,
         initial='1',
         required=False,
     )

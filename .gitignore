@@ -11,3 +11,5 @@ img_ignore
 
 htmlcov
 .coverage
+
+.idea

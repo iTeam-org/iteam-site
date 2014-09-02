@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:34:56
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-27 19:42:52
+# @Last Modified time: 2014-09-02 14:53:19
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -38,12 +38,6 @@ def image_path(instance, filename):
 
 
 class Publication(models.Model):
-    TYPES = (
-        ('N', u'News'),
-        ('T', u'Tutoriel'),
-        ('P', u'Publication')  # default
-    )
-
     title = models.CharField(max_length=settings.SIZE_MAX_TITLE, verbose_name=u'Titre')
     subtitle = models.CharField(max_length=settings.SIZE_MAX_TITLE, blank=True, verbose_name=u'Sous-titre')
 
@@ -59,16 +53,13 @@ class Publication(models.Model):
 
     type = models.CharField(
         max_length=1,
-        choices=TYPES,
+        choices=settings.MODEL_IS_DRAFT,
         default='P',
     )
 
     text = models.TextField()
 
     is_draft = models.BooleanField(default=True)
-
-    def __unicode__(self):
-        return self.title
 
     def image_url(self):
         if self.image:

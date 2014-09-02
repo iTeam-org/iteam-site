@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 18:35:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-09-01 17:55:37
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -22,7 +22,6 @@
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
 
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 

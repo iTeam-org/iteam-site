@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:54:29
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:40
+# @Last Modified time: 2014-09-02 14:53:30
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -23,28 +23,10 @@
 
 
 from django import forms
-
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-
 from django.conf import settings
 
 
 class EventForm(forms.Form):
-
-    TYPES = (
-        ('F', u'Formation'),
-        ('C', u'Conférence'),
-        ('B', u'Bar'),
-        ('J', u'Journée portes ouvertes'),
-        ('A', u'AG'),
-        ('O', u'Autre'),  # other
-    )
-    IS_DRAFT = (
-        ('1', u'Brouillon'),
-        ('0', u'Publier immédiatement'),
-    )
-
     title = forms.CharField(
         label='Titre',
         widget=forms.TextInput(
@@ -77,14 +59,14 @@ class EventForm(forms.Form):
     type = forms.ChoiceField(
         label='Type d\'événement',
         widget=forms.RadioSelect,
-        choices=TYPES,
+        choices=settings.EVENTS_MODEL_TYPES,
         initial='O',
         required=False,
     )
     is_draft = forms.ChoiceField(
         label='Status de l\'événement',
         widget=forms.RadioSelect,
-        choices=IS_DRAFT,
+        choices=settings.MODEL_IS_DRAFT,
         initial='1',
         required=False,
     )
@@ -93,7 +75,7 @@ class EventForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Texte',
-                'rows': '30'
+                'rows': '15'
             }
         )
     )

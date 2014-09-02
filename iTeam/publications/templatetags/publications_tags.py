@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 17:04:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:14:48
+# @Last Modified time: 2014-09-02 11:44:55
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -26,8 +26,6 @@ import markdown
 
 from django import template
 from django.utils.safestring import mark_safe
-
-from iTeam.member.models import Profile
 
 register = template.Library()
 

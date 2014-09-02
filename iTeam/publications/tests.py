@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:09:26
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-01 16:50:18
+# @Last Modified time: 2014-09-02 14:34:23
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -29,7 +29,6 @@ from django.utils import timezone
 from django_dynamic_fixture import G
 
 from iTeam.publications.models import Publication
-from iTeam.member.models import Profile
 from iTeam.member.tests import MemberSetUp
 
 
@@ -86,6 +85,18 @@ class PublicationsIntegrationTests(TestCase):
 
     def test_index_view(self):
         resp = self.client.get(reverse('publications:index'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_type_n(self):
+        resp = self.client.get(reverse('publications:index')+'?type=N')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_type_t(self):
+        resp = self.client.get(reverse('publications:index')+'?type=T')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_type_p(self):
+        resp = self.client.get(reverse('publications:index')+'?type=P')
         self.assertEqual(resp.status_code, 200)
 
     def test_index_view_page_two(self):
@@ -181,6 +192,16 @@ class PublisherPublicationsIntegrationTests(TestCase):
     def test_edit_view_notown(self):
         resp = self.client.get(reverse('publications:edit', args=[3]))
         self.assertEquals(resp.status_code, 403)
+
+    def test_create_action(self):
+        data = {
+            'title': 'Test_create_action',
+            'text': 'This is a test !',
+            'is_draft': 1,
+            'type': 'P',
+        }
+        resp = self.client.post(reverse('publications:create'), data)
+        self.assertEqual(resp.status_code, 302)
 
 
 class AdminPublicationsIntegrationTests(TestCase):

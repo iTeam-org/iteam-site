@@ -81,7 +81,12 @@
         </div>
         {% for event in events_list %}
             <div class="row">
-                <div class="small-12 columns">
+                <div class="small-3 columns" style="text-align: center;">
+                    <a href="{% url 'events:detail' event.pk %}">
+                        <img src="{{ event.image_url }}" alt="image of event" width="50" />
+                    </a>
+                </div>
+                <div class="small-9 columns">
                     <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
                     <p>Le {{ event.date_start }}.</p>
                 </div>

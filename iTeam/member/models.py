@@ -40,6 +40,6 @@ class Profile(models.Model):
         if self.avatar_url:
             return self.avatar_url
         else:
-            hash = md5(self.user.username).hexdigest()
+            username_hash = md5(self.user.username).hexdigest()
             size = 100
-            return 'https://secure.gravatar.com/avatar/{0}?d=identicon&s={1}'.format(hash, size)
+            return 'https://secure.gravatar.com/avatar/{0}?d=identicon&s={1}'.format(username_hash, size)

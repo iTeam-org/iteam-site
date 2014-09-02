@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 12:22:53
+# @Last Modified time: 2014-09-02 14:16:18
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -30,14 +30,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.safestring import mark_safe
 from django.utils import timezone
 
 from iTeam.events.models import Event
 from iTeam.events.forms import EventForm
-from iTeam.member.models import Profile
 
 
 def index_list(request):
@@ -125,7 +122,7 @@ def index_week(request, days_since_epoch):
 
 def index_month(request, year, month):
     year = int(year)
-    if (year < 1970):
+    if year < 1970:
         year = timezone.now().year
 
     month = int(month)
@@ -181,7 +178,7 @@ def detail(request, event_id):
         if not request.user.is_authenticated():
             return redirect(reverse('member:login_view'))
         # if admin or author -> view
-        elif (request.user == event.author) or (request.user.profile.is_admin):
+        elif (request.user == event.author) or request.user.profile.is_admin:
             if (request.method == 'POST') and ('toggle_draft' in request.POST):
                 event.is_draft = not event.is_draft
                 event.save()
@@ -196,7 +193,7 @@ def detail(request, event_id):
 def create(request):
     profile = request.user.profile  # login_required
 
-    if (not profile.is_publisher):
+    if not profile.is_publisher:
         raise PermissionDenied
 
     event = Event()
@@ -226,7 +223,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             # required and auto fields
-            if (not editing_as_admin):
+            if not editing_as_admin:
                 event.author = request.user
 
             event.title = form.cleaned_data['title'][:settings.SIZE_MAX_TITLE]
@@ -251,7 +248,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
 
             # save event + Redirect after successfull POST
             event.save()
-            return HttpResponseRedirect(reverse('events:detail', args=(event.id,)))
+            return redirect(reverse('events:detail', args=(event.id,)))
 
     else:  # method == GET
         form = EventForm()
@@ -283,7 +280,6 @@ def save_event(request, template_name, event, editing_as_admin=False):
 
 
 from calendar import HTMLCalendar
-from datetime import date
 from itertools import groupby
 from datetime import datetime
 import pytz

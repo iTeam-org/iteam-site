@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:20:08
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-01 16:46:10
+# @Last Modified time: 2014-09-02 14:27:03
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -165,7 +165,7 @@ class MemberIntegrationTests(TestCase):
 
     def test_register_action_error_pseudo_void(self):
         data = {
-            'username': '',
+            'username': '  ',
             'password': 'password',
             'password_confirm': 'password',
             'email': 'user@gmail.com'
@@ -282,6 +282,36 @@ class AuthenticatedMemberIntegrationTests(TestCase):
         resp = self.client.get(reverse('member:logout_view'))
         self.assertEquals(resp.status_code, 200)
 
+    def test_settings_action_error_post(self):
+        # change password via form
+        data = {
+            'password_old': '',
+            'password_new': '',
+            'password_confirm': '',
+        }
+        resp = self.client.post(reverse('member:settings_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:settings_view'))
+
+    def test_settings_action_error_pass_old(self):
+        # change password via form
+        data = {
+            'password_old': '',
+            'password_new': 'pass',
+            'password_confirm': 'pass',
+        }
+        resp = self.client.post(reverse('member:settings_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:settings_view'))
+
+    def test_settings_action_error_pass_new(self):
+        # change password via form
+        data = {
+            'password_old': 'password',
+            'password_new': 'pass',
+            'password_confirm': 'pass_diff',
+        }
+        resp = self.client.post(reverse('member:settings_view'), data)
+        self.assertEqual(resp.request['PATH_INFO'], reverse('member:settings_view'))
+
     def test_settings_action(self):
         user = User.objects.get(username='member')
 
@@ -291,7 +321,7 @@ class AuthenticatedMemberIntegrationTests(TestCase):
             'password_new': 'pass',
             'password_confirm': 'pass',
         }
-        resp = self.client.post(reverse('member:settings_view'), data, follow=True)
+        resp = self.client.post(reverse('member:settings_view'), data)
         self.assertEqual(resp.request['PATH_INFO'], reverse('member:settings_view'))
 
         # logout

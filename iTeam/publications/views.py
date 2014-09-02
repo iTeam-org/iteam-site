@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:14:34
+# @Last Modified time: 2014-09-02 14:51:29
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -29,24 +29,20 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from iTeam.publications.models import Publication
 from iTeam.publications.forms import PublicationForm
-from iTeam.member.models import Profile
 
 
 def index(request):
-    TYPES = ('N', 'T', 'P')
-
     # get objects
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False). \
         order_by('-pub_date')
 
     type = request.GET.get('type')
-    if type in TYPES:
+    if type in settings.PUBLICATIONS_TYPES:
         publications_list = publications_list.filter(type=type)
 
     # paginator
@@ -66,7 +62,7 @@ def index(request):
     data = {"data": publications, "cur_type": type}
 
     # add active field to proper filter
-    if type in TYPES:
+    if type in settings.PUBLICATIONS_TYPES:
         data[''.join(("type_", type))] = "active"
     else:
         data['type_all'] = "active"
@@ -87,7 +83,7 @@ def detail(request, publication_id):
         if not request.user.is_authenticated():
             return redirect(reverse('member:login_view'))
         # if admin or author -> view
-        elif (request.user == publication.author) or (request.user.profile.is_admin):
+        elif (request.user == publication.author) or request.user.profile.is_admin:
             if (request.method == 'POST') and ('toggle_draft' in request.POST):
                 publication.is_draft = not publication.is_draft
                 publication.pub_date = timezone.now()
@@ -132,7 +128,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
         form = PublicationForm(request.POST, request.FILES)
         if form.is_valid():
             # required and auto fields
-            if (not editing_as_admin):
+            if not editing_as_admin:
                 publication.author = request.user
                 publication.pub_date = timezone.now()
 
@@ -154,13 +150,13 @@ def save_publication(request, template_name, publication, editing_as_admin=False
                     if os.path.exists(img_path):
                         os.remove(img_path)
 
-                # save here to get the pk of the publication and name the img with it
-                publication.save()
+                # add event img
+                publication.save()  # auto set the pk before saving img
                 publication.image = img
 
             # save publication + Redirect after successfull POST
             publication.save()
-            return HttpResponseRedirect(reverse('publications:detail', args=(publication.id,)))
+            return redirect(reverse('publications:detail', args=(publication.id,)))
 
     else:  # method == GET
         form = PublicationForm()

@@ -2,6 +2,7 @@ django>=1.6,<1.7
 markdown>=2.1
 django-email-obfuscator
 pillow
+pytz
 
 requests
 facebook-sdk
