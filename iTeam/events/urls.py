@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:39:03
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-09-01 23:18:53
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -29,7 +29,7 @@ from iTeam.events import views
 urlpatterns = patterns(
     '',
     url(r'^list/$', views.index_list, name='index_list'),
-    url(r'^week/(?P<year>\d+)/(?P<month>\d+)/(?P<week_of_month>\d+)/$', views.index_week, name='index_week'),
+    url(r'^week/(?P<days_since_epoch>\d+)/$', views.index_week, name='index_week'),
     url(r'^month/(?P<year>\d+)/(?P<month>\d+)/$', views.index_month, name='index_month'),
 
     url(r'^create/$', views.create, name='create'),

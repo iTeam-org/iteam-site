@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:13:23
+# @Last Modified time: 2014-09-02 12:22:53
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -22,7 +22,8 @@
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
 
-from datetime import datetime
+from datetime import date, timedelta
+import time
 
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -65,83 +66,64 @@ def index_list(request):
     return render(request, 'events/index.html', data)
 
 
-def index_week(request, year, month, week_of_month):
-    days_str = [
-        'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
-    ]
+def index_week(request, days_since_epoch):
+    if int(days_since_epoch) == 0:
+        days_since_epoch = time.time()/24/3600
 
-    year = int(year)
-    if (year < 1970):
-        year = timezone.now().year
+    wanted_date = date.fromtimestamp(float(days_since_epoch)*24*3600)
 
-    month = int(month)
-    if (month < 1) or (month > 12):
-        month = timezone.now().month
+    # it works, dont ask how or why.
+    date_month_start = date(year=wanted_date.year, month=wanted_date.month, day=1)
+    delta = wanted_date - (date_month_start - timedelta(days=1))
+    delta_days_in_month = int(delta.total_seconds()/3600/24) + date_month_start.weekday()
 
-    week_of_month = int(week_of_month)
-    if (week_of_month < 1) or (week_of_month > 5):
-        week_of_month = 3
+    year = wanted_date.year
+    month = wanted_date.month
+    week_of_month = int((delta_days_in_month-1)/7)
 
-    events_list = Event.objects.all().filter(is_draft=False, date_start__year=year, date_start__month=month). \
-        order_by('-date_start')
+    # get cal
+    events_list = Event.objects.all().order_by('-date_start'). \
+        filter(is_draft=False, date_start__year=year, date_start__month=month)
     cal, days_nb = ViewWeek(events_list).formatweek(year, month, week_of_month)
 
+    # header of table : days of week
+    days_str_ret = []
     for i in range(0, 7):
-        days_str[i] = '%s %s' % (days_str[i], days_nb[i])
+        days_str_ret.append({'str': settings.DAYS_STR[i], 'nb': days_nb[i]})
 
     # links : prev and next
-    week_prev = week_of_month-1
-    week_next = week_of_month+1
-    month_prev = month
-    month_next = month
-    year_prev = year
-    year_next = year
+    def ft_same_week(date1, date2):
+        return (date1.isocalendar()[0] == date2.isocalendar()[0]) and (date1.isocalendar()[1] == date2.isocalendar()[1])
 
-    if week_prev < 1:
-        month_prev -= 1
-        week_prev += 5
+    days_since_epoch_prev = wanted_date
+    nb_days_prev = wanted_date.weekday()
+    while ft_same_week(wanted_date, days_since_epoch_prev) and (days_str_ret[nb_days_prev]['nb'] != 0):
+        days_since_epoch_prev -= timedelta(days=1)
+        nb_days_prev -= 1
 
-    if week_next > 5:
-        month_next += 1
-        week_next -= 5
-
-    if month_prev < 1:
-        year_prev -= 1
-        month_prev += 12
-
-    if month_next > 12:
-        year_next += 1
-        month_next -= 12
+    days_since_epoch_next = wanted_date
+    nb_days_next = wanted_date.weekday()
+    while ft_same_week(wanted_date, days_since_epoch_next) and (days_str_ret[nb_days_next]['nb'] != 0):
+        days_since_epoch_next += timedelta(days=1)
+        nb_days_next += 1
 
     # data for template
     data = {
         'view': 'week',
         'cal': cal,
-        'days_str': days_str,
+        'days_str': days_str_ret,
 
-        'week_prev': week_prev,
-        'week_next': week_next,
-        'month_prev': month_prev,
-        'month_next': month_next,
-        'year_prev': year_prev,
-        'year_next': year_next,
-        'week_of_month': week_of_month,
+        'month_cur_str': settings.MONTH_STR[month],
+        'year_cur': year,
+        'week_of_month': week_of_month+1,
+        'days_since_epoch_prev': int(days_since_epoch)+nb_days_prev-wanted_date.weekday(),
+        'days_since_epoch_next': int(days_since_epoch)+nb_days_next-wanted_date.weekday(),
     }
 
     return render(request, 'events/index.html', data)
 
 
 def index_month(request, year, month):
-    # month_str : january = 1, february = 2, ...
-    month_str = [
-        '',
-        'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-    ]
-    days_str = [
-        'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
-    ]
-
     year = int(year)
     if (year < 1970):
         year = timezone.now().year
@@ -173,10 +155,10 @@ def index_month(request, year, month):
     data = {
         'view': 'month',
         'cal': cal_data,
-        'days_str': days_str,
-        'month_prev_str': month_str[month_prev],
-        'month_cur_str': month_str[month],
-        'month_next_str': month_str[month_next],
+        'days_str': settings.DAYS_STR,
+        'month_prev_str': settings.MONTH_STR[month_prev],
+        'month_cur_str': settings.MONTH_STR[month],
+        'month_next_str': settings.MONTH_STR[month_next],
         'month_prev_int': month_prev,
         'month_next_int': month_next,
         'year_prev': year_prev,
@@ -252,11 +234,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
             event.type = form.cleaned_data['type']
             event.is_draft = int(form.cleaned_data['is_draft'])
             event.text = form.cleaned_data['text']
-
             event.date_start = form.cleaned_data['date_start']
-
-            # save here to get the pk and name the (optional) img with it
-            event.save()
 
             if 'image' in request.FILES:
                 img = request.FILES['image']
@@ -268,7 +246,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
                         os.remove(img_path)
 
                 # add event img
-                event.save()
+                event.save()  # auto set the pk before saving img
                 event.image = img
 
             # save event + Redirect after successfull POST
@@ -307,6 +285,8 @@ def save_event(request, template_name, event, editing_as_admin=False):
 from calendar import HTMLCalendar
 from datetime import date
 from itertools import groupby
+from datetime import datetime
+import pytz
 
 
 class ViewMonth(HTMLCalendar):
@@ -375,51 +355,35 @@ class ViewWeek(HTMLCalendar):
         return day*100 + hour
 
     def formatweek(self, theyear, themonth, weekofmonth, withyear=True):
-
-        data = self.monthdays2calendar(theyear, themonth)
-
+        week = self.monthdays2calendar(theyear, themonth)[weekofmonth]
         ret = []
         days_nb = []
-        current_week = 1
-        current_hour = 8
 
-        for week in data:
-            if current_week == weekofmonth:
-                for hour in range(8, 18+1):
-                    tmp_hour_row = []
+        # use object and not int for having django convert utc to local
+        utc_now_zero = datetime.utcnow().replace(tzinfo=pytz.utc, hour=0)
+        time_stepper = utc_now_zero + timedelta(hours=settings.START_HOUR_UTC)
+        time_end = utc_now_zero + timedelta(hours=settings.END_HOUR_UTC)
 
-                    tmp_hour_row.append({'event': False, 'data': None, 'hour': current_hour})
-                    current_hour += 1
+        while time_stepper < time_end:
+            tmp_hour_row = [{'event': False, 'data': None, 'hour': time_stepper}]
 
-                    for day, dayweek in week:
-                        tmp_hour_cell = {'event': False, 'data': None, 'hour': None}
+            for day, dayweek in week:
+                tmp_hour_cell = {'event': False, 'data': None, 'hour': None}
 
-                        # if in current month
-                        if day != 0:
-                            # if events this day, this hour, add them
-                            key = self.key(day, hour)
-                            if key in self.workouts:
-                                tmp_events = []
-                                for workout in self.workouts[key]:
-                                    tmp_events.append({'title': workout.title, 'pk': workout.pk})
-                                tmp_hour_cell['data'] = tmp_events
-                            # default : day in current month, no events
-                            else:
-                                pass
+                # if in current month
+                if day != 0:
+                    # if events this day, this hour, add them
+                    key = self.key(day, time_stepper.hour)
+                    if key in self.workouts:
+                        tmp_events = []
+                        for workout in self.workouts[key]:
+                            tmp_events.append({'title': workout.title, 'pk': workout.pk})
+                        tmp_hour_cell['data'] = tmp_events
 
-                            # # set today field if needed
-                            # if date.today() == date(theyear, themonth, day):
-                            #    tmp_day['today'] = True
-                            #    tmp_day['day'] = ' - '.join((str(tmp_day['day']), 'Aujourd\'hui'))
-                        # mark this day no in current month
-                        else:
-                            pass
+                tmp_hour_row.append(tmp_hour_cell)
+                days_nb.append(day)
 
-                        tmp_hour_row.append(tmp_hour_cell)
-
-                        days_nb.append(day)
-                    ret.append(tmp_hour_row)
-
-            current_week += 1
+            ret.append(tmp_hour_row)
+            time_stepper += timedelta(hours=1)
 
         return ret, days_nb

@@ -3,26 +3,33 @@
 
         <table>
             <tr>
-                <th colspan="8">
+                <th colspan="8" class="nav">
                     <div class="row">
                         <div class="small-4 columns">
-                            <a href="{% url 'events:index_week' year_prev month_prev week_prev %}">Précédent</a>
+                            <a href="{% url 'events:index_week' days_since_epoch_prev %}">Précédent</a>
                         </div>
                         <div class="small-4 columns">
+                            {{ week_of_month }}° semaine de<br />
                             {{ month_cur_str }} {{ year_cur }}
                         </div>
                         <div class="small-4 columns">
-                            <a href="{% url 'events:index_week' year_next month_next week_next %}">Suivant</a>
+                            <a href="{% url 'events:index_week' days_since_epoch_next %}">Suivant</a>
                         </div>
                     </div>
                 </th>
             </tr>
 
             <tr>
-                <th></th>
+                <th class="days"></th>
 
                 {% for day in days_str %}
-                    <th>{{ day }}</th>
+                    <th class="days">
+                        {% if day.nb != 0 %}
+                            {{ day.str }}  {{ day.nb }}
+                        {% else %}
+                            /
+                        {% endif %}
+                    </th>
                 {% endfor %}
             </tr>
 
@@ -30,7 +37,9 @@
             <tr>
                 {% for day in hour %}
                     {% if day.hour %}
-                        <th>{{ day.hour }}h</th>
+                        <th class="hours">
+                            {{ day.hour|date:'G' }}h
+                        </th>
                     {% else %}
                         <td>
                             <ul>

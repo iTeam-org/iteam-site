@@ -12,11 +12,10 @@ todo long run
 
 to do now
 - iTeam.event : add file upload
-- test : view ok, now actions
+- test : view ok, now actions - coverage
+- media sociaux (syncro fb, twitter, google)
 
 to do later
-- calendar : weekly view : week_of_month
-- media sociaux (syncro fb, twitter, google)
 - noscript : menu, (logout ok)
 - syndication (rss + atom)
 

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:13:16
+# @Last Modified time: 2014-09-02 13:33:37
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -21,6 +21,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
+
+from datetime import datetime
+import pytz
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -42,7 +45,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=timezone.now(),
+        date_start=datetime(year=2014, month=9, day=2, hour=10, minute=30, second=0, tzinfo=pytz.utc),
         text='hello world !',
         pk=1
     )
@@ -52,7 +55,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=timezone.now(),
+        date_start=datetime(year=2014, month=9, day=2, hour=12, minute=30, second=0, tzinfo=pytz.utc),
         text='hello world !',
         is_draft=False,
         pk=2
@@ -65,7 +68,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=timezone.now(),
+        date_start=datetime(year=2014, month=9, day=2, hour=14, minute=30, second=0, tzinfo=pytz.utc),
         text='hello world !',
         pk=1
     )
@@ -75,7 +78,7 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=timezone.now(),
+        date_start=datetime(year=2014, month=9, day=2, hour=16, minute=30, second=0, tzinfo=pytz.utc),
         text='hello world !',
         is_draft=False,
         pk=2
@@ -92,12 +95,44 @@ class EventsIntegrationTests(TestCase):
         resp = self.client.get(reverse('events:index_list'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_week_view(self):
-        resp = self.client.get(reverse('events:index_week', args=[2014, 8, 1]))
+    def test_index_view_page_two(self):
+        resp = self.client.get(reverse('events:index_list')+'?page=2')
         self.assertEqual(resp.status_code, 200)
 
-    def test_month_view(self):
-        resp = self.client.get(reverse('events:index_month', args=[2014, 8]))
+    def test_index_view_page_nonexistant(self):
+        resp = self.client.get(reverse('events:index_list')+'?page=999999')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_index_view_page_none(self):
+        resp = self.client.get(reverse('events:index_list')+'?page=')
+        self.assertEqual(resp.status_code, 200)
+
+    def test_week_view_zero(self):
+        resp = self.client.get(reverse('events:index_week', args=[0]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_week_view_today(self):
+        resp = self.client.get(reverse('events:index_week', args=[16314]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_month_view_today(self):
+        resp = self.client.get(reverse('events:index_month', args=[2014, 9]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_month_view_jan(self):
+        resp = self.client.get(reverse('events:index_month', args=[2014, 1]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_month_view_error_year(self):
+        resp = self.client.get(reverse('events:index_month', args=[42, 1]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_month_view_error_month(self):
+        resp = self.client.get(reverse('events:index_month', args=[2014, 20]))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_month_view_dec(self):
+        resp = self.client.get(reverse('events:index_month', args=[2014, 12]))
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_draft(self):
@@ -128,7 +163,7 @@ class AuthenticatedEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_week_view(self):
-        resp = self.client.get(reverse('events:index_week', args=[2014, 8, 1]))
+        resp = self.client.get(reverse('events:index_week', args=[0]))
         self.assertEqual(resp.status_code, 200)
 
     def test_month_view(self):
@@ -163,7 +198,7 @@ class PublisherEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_week_view(self):
-        resp = self.client.get(reverse('events:index_week', args=[2014, 8, 1]))
+        resp = self.client.get(reverse('events:index_week', args=[0]))
         self.assertEqual(resp.status_code, 200)
 
     def test_month_view(self):
@@ -214,7 +249,7 @@ class AdminEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_week_view(self):
-        resp = self.client.get(reverse('events:index_week', args=[2014, 8, 1]))
+        resp = self.client.get(reverse('events:index_week', args=[0]))
         self.assertEqual(resp.status_code, 200)
 
     def test_month_view(self):

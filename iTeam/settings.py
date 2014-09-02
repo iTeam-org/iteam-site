@@ -1,3 +1,26 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: Adrien Chardon
+# @Date:   2014-09-02 12:01:06
+# @Last Modified by:   Adrien Chardon
+# @Last Modified time: 2014-09-02 12:17:28
+
+# This file is part of iTeam.org.
+# Copyright (C) 2014 Adrien Chardon (Nodraak).
+#
+# iTeam.org is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# iTeam.org is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
+
 """
 Django settings for iTeam project.
 
@@ -191,6 +214,20 @@ NB_MEMBERS_PER_PAGE = 10
 
 SIZE_MAX_IMG = 5*1024*1024  # 5 Mo
 SIZE_MAX_TITLE = 100
+
+# month_str : january = 1, february = 2, ...
+MONTH_STR = [
+    '',
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+]
+# month_str : Monday = 0, Tuesday = 1, ...
+DAYS_STR = [
+    'Lundi', 'Mardi', 'Mecredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
+]
+
+START_HOUR_UTC = 4
+END_HOUR_UTC = 21
 
 LOGIN_URL = '/membres/connexion/'
 
