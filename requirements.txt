@@ -4,5 +4,4 @@ django-email-obfuscator
 pillow
 pytz
 
-requests
-facebook-sdk
+python-social-auth

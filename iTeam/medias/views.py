@@ -1,73 +1,101 @@
 
-from django.shortcuts import render
-from django.shortcuts import redirect
+"""
 
-import requests
-import urlparse
+https://developers.facebook.com/docs/graph-api/reference/v2.0/user/feed
+https://github.com/simplegeo/python-oauth2
+
+
+https://github.com/omab/python-social-auth
+http://psa.matiasaguirre.net/
+http://python-social-auth.readthedocs.org/en/latest/
+
+"""
+
+
 import facebook
-from django.utils import timezone
 from datetime import timedelta
+
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from iTeam.medias.models import Facebook
 
-app_id = '1534380566781826'
-app_secret = '0ec2c70bb4defc3710200b3cefa6236e'
-redirect_uri = 'http://localhost:8000/medias/fb/'
+import requests
+
+app_id = '1504292026482703'
+app_secret = 'af32525c8a08a66c54579a5ff8e90a7e'
+redirect_uri = 'http%3A%2F%2Flocalhost%3A8000%2Fmedias%2Ffb_get_token%2F'
 scope = 'publish_actions'
 
 
 def fb(request):
-    # if we want to post something
-    if request.method == 'POST':
-        print '==>> method == POST'
+    print 'page : fb'
 
-        data_list = Facebook.objects.all()
-        if data_list:
-            data = data_list[0]
+    data_list = Facebook.objects.all()
+    if data_list:
+        data = data_list[0]
 
-        # check acces token
-        if data_list and data and (data.expires > timezone.now()):
-            print '==>> acces_token ok, posting'
-            return fb_post_msg(data.access_token, request.POST['text'])
+    if data_list and data and (data.expires > timezone.now()):
+        return render(request, 'medias/fb.html', {'have_token': 1})
+    else:
+        if data_list and data:
+            data.delete()
+        return render(request, 'medias/fb.html', {'have_token': 0})
+
+
+def fb_post(request):
+    print 'page : fb_post'
+
+    data_list = Facebook.objects.all()
+    if data_list:
+        data = data_list[0]
+
+    if not (data_list and data and (data.expires > timezone.now())):
+        if data_list and data:
+            data.delete()
+        return render(request, 'medias/fb_post.html', {'have_token': 0})
+    else:
+        if request.method == 'POST':
+            graph = facebook.GraphAPI(data.access_token)
+            response = graph.put_object("me", "feed", message=request.POST['text'])
+            return render(request, 'medias/fb_post.html', {'result': 'post ok (maybe) : %s' % response})
         else:
-            print '==>> bad access_token, getting a new one'
+            return render(request, 'medias/fb_post.html', {'have_token': 1})
 
-            if data_list and data:
-                data.delete()
 
-            return fb_get_acces_token(request)
+def fb_get_token(request):
+    print 'page : fb_get_token'
 
-    # if we are getting a new access_token
-    print request.GET
-    if 'access_token' in request.GET:
-        print '==>> get access_token ok'
+    ###
+    # Getting new access_token from code
+    ###
+    if 'code' in request.GET:
+        print 'code in request.get'
+        code = request.GET['code']
+        url_login_dialog = 'https://graph.facebook.com/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s' % (app_id, redirect_uri, app_secret, code)
+        r = requests.post(url_login_dialog)
+        print r.text
+        return redirect(url_login_dialog)
+        #return render(request, 'medias/fb_post.html', {'have_token': 1})
+    else:
+        print 'NOT code in request.get'
 
-        access_token = str(request.GET['access_token'])
-        expires = int(request.GET['expires_in'])
-        print 'access_token=%s' % access_token
-
+    ###
+    # New access token
+    ###
+    if ('access_token' in request.GET) and ('expires' in request.GET):
+        print 'access_token and expires in request.get'
         data = Facebook()
-        data.access_token = access_token
-        data.expires = timezone.now() + timedelta(seconds=expires)
+        data.access_token = str(request.GET['access_token'])
+        data.expires = timezone.now() + timedelta(seconds=int(request.GET['expires_in']))
         data.save()
+        return render(request, 'medias/fb_post.html', {'have_token': 1})
+    else:
+        print 'NOT access_token and expires in request.get'
 
-        return render(request, 'medias/fb.html', {'result': 'access_token ok, you may post now'})
-
-    # default, method != POST and not asking for new code / acces_token
-    return render(request, 'medias/fb.html', {'result': 'default'})
-
-
-def fb_get_acces_token(request):
-    print '==>> Gettting access_token'
-
-    url_login_dialog = 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&response_type=token&scope=%s' % (app_id, redirect_uri, scope)
-
+    # default
+    print 'default'
+    url_login_dialog = 'https://graph.facebook.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s' % (app_id, redirect_uri, scope)
     return redirect(url_login_dialog)
-
-
-def fb_post_msg(access_token, msg):
-    print '==>> Posting'
-    graph = facebook.GraphAPI(access_token)
-    response = graph.put_object("me", "feed", message=msg)
-    return render(request, 'medias/fb.html', {'result': 'post ok : %s' % response})
 

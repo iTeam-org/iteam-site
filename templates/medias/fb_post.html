@@ -11,16 +11,24 @@
         {# title #}
         <div class="home-app-title">
             <h1>
-                Fb: Home
+                FB : Post
             </h1>
         </div>
         {# content #}
         <div class="row">
             <div class="large-12 columns">
+                {{ result }}
+
                 {% if have_token %}
-                    <p>
-                        Brav, vous avez un token d'acces, vous pouvez <a href="/medias/fb_post/">poster</a>.
-                    </p>
+                    <form action="{% url 'medias:fb_post' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <textarea placeholder="Texte" name="text" rows="20" >Plop !</textarea>
+
+                        <div class="small-4 small-offset-4" >
+                            <input type="submit" value="Poster" class="button expand" />
+                        </div>
+                    </form>
                 {% else %}
                     <p>
                         Erreur, aucun token d'acces enregistré, merci d'en <a href="/medias/fb_get_token/">demander un</a>.

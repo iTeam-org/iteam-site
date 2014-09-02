@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:53:19
+# @Last Modified time: 2014-09-03 17:10:17
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'email_obfuscator',
+    # 'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -175,7 +176,18 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+
+    # 'social.apps.django_app.context_processors.backends',
+    # 'social.apps.django_app.context_processors.login_redirect',
 )
+
+"""
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+
+    'social.backends.facebook.FacebookOAuth2',
+)
+"""
 
 ############################################
 # Database + Cache
@@ -253,6 +265,27 @@ END_HOUR_UTC = 21
 
 LOGIN_URL = '/membres/connexion/'
 
+# python social auth
+"""
+SOCIAL_AUTH_LOGIN_URL = LOGIN_URL
+
+SOCIAL_AUTH_FACEBOOK_KEY = '530267980453281'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'bf2b79d49d208386a125c18474c92f6b'
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'publish_actions']
+
+#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'ru_RU'}
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:8000/login_success/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login_fail/'
+SOCIAL_AUTH_LOGIN_URL = '/login/'
+
+SOCIAL_AUTH_USER_MODEL = 'auth.User'
+
+SOCIAL_AUTH_SESSION_EXPIRATION = True
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+"""
 
 #############################################
 #
