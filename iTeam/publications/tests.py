@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:09:26
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:34:23
+# @Last Modified time: 2014-09-03 17:59:59
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -73,6 +73,18 @@ def PublicatonSetUp():
         pub_date=timezone.now(),
         text='hello world !',
         is_draft=False,
+        type='T',
+        pk=4
+    )
+    publication.save()
+    publication = G(
+        Publication,
+        title='title',
+        author=user,
+        pub_date=timezone.now(),
+        text='hello world !',
+        is_draft=False,
+        type='N',
         pk=4
     )
     publication.save()
@@ -196,6 +208,7 @@ class PublisherPublicationsIntegrationTests(TestCase):
     def test_create_action(self):
         data = {
             'title': 'Test_create_action',
+            'subtitle': 'subtitle',
             'text': 'This is a test !',
             'is_draft': 1,
             'type': 'P',
@@ -233,3 +246,14 @@ class AdminPublicationsIntegrationTests(TestCase):
     def test_edit_view_notdraft(self):
         resp = self.client.get(reverse('publications:edit', args=[2]))
         self.assertEquals(resp.status_code, 200)
+
+    def test_edit_action(self):
+        data = {
+            'title': 'Test_create_action',
+            'subtitle': 'subtitle',
+            'text': 'This is a test !',
+            'is_draft': 1,
+            'type': 'P',
+        }
+        resp = self.client.post(reverse('publications:edit', args=[1]), data)
+        self.assertEqual(resp.status_code, 302)  # redirect to edited publication

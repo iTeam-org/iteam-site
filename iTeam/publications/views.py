@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:51:29
+# @Last Modified time: 2014-09-03 17:52:45
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -138,8 +138,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
             publication.is_draft = int(form.cleaned_data['is_draft'])
 
             # optional fields
-            if 'subtitle' in request.POST:
-                publication.subtitle = form.cleaned_data['subtitle'][:settings.SIZE_MAX_TITLE]
+            publication.subtitle = form.cleaned_data['subtitle'][:settings.SIZE_MAX_TITLE]
 
             if 'image' in request.FILES:
                 img = request.FILES['image']
@@ -161,15 +160,14 @@ def save_publication(request, template_name, publication, editing_as_admin=False
     else:  # method == GET
         form = PublicationForm()
 
-        if publication is not None:
-            form.fields['title'].initial = publication.title
-            form.fields['subtitle'].initial = publication.subtitle
-            form.fields['type'].initial = publication.type
-            form.fields['text'].initial = publication.text
-            if publication.is_draft:
-                form.fields['is_draft'].initial = '1'
-            else:
-                form.fields['is_draft'].initial = '0'
+        form.fields['title'].initial = publication.title
+        form.fields['subtitle'].initial = publication.subtitle
+        form.fields['type'].initial = publication.type
+        form.fields['text'].initial = publication.text
+        if publication.is_draft:
+            form.fields['is_draft'].initial = '1'
+        else:
+            form.fields['is_draft'].initial = '0'
 
     # if no post data sent ...
     data = {'form': form, 'editing_as_admin': editing_as_admin, 'publication_pk': publication.pk}

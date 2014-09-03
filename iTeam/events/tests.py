@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:33:25
+# @Last Modified time: 2014-09-03 17:38:38
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -66,9 +66,9 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=14, minute=30, tzinfo=pytz.utc),
+        date_start=datetime(year=2020, month=9, day=2, hour=14, minute=30, tzinfo=pytz.utc),
         text='hello world !',
-        pk=1
+        pk=3
     )
     event.save()
     event = G(
@@ -76,10 +76,23 @@ def EventSetUp():
         title='title',
         author=user,
         place='somewhere',
-        date_start=datetime(year=2014, month=9, day=2, hour=16, minute=30, tzinfo=pytz.utc),
+        date_start=datetime(year=2020, month=9, day=2, hour=16, minute=30, tzinfo=pytz.utc),
         text='hello world !',
         is_draft=False,
-        pk=2
+        type='B',
+        pk=4
+    )
+    event.save()
+    event = G(
+        Event,
+        title='title',
+        author=user,
+        place='somewhere',
+        date_start=datetime(year=2020, month=9, day=2, hour=16, minute=30, tzinfo=pytz.utc),
+        text='hello world !',
+        is_draft=False,
+        type='F',
+        pk=5
     )
     event.save()
 
