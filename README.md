@@ -16,17 +16,29 @@ apt-get install python-pip
 pip install -r requirements.txt
 ```
 
+If the install of pillow fail (on mac osx for example), try :
+```shell
+sudo su -
+export CFLAGS=-Qunused-arguments
+pip install pillow
+```
+
 * *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
 ```shell
 apt-get install ruby
 gem install --user-install compass zurb-foundation
 ```
 
+If you have a warning about ruby not in your PATH, run :
+```shell
+export PATH=$PATH:~/.gem/ruby/1.8/bin
+```
+
 ## Setting up the stuff and run the server
 
 * Compiling the .css stylessheets :
 ```shell
-compass compile static/
+compass compile assets/
 ```
 
 * Configuring the database :
@@ -48,7 +60,7 @@ Special thanks to the open source projects [Progdupeu.pl](http://progdupeu.pl) (
 
 ## Dev
 
-*May require other dependencies : coverage and flake8*
+*Require other dependencies : coverage and flake8, install them via pip*
 
 * Clearing everything and loading initial datas :
 ```shell

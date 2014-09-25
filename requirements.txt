@@ -5,3 +5,7 @@ pillow
 pytz
 
 python-social-auth
+
+facebook
+pyyaml
+django_dynamic_fixture

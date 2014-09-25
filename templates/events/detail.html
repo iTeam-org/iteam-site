@@ -54,7 +54,7 @@
         {# content #}
         <div class="row">
             <div class="large-2 hide-for-small columns">
-                <img src="{{ event.image_url }}" width="100" class="hide-for-small event_detail_img" alt="image of event" />
+                <img src="{{ event.image_url }}" width="100" class="hide-for-small event_detail_img" alt="" />
             </div>
             <div class="large-4 columns">
                 <ul>
@@ -65,9 +65,7 @@
                 </ul>
             </div>
             <div class="large-6 columns">
-                <p>
-                    {{ event.text|iteam_markdown }}
-                </p>
+                {{ event.text|iteam_markdown }}
             </div>
         </div>
     </div>

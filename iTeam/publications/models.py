@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:34:56
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:53:19
+# @Last Modified time: 2014-09-25 14:30:26
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -53,7 +53,7 @@ class Publication(models.Model):
 
     type = models.CharField(
         max_length=1,
-        choices=settings.MODEL_IS_DRAFT,
+        choices=settings.PUBLICATIONS_MODEL_TYPES,
         default='P',
     )
 

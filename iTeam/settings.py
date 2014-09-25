@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-03 17:10:17
+# @Last Modified time: 2014-09-25 17:57:21
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -227,13 +227,13 @@ NB_MEMBERS_PER_PAGE = 10
 SIZE_MAX_IMG = 5*1024*1024  # 5 Mo
 SIZE_MAX_TITLE = 100
 
-PUBLICATIONS_TYPES = ('N', 'T', 'P')
-
 PUBLICATIONS_MODEL_TYPES = (
     ('N', u'News'),
     ('T', u'Tutoriel'),
     ('P', u'Publication')  # default
 )
+
+PUBLICATIONS_TYPES = [item for (item, _) in PUBLICATIONS_MODEL_TYPES]
 
 MODEL_IS_DRAFT = (
     ('1', u'Brouillon'),
