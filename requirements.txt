@@ -1,11 +1,14 @@
 django>=1.6,<1.7
 markdown>=2.1
-django-email-obfuscator
+django-dynamic-fixture
+django-email-obfuscator==0.1.2
+pytz==2013d
+PyYAML==3.11
 pillow
-pytz
 
 python-social-auth
 
 facebook
-pyyaml
-django_dynamic_fixture
+
+flake8==2.2.3
+coverage==3.7.1

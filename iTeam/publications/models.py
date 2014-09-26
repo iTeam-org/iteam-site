@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:34:56
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-25 14:30:26
+# @Last Modified time: 2014-09-26 20:44:27
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -31,10 +31,10 @@ from django.db import models
 
 
 def image_path(instance, filename):
-    ext = string.lower(filename.split('.')[-1])
-    filename = u'{}_original.{}'.format(str(instance.pk), ext)
+    dir = str(instance.pk)
+    filename = u'original.' + string.lower(filename.split('.')[-1])
 
-    return os.path.join('publications', filename)
+    return os.path.join('publications', dir, filename)
 
 
 class Publication(models.Model):

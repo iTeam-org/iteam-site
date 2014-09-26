@@ -1,6 +1,6 @@
-- fields: {title: 'Bureau 2013', subtitle: 'De nouveaux visages', author: 2,
+- fields: {title: 'Bureau 2013', subtitle: 'De nouveaux visages (2013)', author: 2,
       pub_date: "2013-05-14T00:00:00+00:00",
-      image: "publications/1.jpeg",
+      image: "publications/1/original",
       type: 'N', is_draft: 0,
       text: "L'assemblée Générale de fin d'année a eu lieu le 11 avril dernier.
       Après un retour sur une année chargée en événements, l'ensemble des
@@ -20,7 +20,7 @@
   model: publications.Publication
   pk: 1
 
-- fields: {title: 'Salon Solution Linux 2012', subtitle: 'De nouveaux visages', author: 3,
+- fields: {title: 'Salon Solution Linux 2012', subtitle: 'Des rencontres !', author: 3,
       pub_date: "2012-07-13T00:00:00+00:00",
       type: 'N', is_draft: 0,
       text: "Le 19-20 et 21 juin dernier l’iTeam a assisté à la 14ème édition
@@ -37,9 +37,9 @@
   model: publications.Publication
   pk: 2
 
-- fields: {title: 'Bureau 2012', subtitle: 'De nouveaux visages', author: 4,
+- fields: {title: 'Bureau 2012', subtitle: 'De nouveaux visages (2012)', author: 4,
       pub_date: "2012-04-18T00:00:00+00:00",
-      image: "publications/3.jpeg",
+      image: "publications/3/original",
       type: 'N', is_draft: 0,
       text: "Le 5 avril dernier a eu lieu notre assemblée général annuel pour
       déterminer notre tout nouveau, tout beau, bureau iTeamien 2013-2013. Voici
@@ -90,10 +90,10 @@
   model: publications.Publication
   pk: 4
 
-- fields: {title: 'PAUG - Ice Cream Sandwich', author: 4,
+- fields: {title: 'PAUG - Ice Cream Sandwich', subtitle: 'PAUG !!', author: 4,
       pub_date: "2012-01-16T00:00:00+00:00",
       type: 'N', is_draft: 0,
-      image: "publications/5.png",
+      image: "publications/5/original",
       text: "Pour cette nouvelle année, un nouveau meetup du Paris Android User
       Group se déroulera à l'ECE à partir de 19h le 19 janvier en P445. Cette
       session vous emenera derrière les fournaux et vous permettra de découvrir
@@ -114,10 +114,10 @@
   model: publications.Publication
   pk: 5
 
-- fields: {title: 'Bien choisir son mot de passe', author: 6,
+- fields: {title: 'Bien choisir son mot de passe', subtitle: 'h4ck', author: 6,
       pub_date: "2011-11-11T00:00:00+00:00",
       type: 'T', is_draft: 0,
-      image: "publications/6.jpeg",
+      image: "publications/6/original",
       text: "Vous avez tous une adresse mail, un facebook ou bien un compte en
       banque. Le point commun entre ses trois points est l'utilisation d'un compte
       sécurisé par un mot de passe. Si pour les banques, le mot de passe est la
@@ -193,21 +193,21 @@
       coucou *coucou* <h1>coucou</h1>\n"}
   model: publications.Publication
   pk: 7
-- fields: {title: 'Test - Publié', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+- fields: {title: 'Test - Publié', subtitle: 'test 1',
       author: 1,
       pub_date: "2014-06-30T00:00:00+00:00",
       type: 'P', is_draft: 0,
       text: "coucou *coucou* <h1>coucou</h1>\n"}
   model: publications.Publication
   pk: 8
-- fields: {title: 'Test - Publié 2', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+- fields: {title: 'Test - Publié 2', subtitle: 'test 2',
       author: 1,
       pub_date: "2014-06-30T00:00:00+00:00",
       type: 'P', is_draft: 0,
       text: "coucou *coucou* <h1>coucou</h1>\n"}
   model: publications.Publication
   pk: 9
-- fields: {title: 'Test - Brouillon', subtitle: 'coucou *coucou* <h1>coucou</h1>',
+- fields: {title: 'Test - Brouillon', subtitle: 'test 3',
       author: 1,
       pub_date: "2014-06-30T00:00:00+00:00",
       type: 'P', is_draft: True,

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-03 17:38:38
+# @Last Modified time: 2014-09-25 18:55:36
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -251,6 +251,17 @@ class PublisherEventsIntegrationTests(TestCase):
             'date_start': '2014-09-01 12:30:00',
             'text': 'This is a test !',
             'is_draft': 1,
+            'type': 'O',
+        }
+        resp = self.client.post(reverse('events:create'), data)
+        self.assertEqual(resp.status_code, 302)
+
+        data = {
+            'title': 'Test_create_action',
+            'place': 'Somewhere',
+            'date_start': '2014-09-01 12:30:00',
+            'text': 'This is a test !',
+            'is_draft': 0,
             'type': 'O',
         }
         resp = self.client.post(reverse('events:create'), data)

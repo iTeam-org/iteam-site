@@ -4,7 +4,10 @@
     Adrien Chardon - 2014
     ========================================================================  */
 
-/* home page header */
+/*  ========================================================================
+    BASE + HOME
+    ========================================================================  */
+
 header
 {
     background-image: url('../images/header_background.png');
@@ -60,10 +63,43 @@ header
     margin-top: 20px;
 }
 
-textarea { height: auto; }
+/* textarea in forms */
+textarea
+{
+    height: auto;
+}
+
+/* js-related and deprecated browsers stuff */
+$color_user_env_error_msg: #FF4136; /* #FF4136 ~= red */
+
+.browsehappy
+{
+    padding: 10px;
+    text-align: center;
+    background-color: $color_user_env_error_msg;
+
+    a
+    {
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+.warning_js
+{
+    padding: 10px;
+    text-align: center;
+    background-color: $color_user_env_error_msg;
+}
+
+.js .warning_js
+{
+    display: none;
+}
+
 
 /*  ========================================================================
-    TABLE (event / weekly and montly views)
+    EVENT table (weekly and montly views)
     ========================================================================  */
 
 $custom_table_color: rgb(255, 255, 255);
@@ -164,9 +200,12 @@ $custom_table_color: rgb(255, 255, 255);
     color: rgb(150, 150, 150);
 }
 
-.event_a p, .event_p p
+.event_a, .event_p
 {
-    margin-bottom: 0px;
+    p
+    {
+       margin-bottom: 0px;
+    }
 }
 
 .event_p
@@ -174,10 +213,13 @@ $custom_table_color: rgb(255, 255, 255);
     background-color: rgb(230, 230, 230);
 }
 
-.row .event_a, .row .event_p
+.row
 {
-    padding:5px;
-    margin-bottom:10px;
+    .event_a, .event_p
+    {
+        padding: 5px;
+        margin-bottom: 10px;
+    }
 }
 
 .event_detail_img
@@ -185,38 +227,18 @@ $custom_table_color: rgb(255, 255, 255);
     margin: auto;
 }
 
+/*  ========================================================================
+    MEMBER publication / event list
+    ========================================================================  */
 
-
-
-
-.browsehappy
+.member_event_table, .member_publications_table
 {
-    padding: 10px;
-    text-align: center;
-    background-color: #FF4136;
+    overflow-x: auto;
 
-    a
+    table
     {
-        color: black;
-        text-decoration: underline;
+        width: 100%;
+        margin: auto;
+        min-width: 400px;
     }
 }
-
-
-.warning_js
-{
-    padding: 10px;
-    text-align: center;
-}
-
-.no-js .warning_js
-{
-    background-color: #FF4136;
-}
-
-.js .warning_js
-{
-    display: none;
-}
-
-

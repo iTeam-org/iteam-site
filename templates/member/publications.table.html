@@ -1,54 +1,59 @@
-<table width="100%">
-    <thead>
-        <tr>
-            <th width="30%">Titre</th>
-            <th width="50%">Introduction</th>
-            <th width="20%">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for data in data_list %}
-            <tr>
-                <td>
-                    <div class="row" width="100%">
-                        <div class="large-3 hide-for-small columns">
-                            <img src="{{ data.image_url }}" alt="" width="50" />
-                        </div>
-                        <div class="large-9 small-12 columns">
+<div class="row">
+    <div class="large-12 columns member_publications_table">
+
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="30%">Titre</th>
+                    <th width="50%">Introduction</th>
+                    <th width="20%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                    <tr>
+                        <td>
+                            <div class="row" width="100%">
+                                <div class="large-3 hide-for-small columns">
+                                    <img src="{{ data.image_url }}" alt="" width="50" />
+                                </div>
+                                <div class="large-9 small-12 columns">
+                                    <p>
+                                        <a href="{% url 'publications:detail' data.pk %}">
+                                            {{ data.title }}
+                                        </a>
+                                        <br />
+                                        {{ data.subtitle }}
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
                             <p>
-                                <a href="{% url 'publications:detail' data.pk %}">
-                                    {{ data.title }}
-                                </a>
-                                <br />
-                                {{ data.subtitle }}
+                                {{ data.text|slice:":200" }} [...]
                             </p>
-                        </div>
-                    </div>
-                </td>
+                        </td>
 
-                <td>
-                    <p>
-                        {{ data.text|slice:":200" }} [...]
-                    </p>
-                </td>
+                        <td>
+                            <div class="button-group ">
+                                <a href="{% url 'publications:edit' data.pk %}" class="button-admin">
+                                    Éditer
+                                </a>
+                                {% if data.is_draft %}
+                                    <form action="{% url 'publications:detail' data.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button name="toggle_draft" class="button-admin">
+                                            Publier
+                                        </button>
+                                    </form>
+                                {% endif %}
 
-                <td>
-                    <div class="button-group ">
-                        <a href="{% url 'publications:edit' data.pk %}" class="button-admin">
-                            Éditer
-                        </a>
-                        {% if data.is_draft %}
-                            <form action="{% url 'publications:detail' data.pk %}" method="post">
-                                {% csrf_token %}
-                                <button name="toggle_draft" class="button-admin">
-                                    Publier
-                                </button>
-                            </form>
-                        {% endif %}
-
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-06 19:42:55
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:40
+# @Last Modified time: 2014-09-26 18:41:11
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -29,7 +29,7 @@ from iTeam.events.models import Event
 
 class EventAdmin(admin.ModelAdmin):
     # fields for ALL publications
-    list_display = ('title', 'author', 'date_start')
+    list_display = ('title', 'author', 'date_start', 'image')
 
     list_filter = ['author', 'place', 'type', 'is_draft']
     search_fields = ['title', 'place', 'text']

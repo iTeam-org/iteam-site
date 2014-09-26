@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-07-10 18:27:48
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-09-26 18:40:20
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -36,7 +36,7 @@ class PublicationAdmin(admin.ModelAdmin):
     ]
 
     # fields for ALL publications
-    list_display = ('title', 'subtitle', 'author', 'pub_date', 'type', 'is_draft')
+    list_display = ('title', 'subtitle', 'author', 'pub_date', 'type', 'is_draft', 'image')
 
     list_filter = ['pub_date', 'author', 'type', 'is_draft']
     search_fields = ['title', 'subtitle', 'text']

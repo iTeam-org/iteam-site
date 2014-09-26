@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:43:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:53:19
+# @Last Modified time: 2014-09-26 18:42:25
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,10 +32,10 @@ from django.utils import timezone
 
 
 def image_path(instance, filename):
-    ext = string.lower(filename.split('.')[-1])
-    filename = u'{}_original.{}'.format(str(instance.pk), ext)
+    dir = str(instance.pk)
+    filename = u'original.' + string.lower(filename.split('.')[-1])
 
-    return os.path.join('evenements', filename)
+    return os.path.join('evenements', dir, filename)
 
 
 class Event(models.Model):

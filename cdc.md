@@ -12,12 +12,10 @@ todo long run
 
 to do now
 - iTeam.event : add file upload
-- test : view ok, now actions - coverage
 - media sociaux (syncro fb, twitter, google)
-
-to do later
 - noscript : menu, (logout ok)
-- syndication (rss + atom)
+- syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
+- https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 
 - a propos / l'iteam
 - bitbucket / github

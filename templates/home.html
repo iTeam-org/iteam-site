@@ -40,22 +40,24 @@
             </h1>
         </div>
         {% for publication in publications_list %}
-            <div class="row">
+            <div class="row collapse">
                 <div class="small-3 columns" style="text-align: center;">
-                    <a href="{% url 'publications:detail' publication_id=publication.pk %}">
-                        <img src="{{ publication.image_url }}" alt="" width="50" />
+                    <a href="{% url 'publications:detail' publication.pk %}">
+                        <img src="{{ publication.image_url }}" alt="" style="width: 50px;" />
                     </a>
                 </div>
                 <div class="small-9 columns">
-                    <a href="{% url 'publications:detail' publication_id=publication.pk %}">{{ publication.title }}</a>
-                    <p>Ecrit avec amour par
-                        <a href="{% url 'member:detail' user_name=publication.author %}">
-                            {{ publication.author }}</a>.
+                    <p>
+                        <a href="{% url 'publications:detail' publication.pk %}">{{ publication.title }}</a>
+                        par
+                        <a href="{% url 'member:detail' publication.author %}">{{ publication.author }}</a>.
+                        <br />
+                        {{ publication.subtitle }}
                     </p>
                 </div>
             </div>
         {% empty %}
-            <div class="row">
+            <div class="row collapse">
                 <div class="large-12 columns">
                     <p>Aucunes publications trouvées.</p>
                 </div>
@@ -80,19 +82,22 @@
             </h1>
         </div>
         {% for event in events_list %}
-            <div class="row">
+            <div class="row collapse">
                 <div class="small-3 columns" style="text-align: center;">
                     <a href="{% url 'events:detail' event.pk %}">
-                        <img src="{{ event.image_url }}" alt="" width="50" />
+                        <img src="{{ event.image_url }}" alt="" style="width: 50px;" />
                     </a>
                 </div>
                 <div class="small-9 columns">
-                    <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
-                    <p>Le {{ event.date_start }}.</p>
+                    <p>
+                        <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
+                        <br />
+                        Le {{ event.date_start }}.
+                    </p>
                 </div>
             </div>
         {% empty %}
-             <div class="row">
+             <div class="row collapse">
                 <div class="large-12 columns">
                     <p>Aucun événements prévus.</p>
                 </div>
