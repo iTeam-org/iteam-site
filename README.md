@@ -11,11 +11,10 @@ Notes :
 
 * *Python 2.x*, its framework *Django*, the python package installer *pip* and some dependencies :
 ```shell
-apt-get install python2.7 python2.7-dev
+apt-get install python2.7 python2.7-dev sqlite3
 apt-get install python-pip
 pip install -r requirements.txt
 ```
-
 If the install of pillow fail (on mac osx for example), try :
 ```shell
 sudo su -
@@ -28,7 +27,6 @@ pip install pillow
 apt-get install ruby
 gem install --user-install compass zurb-foundation
 ```
-
 If you have a warning about ruby not in your PATH, run :
 ```shell
 export PATH=$PATH:~/.gem/ruby/1.8/bin
@@ -39,6 +37,10 @@ export PATH=$PATH:~/.gem/ruby/1.8/bin
 * Compiling the .css stylessheets :
 ```shell
 compass compile assets/
+```
+If it dont work try :
+```
+apt-get install ruby-compass
 ```
 
 * Configuring the database :

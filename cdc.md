@@ -11,11 +11,11 @@ todo long run
 -> flake8 compliant (pep8 + other stuff)
 
 to do now
-- iTeam.event : add file upload
-- media sociaux (syncro fb, twitter, google)
-- noscript : menu, (logout ok)
+- iTeam.event : add file upload (add filed filename in db)
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
+- noscript : menu, (logout ok)
+- media sociaux (syncro fb, twitter, google)
 
 - a propos / l'iteam
 - bitbucket / github

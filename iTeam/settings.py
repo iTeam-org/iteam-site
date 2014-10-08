@@ -97,7 +97,7 @@ STATICFILES_DIRS = (
 
 # Absolute path to template directory (/Library/Python/2.7/site-packages/django)
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates')
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 # List of finder classes that know how to find static files in

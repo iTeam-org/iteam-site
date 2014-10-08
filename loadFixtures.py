@@ -1,14 +1,6 @@
 
 from os import system
 
-apps = (
-    'auth',
-    'member',
-    'publications',
-    'medias',
-    'events',
-)
-
 fixtures = (
     'auth.yaml',
     'member.yaml',
@@ -21,8 +13,7 @@ fixtures = (
 ###########
 # clean everything
 print '=> Cleaning everything ...'
-for app in apps:
-    system('python manage.py sqlclear %s | python manage.py dbshell' % app)
+system('rm db.sqlite3')
 print '=> Done'
 
 ###########
