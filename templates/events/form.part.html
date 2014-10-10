@@ -31,6 +31,12 @@
             <small class="error">{{ error }}</small>
         {% endfor %}
 
+        {{ form.file.label_tag }}
+        {{ form.file }}
+        {% for error in form.file.errors %}
+            <small class="error">{{ error }}</small>
+        {% endfor %}
+
         {{ form.type.label_tag }}
         {{ form.type }}
         {% for error in form.type.errors %}

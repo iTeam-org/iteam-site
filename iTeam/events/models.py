@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:43:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-26 18:42:25
+# @Last Modified time: 2014-10-10 18:56:37
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -31,11 +31,14 @@ from django.db import models
 from django.utils import timezone
 
 
-def image_path(instance, filename):
-    dir = str(instance.pk)
-    filename = u'original.' + string.lower(filename.split('.')[-1])
+def image_path(instance, oldFilename):
+    newFilename = 'image' + '.' + string.lower(oldFilename.split('.')[-1])
 
-    return os.path.join('evenements', dir, filename)
+    return os.path.join('evenements', str(instance.pk), newFilename)
+
+
+def file_path(instance, filename):
+    return os.path.join('evenements', str(instance.pk), filename)
 
 
 class Event(models.Model):
@@ -52,6 +55,13 @@ class Event(models.Model):
     )
     image = models.ImageField(
         upload_to=image_path,
+        blank=True,
+        null=True,
+        default=None
+    )
+
+    file = models.FileField(
+        upload_to=file_path,
         blank=True,
         null=True,
         default=None

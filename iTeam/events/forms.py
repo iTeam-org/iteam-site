@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:54:29
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:53:30
+# @Last Modified time: 2014-10-07 22:56:59
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -79,10 +79,16 @@ class EventForm(forms.Form):
             }
         )
     )
+    file = forms.FileField(
+        label=u'Fichier attaché',
+        allow_empty_file=True,
+        required=False,
+    )
 
     def clean(self):
         cleaned_data = super(EventForm, self).clean()
         img = cleaned_data.get('image')
+        file = cleaned_data.get('file')
 
         if img and img.size > settings.SIZE_MAX_IMG:
             msg = (
@@ -92,5 +98,14 @@ class EventForm(forms.Form):
 
             if 'image' in cleaned_data:
                 del cleaned_data['image']
+
+        if file and file.size > settings.SIZE_MAX_FILE:
+            msg = (
+                u'Fichier trop lourd (%d Ko / %d Ko max). Pour ne pas saturer le serveur, merci '
+                u'de réduire la taille du fichier.') % (img.size/1024, settings.SIZE_MAX_FILE/1024)
+            self._errors['file'] = self.error_class([msg])
+
+            if 'file' in cleaned_data:
+                del cleaned_data['file']
 
         return cleaned_data

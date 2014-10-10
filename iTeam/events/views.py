@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:16:18
+# @Last Modified time: 2014-10-10 18:57:29
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -23,6 +23,7 @@
 
 
 from datetime import date, timedelta
+import os
 import time
 
 from django.core.exceptions import PermissionDenied
@@ -168,10 +169,11 @@ def index_month(request, year, month):
 
 def detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
+    file_basename = os.path.basename(event.file.name)
 
     # default view, published events
     if not event.is_draft:
-        return render(request, 'events/detail.html', {'event': event})
+        return render(request, 'events/detail.html', {'event': event, 'file_basename': file_basename})
     # draft
     else:
         # not loged -> redirect login
@@ -183,7 +185,7 @@ def detail(request, event_id):
                 event.is_draft = not event.is_draft
                 event.save()
 
-            return render(request, 'events/detail.html', {'event': event})
+            return render(request, 'events/detail.html', {'event': event, 'file_basename': file_basename})
         # logged user -> 403
         else:
             raise PermissionDenied
@@ -209,10 +211,7 @@ def edit(request, event_id):
     if ((not profile.is_publisher) or event.author != request.user) and not profile.is_admin:
         raise PermissionDenied
 
-    if (event.author != request.user) and profile.is_admin:
-        editing_as_admin = True
-    else:
-        editing_as_admin = False
+    editing_as_admin = (event.author != request.user) and profile.is_admin
 
     return save_event(request, 'events/edit.html', event, editing_as_admin=editing_as_admin)
 
@@ -237,14 +236,27 @@ def save_event(request, template_name, event, editing_as_admin=False):
                 img = request.FILES['image']
 
                 # remove old img (if one)
-                if event.image.name:
-                    img_path = os.path.join(settings.MEDIA_ROOT, str(event.image.name))
+                if event.image and event.image.name:
+                    img_path = os.path.join(settings.MEDIA_ROOT, event.image.name)
                     if os.path.exists(img_path):
                         os.remove(img_path)
 
-                # add event img
-                event.save()  # auto set the pk before saving img
+                # add image to event - save before to set the pk
+                event.save()
                 event.image = img
+
+            if 'file' in request.FILES:
+                f = request.FILES['file']
+
+                # remove old file (if one)
+                if event.file and event.file.name:
+                    file_path = os.path.join(settings.MEDIA_ROOT, event.file.name)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+
+                # add file to event - save before to set the pk
+                event.save()
+                event.file = f
 
             # save event + Redirect after successfull POST
             event.save()

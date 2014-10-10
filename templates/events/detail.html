@@ -62,6 +62,9 @@
                     <li><strong>Date :</strong> Le {{ event.date_start|date:'d F Y à H\hi' }}</li>
                     <li><strong>Type :</strong> {{ event.get_type_display }}</li>
                     <li><strong>Organisateur :</strong> {{ event.author }}</li>
+                    {% if event.file %}
+                        <li><strong>Fichier attaché :</strong> <a href="{{ event.file.url }}">{{ file_basename }}</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="large-6 columns">
