@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-25 17:57:21
+# @Last Modified time: 2014-10-12 21:47:10
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -108,10 +108,6 @@ STATICFILES_FINDERS = (
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Should Django serve the static and media files ? This should not be set to
-# True in a production environment
-SERVE = True
-
 
 ###############################
 # Dev options for debug
@@ -125,6 +121,10 @@ SECRET_KEY = 'z3rte+c4hikqi-csxbs2&j#+5%nwwbe=ki0j957a^i1%k-hs^^'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
+
+# Should Django serve the static and media files ? This should not be set to
+# True in a production environment
+SERVE = True
 
 ALLOWED_HOSTS = ['localhost']
 
@@ -186,6 +186,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     'social.backends.facebook.FacebookOAuth2',
+)
+"""
+
+"""
+FILE_UPLOAD_HANDLERS = (
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 )
 """
 
@@ -378,6 +385,6 @@ LOGGING = {
 #######################################
 
 try:
-    from iTeam.settings_prod import *
+    from settings_prod import *
 except ImportError:
-    pass
+    print 'No settings_prod.py found, skipping ...'

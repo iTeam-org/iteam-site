@@ -11,14 +11,16 @@ todo long run
 -> flake8 compliant (pep8 + other stuff)
 
 to do now
-- iTeam.event : add file upload (add filed filename in db)
-- syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
+- 403, 404 and 500 templates (500 template should be raw html)
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
+- robots.txt + htaccess (index follow)
+- a propos / l'iteam + cookies
+
+- previsualisation des posts
+- news / tuto / articles : export pdf (pandoc)
+- syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
 - noscript : menu, (logout ok)
 - media sociaux (syncro fb, twitter, google)
-
-- a propos / l'iteam
-- bitbucket / github
 
 osef ?
 - calendar : list (prochain, passés, ...)

@@ -1,12 +1,14 @@
+# mac osx tmp files
 *.DS_Store
 
-# server files
+# prod files
+iTeam/settings_prod.py
+
+# dev files
 *.pyc
 db.sqlite3
 assets/stylesheets
 media
-
-# dev files
 .sass-cache
 assets/.sass-cache
 img_ignore
