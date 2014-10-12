@@ -1,8 +1,30 @@
 # Todo
-* robots.txt
+* robots.txt + sitemap
 * stats (Munin)
 * ssl
 * for future commit : migrate db
+* git branch prod dev + git tag v.1.0
+* backup (media/ + db.sqlite3)
+
+
+# Docker
+
+
+Créer un fichier nommé Dockerfile avec les directives Docker, puis : `docker build -t nom_du_conteneur`
+
+
+Commandes :
+
+    MAINTAINER : nom et courriel de mainteneur du conteneur ;
+    FROM : image de base (Ubuntu, Debian) ;
+    VOLUME : point de montage ;
+    RUN : commande à exécuter pour installer le conteneur ;
+    ENTRYPOINT : commande qui s’exécute au démarrage du conteneur (une seule sera exécutée) ;
+    CMD : commande qui s’exécute au démarrage du conteneur ;
+    ADD : copier un fichier du répertoire courant dans le système de fichiers du conteneur ;
+    USER : utilisateur qui exécute les commandes dans le conteneur ;
+    EXPOSE : port(s) à exposer à l’extérieur.
+
 
 
 # Todo while running
@@ -12,15 +34,25 @@ python manage.py clearsessions
 
 # Doc
 
+* http://sametmax.com/le-deploiement-par-conteneurs-avec-docker/
+* http://linuxfr.org/news/docker-tutoriel-pour-manipuler-les-conteneurs
+* http://docs.docker.com/userguide/dockervolumes/
+* To read : https://www.digitalocean.com/community/tutorials/docker-explained-how-to-containerize-python-web-applications
+* https://docs.docker.com/installation/
+
+.
+
 * Official
   * http://docs.python-guide.org/en/latest/dev/virtualenvs/
   * http://gunicorn.org/
+  * http://docs.gunicorn.org/en/latest/run.html#django-manage-py
   * http://nginx.org/ + http://nginx.org/en/docs/beginners_guide.html
   * www.robotstxt.org
 * Tuto
   * https://github.com/zestedesavoir/zds-site/blob/dev/doc/deploy.md
   * https://github.com/zestedesavoir/zds-site/blob/dev/server/deploy.sh
   * http://goodcode.io/blog/django-nginx-gunicorn/
+  * http://sametmax.com/comment-servir-les-fichiers-statiques-avec-django-en-dev-et-en-prod/
 * Django
   * https://docs.djangoproject.com/en/1.6/topics/security/
   * https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -29,6 +61,8 @@ python manage.py clearsessions
 
 
 # Django settings : `settings_prod.py`
+
+Python 2.6.8+, it’s strongly recommended that you invoke the Python process running your Django application using the -R option or with the PYTHONHASHSEED environment variable set to random.
 
 ```python
 # disabble debug
@@ -53,7 +87,7 @@ DATABASES = {
 
 # mail + admin
 SERVER_EMAIL = 'adresse@domain.com'
-EMAIL_BACKEND = ...
+EMAIL_BACKEND = ... + related settings
 
 ADMINS = (('Maxime Lorant', 'maxime@crepes-bretonnes.com'),)
 
@@ -89,11 +123,43 @@ SESSION_COOKIE_SECURE = True # Set this to True to avoid transmitting the sessio
 # errors templates
 # 403, 404 and 500 templates (500 template should be raw html)
 
+CONN_MAX_AGE + persistant db connection
+
+TEMPLATE_LOADERS + cache (in template)
+
+LOGGING
+
+ADMINS will be notified of 500 errors by email.MANAGERS will be notified of 404
 
 ```
 
 
 # WSGI (from client to django) + static files
+
+```shell
+
++--------+                  +---------------------+
+| Client |  == Request ==>  |      Web server     |
++--------+                  | Nginx (apache, ...) |
+                            +---------------------+
+                                      |        '-> maintenance
+                                      V
+                               +-------------+
+                               | Moteur WSGI |
+                               |   Gunicorn  |
+                               +-------------+
+                                      |
+                                      V
+                                +-----------+
+                                | Framework |
+                                |  Django   |
+                                +-----------+
+                                 |    |    |
+                               BDD  Cache  ...
+
+
+```
+
 
 | Paramètre       | Valeur   |
 |-----------------|----------|
