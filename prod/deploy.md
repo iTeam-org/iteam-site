@@ -7,16 +7,24 @@ A lire :
 * graph pr une eventuelle forma http://sametmax.com/quest-ce-que-wsgi-et-a-quoi-ca-sert/
 * munin http://sametmax.com/monitorez-vos-serveurs-avec-munin-et-notifications-par-email/
 * django cache https://docs.djangoproject.com/en/dev/topics/cache/
+* nginx + static + gzip : http://sametmax.com/servir-des-fichiers-statiques-avec-nginx/
+
 
 # How to
 
 **Deploy :**
 * Install fresh server (ubuntu / debian ?)
 * Install prod
+  * virtualenv
+    * apt-get install python-virtualenv
+    * (once) sudo virtualenv /opt/iteam-env
+    * (each time we work) source bin/activate
+    * (to exit the virtual env) deactivate
   * App
      * git clone
+     * standard install : cf README.md
      * mkdir media + static (inside app or .. ?)
-     * settings(_prod).py : db (mysql / postgresql)
+     * cp settings_prod.py iTeam/ : change infos + db (mysql / postgresql)
      * python manage.py collectstatic
      * python manage.py syncdb (loadFixtures ?)
   * Nginx
@@ -142,6 +150,12 @@ command = /opt/zdsenv/unicorn_start ;
 user = zds ;
 stdout_logfile = /opt/zdsenv/logs/gunicorn_supervisor.log ;
 redirect_stderr = true ;
+```
+
+Mise a jour de la conf de supervisor :
+```
+supervisorctl reread
+supervisorctl reload
 ```
 
 ## Munin

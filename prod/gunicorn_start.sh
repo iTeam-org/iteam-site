@@ -15,7 +15,7 @@ GROUP=nodraak
 echo "Starting gunicorn server for $NAME"
 
 cd $WORKINGDIR
-exec gunicorn wsgi:application \
+exec ../bin/gunicorn wsgi:application \
 -b localhost:8000 \
 #--bind=unix:$SOCKFILE
 --timeout=300 \

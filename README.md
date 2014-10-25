@@ -22,10 +22,20 @@ export CFLAGS=-Qunused-arguments
 pip install pillow
 ```
 
+or ubuntu :
+```shell
+export CFLAGS=""
+export CPPFLAGS=""
+pip install pillow
+```
+
 * *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
 ```shell
 apt-get install ruby
 gem install --user-install compass zurb-foundation
+# or maybe : apt-get install ruby1.9.1 ruby-compass
+# and maybe : gem install zurb-foundation
+# or surely :  sudo gem uninstall sass && sudo gem install sass --version 3.4.5
 ```
 If you have a warning about ruby not in your PATH, run :
 ```shell

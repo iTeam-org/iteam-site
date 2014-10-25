@@ -15,6 +15,7 @@ to do now
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - robots.txt + htaccess (index follow)
 - a propos / l'iteam + cookies
+- publication slug -> user-friendly url
 
 - previsualisation des posts
 - news / tuto / articles : export pdf (pandoc)
@@ -29,7 +30,7 @@ osef ?
 
 to do later
 - ancien iteam.org a lire / parser
-- compte Flickr 
+- compte Flickr
 - nas de Marine Mathieu (là en 2007)
 - forum.iteam.org
 
