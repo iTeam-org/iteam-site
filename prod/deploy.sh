@@ -15,9 +15,9 @@ fi
 cd /opt/iteam-env/iteam-site/
 
 # Maintenance mode
-sudo rm /etc/nginx/sites-enabled/iteam
-sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam-maintenance
-sudo service nginx reload
+#sudo rm /etc/nginx/sites-enabled/iteam
+#sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam-maintenance
+#sudo service nginx reload
 
 # Delete old branch if exists
 git checkout prod
@@ -31,6 +31,10 @@ git checkout $1
 # Create a branch with the same name - required to have version data in footer
 git checkout -b $1
 
+# compute front stuff
+compass compile assets/
+python manage.py collectstatic --noinput
+
 # Update application data
 source ../bin/activate
 pip install --upgrade -r requirements.txt
@@ -41,9 +45,9 @@ deactivate
 sudo supervisorctl restart iteam
 
 # Exit maintenance mode
-sudo rm /etc/nginx/sites-enabled/iteam-maintenance
-sudo ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam
-sudo service nginx reload
+#sudo rm /etc/nginx/sites-enabled/iteam-maintenance
+#sudo ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam
+#sudo service nginx reload
 
 # Display current branch and commit
 git status
