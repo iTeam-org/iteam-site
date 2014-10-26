@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 18:35:27
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-10-26 16:24:58
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -28,6 +28,7 @@ from iTeam.pages import views
 
 urlpatterns = patterns(
     '',
+    url(r'^$', views.index, name='index'),
     url(r'^apropos/$', views.apropos, name='apropos'),
     url(r'^hallOfFame/$', views.hallOfFame, name='hallOfFame'),
     url(r'^cookies/$', views.cookies, name='cookies'),

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 18:35:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-01 17:55:37
+# @Last Modified time: 2014-10-26 16:28:12
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -27,6 +27,10 @@ from django.utils import timezone
 
 from iTeam.publications.models import Publication
 from iTeam.events.models import Event
+
+
+def index(request):
+    return render(request, 'pages/index.html')
 
 
 def home(request):

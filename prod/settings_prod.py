@@ -10,9 +10,7 @@ TEMPLATE_DEBUG = False
 SERVE = False
 
 
-ALLOWED_HOSTS = ['.famillechardon.fr', '192.168.0.100', 'localhost']
-# since every request pass by nginx then gunicorn, and gunicorn proxy all via
-# localhost, should we only have localhost ?
+ALLOWED_HOSTS = ['localhost']
 
 # Make this unique, and don't share it with anybody.
 # SECURITY WARNING: keep the secret key used in production secret!

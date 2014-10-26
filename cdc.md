@@ -2,28 +2,27 @@
 
 ------------------------------------------------------------
 todo long run
--> dump iteam.org
--> tests
--> use pk not id
--> no style in html template -> css
--> <img> : alt
--> button radius
--> flake8 compliant (pep8 + other stuff)
+- dump iteam.org
+- tests
+- use pk not id
+- no style in html template -> css
+- <img> : alt
+- button radius
+- flake8 compliant (pep8 + other stuff)
 
 to do now
-- 403, 404 and 500 templates (500 template should be raw html)
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - robots.txt + htaccess (index follow)
-- a propos / l'iteam + cookies
 - publication slug -> user-friendly url
 
+to do quickly
 - previsualisation des posts
 - news / tuto / articles : export pdf (pandoc)
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
-- noscript : menu, (logout ok)
-- media sociaux (syncro fb, twitter, google)
 
-osef ?
+to do maybe
+- noscript : menu, (logout ok)
+- media sociaux (syncro fb, twitter, google) -> https://github.com/foxmask/django-th
 - calendar : list (prochain, passés, ...)
 - publications : tags, multi-page
 - better member (mail, citation, bio, ... osef ?)
@@ -107,9 +106,9 @@ un script (par site google + facebook + twitter) qui permet de poster sur nos di
 **Contient**
 autant de scripts que nécessaire.
 
--> https://developers.facebook.com/docs/graph-api/reference/v2.0/user/feed
-
--> ifttt
+- https://developers.facebook.com/docs/graph-api/reference/v2.0/user/feed
+- ifttt
+- https://github.com/foxmask/django-th
 
 ----------------
 ## Users tests

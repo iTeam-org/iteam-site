@@ -187,8 +187,8 @@ $portrait: "only screen and (orientation: portrait)";
 // $h1-font-size: em-calc(44);
 // $h2-font-size: em-calc(37);
 // $h3-font-size: em-calc(27);
-// $h4-font-size: em-calc(23);
-// $h5-font-size: em-calc(18);
+$h4-font-size: em-calc(20); /* default : 23 */
+$h5-font-size: em-calc(15); /* default : 18 */
 // $h6-font-size: 1em;
 
 // Control how subheaders are styled.

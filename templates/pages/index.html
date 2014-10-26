@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">Liste des pages</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="home-app-title">
+            <h1>
+                Pages
+            </h1>
+        </div>
+
+        <div class="large-12">
+            <ul>
+                <li><a href="{% url 'pages:apropos' %}">À propos</a></li>
+                <li><a href="{% url 'pages:cookies' %}">Cookies</a></li>
+                <!--<li><a href="{% url 'pages:hallOfFame' %}">Hall of fame</a></li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

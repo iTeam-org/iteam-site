@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e # Exit immediately if a command exits with a non-zero status.
 
-WORKINGDIR=/home/nodraak/Telechargements/iteam.org/
+WORKINGDIR=/opt/iteam-env/iteam-site/
 
-LOGFILE=$WORKINGDIR/gunicorn.log
-ERRFILE=$WORKINGDIR/gunicorn_err.log
+LOGFILE=$WORKINGDIR/../log/gunicorn.log
+ERRFILE=$WORKINGDIR/../log/gunicorn_err.log
 LOGDIR=$(dirname $LOGFILE)
 NUM_WORKERS=3 # how many worker processes : should be nb_cpu*2+1
-USER=nodraak
-GROUP=nodraak
+USER=iteam
+GROUP=iteam
 
 cd $WORKINGDIR
 exec ../bin/gunicorn iTeam.wsgi:application \
