@@ -15,7 +15,7 @@ exec ../bin/gunicorn iTeam.wsgi:application \
 -b localhost:8000 \
 --timeout=300 \
 --workers $NUM_WORKERS \
---name $NAME \
+--name=iTeam \
 --user=$USER \
 --group=$GROUP \
 --log-level=debug \

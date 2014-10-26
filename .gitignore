@@ -3,6 +3,7 @@
 
 # prod files
 iTeam/settings_prod.py
+gunicorn_start.sh
 
 # dev files
 *.pyc

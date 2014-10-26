@@ -9,14 +9,14 @@
 * App
     * git clone
     * standard install : cf README.md
-    * mkdir media + static (inside app or .. ?)
+    * mkdir media + static + log (inside app or .. ?)
     * cp settings_prod.py iTeam/ : change infos + db (mysql / postgresql)
     * python manage.py collectstatic
     * python manage.py syncdb (loadFixtures ?)
 * Nginx
     * apt-get install
     * Conf file :
-        * `cp prod/nginx.conf /etc/nginx/sites-available/iteam`
+        * `cp prod/nginx.conf /etc/nginx/sites-available/iteam` + maintenance
         * `vim /etc/nginx/sites-available/iteam`
         * `ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam`
     * check nginx conf : `nginx -t`
@@ -28,7 +28,7 @@
 * Supervisor
     * `cp prod/supervisor.conf /etc/supervisor/conf.d/iteam.conf`
     * `vim /etc/supervisor/conf.d/iteam.conf`
-    * Mise a jour de la conf de supervisor : `supervisorctl reread && supervisorctl reload`
+    * Mise a jour de la conf de supervisor : `supervisorctl reread` puis `supervisorctl reload`
     * démarrer et arréter le serveur : `supervisorctl start zds` et `supervisorctl stop zds`
 * Bobonuxnux
     * django : log + disable django admin ??

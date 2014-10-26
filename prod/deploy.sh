@@ -20,6 +20,7 @@ cd /opt/iteam-env/iteam-site/
 #sudo service nginx reload
 
 # Delete old branch if exists
+git branch prod origin/prod
 git checkout prod
 git branch -D $1
 # Switch to new tag
