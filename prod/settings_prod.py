@@ -27,10 +27,10 @@ EMAIL_HOST_PASSWORD = '*********'
 EMAIL_PORT = 25
 
 
-STATIC_ROOT = '/home/nodraak/Telechargements/iteam_static/'
+STATIC_ROOT = os.path.join(SITE_ROOT, '..', 'static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/nodraak/Telechargements/iteam_media/'
+MEDIA_ROOT = os.path.join(SITE_ROOT, '..', 'media')
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
