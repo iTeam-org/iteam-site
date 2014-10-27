@@ -38,7 +38,7 @@
                     {% if event.is_draft %}
                         <div class="row">
                             <div class="large-12 columns">
-                                <form action="{% url 'events:detail' event_id=event.pk %}" method="post">
+                                <form action="{{ event.get_absolute_url }}" method="post">
                                     {% csrf_token %}
                                     <button name="toggle_draft" class="button-admin right">
                                         Publier

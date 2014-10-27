@@ -1,12 +1,12 @@
 <div class="row event_{{ event.status_style }}" style="margin-left: 0px; margin-right: 0px;">
     <div class="small-3 columns" style="text-align: center;">
-        <a href="{% url 'events:detail' event.pk %}">
+        <a href="{{ event.get_absolute_url }}">
             <img src="{{ event.image_url }}" alt="" style="width: 50px;" />
         </a>
     </div>
     <div class="small-9 columns">
         <p>
-            <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a> <span class="event_index_list_type">{{ event.get_type_display }}</span>
+            <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> <span class="event_index_list_type">{{ event.get_type_display }}</span>
             <br />
             {{ event.status_str }} {{ event.date_start|date:"d F Y à H:i" }} à {{ event.place }}.
         </p>

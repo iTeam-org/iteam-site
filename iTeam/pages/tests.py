@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 11:52:21
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-10-27 19:07:16
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -30,6 +30,10 @@ class PagesIntegrationTests(TestCase):
 
     def test_home_view(self):
         resp = self.client.get(reverse('iTeam.pages.views.home'))
+        self.assertEquals(200, resp.status_code)
+
+    def test_index_view(self):
+        resp = self.client.get(reverse('pages:index'))
         self.assertEquals(200, resp.status_code)
 
     def test_apropos_view(self):

@@ -45,7 +45,7 @@
                     {% if publication.is_draft %}
                         <div class="row">
                             <div class="large-12 columns">
-                                <form action="{% url 'publications:detail' publication_id=publication.pk %}" method="post">
+                                <form action="{{ publication.get_absolute_url }}" method="post">
                                     {% csrf_token %}
                                     <button name="toggle_draft" class="button-admin right">
                                         Publier

@@ -13,7 +13,6 @@ todo long run
 to do now
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - robots.txt + htaccess (index follow)
-- publication slug -> user-friendly url
 
 to do quickly
 - previsualisation des posts

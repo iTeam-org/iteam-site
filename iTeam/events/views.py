@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-10 18:57:29
+# @Last Modified time: 2014-10-27 17:53:48
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,6 +32,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 from iTeam.events.models import Event
@@ -167,9 +168,13 @@ def index_month(request, year, month):
     return render(request, 'events/index.html', data)
 
 
-def detail(request, event_id):
+def detail(request, event_id, event_slug):
     event = get_object_or_404(Event, pk=event_id)
     file_basename = os.path.basename(event.file.name)
+
+    # Redirect if bad tutorial slug but item exists (Make sure the URL is well-formed)
+    if event_slug != slugify(event.title):
+        return redirect(event.get_absolute_url(), permanent=True)
 
     # default view, published events
     if not event.is_draft:
@@ -260,7 +265,7 @@ def save_event(request, template_name, event, editing_as_admin=False):
 
             # save event + Redirect after successfull POST
             event.save()
-            return redirect(reverse('events:detail', args=(event.id,)))
+            return redirect(event.get_absolute_url())
 
     else:  # method == GET
         form = EventForm()

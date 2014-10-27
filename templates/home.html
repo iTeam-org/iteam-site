@@ -42,13 +42,13 @@
         {% for publication in publications_list %}
             <div class="row collapse">
                 <div class="small-3 columns" style="text-align: center;">
-                    <a href="{% url 'publications:detail' publication.pk %}">
+                    <a href="{{ publication.get_absolute_url }}">
                         <img src="{{ publication.image_url }}" alt="" style="width: 50px;" />
                     </a>
                 </div>
                 <div class="small-9 columns">
                     <p>
-                        <a href="{% url 'publications:detail' publication.pk %}">{{ publication.title }}</a>
+                        <a href="{{ publication.get_absolute_url }}">{{ publication.title }}</a>
                         par
                         <a href="{% url 'member:detail' publication.author %}">{{ publication.author }}</a>.
                         <br />
@@ -84,13 +84,13 @@
         {% for event in events_list %}
             <div class="row collapse">
                 <div class="small-3 columns" style="text-align: center;">
-                    <a href="{% url 'events:detail' event.pk %}">
+                    <a href="{{ event.get_absolute_url }}">
                         <img src="{{ event.image_url }}" alt="" style="width: 50px;" />
                     </a>
                 </div>
                 <div class="small-9 columns">
                     <p>
-                        <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
+                        <a href="{{ event.get_absolute_url }}">{{ event.title }}</a>
                         <br />
                         Le {{ event.date_start }}.
                     </p>

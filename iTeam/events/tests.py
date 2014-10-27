@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-25 18:55:36
+# @Last Modified time: 2014-10-27 19:18:26
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -147,11 +147,13 @@ class EventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_draft(self):
-        resp = self.client.get(reverse('events:detail', args=[1]))
+        e = Event.objects.get(pk=1)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 302)
 
     def test_detail_view_notdraft(self):
-        resp = self.client.get(reverse('events:detail', args=[2]))
+        e = Event.objects.get(pk=2)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_create_view(self):
@@ -161,6 +163,12 @@ class EventsIntegrationTests(TestCase):
     def test_edit_view(self):
         resp = self.client.get(reverse('events:edit', args=[1]))
         self.assertEqual(resp.status_code, 302)
+
+    def test_detail_view_invalid_slug(self):
+        e = Event.objects.get(pk=1)
+        url = e.get_absolute_url()[::-1][2:][::-1]  # truncate the end of the slug
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 301)
 
 
 class AuthenticatedEventsIntegrationTests(TestCase):
@@ -182,11 +190,13 @@ class AuthenticatedEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_draft(self):
-        resp = self.client.get(reverse('events:detail', args=[1]))
+        e = Event.objects.get(pk=1)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 403)
 
     def test_detail_view_notdraft(self):
-        resp = self.client.get(reverse('events:detail', args=[2]))
+        e = Event.objects.get(pk=2)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_create_view(self):
@@ -217,19 +227,23 @@ class PublisherEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_own_draft(self):
-        resp = self.client.get(reverse('events:detail', args=[1]))
+        e = Event.objects.get(pk=1)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_own_notdraft(self):
-        resp = self.client.get(reverse('events:detail', args=[2]))
+        e = Event.objects.get(pk=2)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_notown_draft(self):
-        resp = self.client.get(reverse('events:detail', args=[3]))
+        e = Event.objects.get(pk=3)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 403)
 
     def test_detail_view_notown_notdraft(self):
-        resp = self.client.get(reverse('events:detail', args=[4]))
+        e = Event.objects.get(pk=4)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_create_view(self):
@@ -287,11 +301,13 @@ class AdminEventsIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_draft(self):
-        resp = self.client.get(reverse('events:detail', args=[1]))
+        e = Event.objects.get(pk=1)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_view_notdraft(self):
-        resp = self.client.get(reverse('events:detail', args=[2]))
+        e = Event.objects.get(pk=2)
+        resp = self.client.get(e.get_absolute_url())
         self.assertEqual(resp.status_code, 200)
 
     def test_create_view(self):

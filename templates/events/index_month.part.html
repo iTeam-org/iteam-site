@@ -37,7 +37,7 @@
                             <ul>
                                 {% for event in day.data %}
                                     <li>
-                                        <a href="{% url 'events:detail' event.pk %}">{{ event.title }}</a>
+                                        <a href="{{ event.get_absolute_url }}">{{ event.title }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>

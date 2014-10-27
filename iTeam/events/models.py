@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:43:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-10 18:56:37
+# @Last Modified time: 2014-10-27 19:35:33
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -27,8 +27,10 @@ import os
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 
 def image_path(instance, oldFilename):
@@ -88,3 +90,6 @@ class Event(models.Model):
             return '/static/images/formation.jpg'
         else:
             return '/static/images/event.jpeg'
+
+    def get_absolute_url(self):
+        return reverse('events:detail', args=[self.pk, slugify(self.title)])

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:39:03
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-01 23:18:53
+# @Last Modified time: 2014-10-27 17:14:08
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -33,6 +33,6 @@ urlpatterns = patterns(
     url(r'^month/(?P<year>\d+)/(?P<month>\d+)/$', views.index_month, name='index_month'),
 
     url(r'^create/$', views.create, name='create'),
-    url(r'^view/(?P<event_id>\d+)/$', views.detail, name='detail'),
+    url(r'^view/(?P<event_id>\d+)/(?P<event_slug>.+)/$', views.detail, name='detail'),
     url(r'^edit/(?P<event_id>\d+)/$', views.edit, name='edit'),
 )

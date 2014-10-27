@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:34:56
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-26 20:44:27
+# @Last Modified time: 2014-10-27 16:58:57
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -27,7 +27,9 @@ import os
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 def image_path(instance, filename):
@@ -70,3 +72,6 @@ class Publication(models.Model):
             return '/static/images/news.png'
         else:
             return '/static/images/publication.png'
+
+    def get_absolute_url(self):
+        return reverse('publications:detail', args=[self.pk, slugify(self.title)])

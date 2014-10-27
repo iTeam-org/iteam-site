@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-03 17:52:45
+# @Last Modified time: 2014-10-27 19:25:58
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -30,6 +30,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 from iTeam.publications.models import Publication
@@ -70,8 +71,15 @@ def index(request):
     return render(request, 'publications/index.html', data)
 
 
-def detail(request, publication_id):
+def detail(request, publication_id, publication_slug):
     publication = get_object_or_404(Publication, pk=publication_id)
+
+    # Redirect if bad tutorial slug but item exists (Make sure the URL is well-formed)
+    if publication_slug != slugify(publication.title):
+        print 'bad slug = %s' % publication_slug
+        return redirect(publication.get_absolute_url(), permanent=True)
+    else:
+        print 'slug ok : %s' % publication_slug
 
     # default view, published article
     if not publication.is_draft:
@@ -155,7 +163,7 @@ def save_publication(request, template_name, publication, editing_as_admin=False
 
             # save publication + Redirect after successfull POST
             publication.save()
-            return redirect(reverse('publications:detail', args=(publication.id,)))
+            return redirect(publication.get_absolute_url())
 
     else:  # method == GET
         form = PublicationForm()

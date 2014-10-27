@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-07-10 11:43:53
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-10-27 16:57:15
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -30,6 +30,6 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.index, name='index'),
     url(r'^create/$', views.create, name='create'),
-    url(r'^view/(?P<publication_id>\d+)/$', views.detail, name='detail'),
+    url(r'^view/(?P<publication_id>\d+)/(?P<publication_slug>.+)/$', views.detail, name='detail'),
     url(r'^edit/(?P<publication_id>\d+)/$', views.edit, name='edit'),
 )
