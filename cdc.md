@@ -12,9 +12,7 @@ todo long run
 
 to do now
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
-- robots.txt + htaccess (index follow)
-
-to do quickly
+- htaccess ? (index follow)
 - previsualisation des posts
 - news / tuto / articles : export pdf (pandoc)
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/

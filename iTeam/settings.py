@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-12 21:47:10
+# @Last Modified time: 2014-10-27 13:02:07
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -208,20 +208,6 @@ DATABASES = {
     }
 }
 
-"""
-CACHES = {
-    'hd': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': 'tmp/cache',
-        #'LOCATION': '/var/tmp/django_cache',
-    },
-    'ram': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'cache_django_iTeam'
-    }
-    # sql, memcached (cf tuto zds)
-}
-"""
 
 ##########################################
 # iTeam settings
