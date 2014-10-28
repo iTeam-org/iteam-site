@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-27 13:02:07
+# @Last Modified time: 2014-10-28 11:33:49
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -150,7 +150,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'email_obfuscator',
-    # 'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -177,24 +176,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
 
-    # 'social.apps.django_app.context_processors.backends',
-    # 'social.apps.django_app.context_processors.login_redirect',
+    # Custom context processors
+    'iTeam.context_processors.git_version',
 )
 
-"""
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-
-    'social.backends.facebook.FacebookOAuth2',
-)
-"""
-
-"""
-FILE_UPLOAD_HANDLERS = (
-    "django.core.files.uploadhandler.MemoryFileUploadHandler",
-    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
-)
-"""
 
 ############################################
 # Database + Cache
