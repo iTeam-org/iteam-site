@@ -4,6 +4,8 @@
 # prod files
 iTeam/settings_prod.py
 gunicorn_start.sh
+deploy.sh
+git_version.txt
 
 # dev files
 *.pyc

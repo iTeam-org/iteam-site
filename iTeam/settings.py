@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-28 11:33:49
+# @Last Modified time: 2014-10-28 19:46:39
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'iTeam.publications',
     'iTeam.medias',
     'iTeam.events',
+    'iTeam.stats',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -159,6 +160,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'iTeam.middleware.Log_middleware',
 )
 
 ROOT_URLCONF = 'iTeam.urls'

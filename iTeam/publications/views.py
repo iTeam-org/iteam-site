@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-27 19:25:58
+# @Last Modified time: 2014-10-28 19:53:32
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -76,10 +76,7 @@ def detail(request, publication_id, publication_slug):
 
     # Redirect if bad tutorial slug but item exists (Make sure the URL is well-formed)
     if publication_slug != slugify(publication.title):
-        print 'bad slug = %s' % publication_slug
         return redirect(publication.get_absolute_url(), permanent=True)
-    else:
-        print 'slug ok : %s' % publication_slug
 
     # default view, published article
     if not publication.is_draft:

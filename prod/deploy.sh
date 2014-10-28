@@ -51,13 +51,13 @@ sudo ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam
 sudo service nginx reload
 
 # Display current branch and commit
-DEPLOYED_HASH=$(git show-ref --tags | grep v1.0-RC1.1 | cut -d " " -f 1)
-DEPLOYED_TAG=$(git show-ref --tags | grep v1.0-RC1.1 | cut -d " " -f 2 | cut -d "/" -f 3)
+DEPLOYED_HASH=$(git show-ref --tags | grep $1 | cut -d " " -f 1)
+DEPLOYED_TAG=$(git show-ref --tags | grep $1 | cut -d " " -f 2 | cut -d "/" -f 3)
 HEAD_HASH=$(git rev-parse HEAD)
 
 echo "$DEPLOYED_TAG" > git_version.txt
 
 echo "Commit deployé :"
-echo "tag\t$DEPLOYED_TAG"
-echo "hash\t$DEPLOYED_HASH"
-echo "head\t$HEAD_HASH"
+echo "tag    $DEPLOYED_TAG"
+echo "hash   $DEPLOYED_HASH"
+echo "head   $HEAD_HASH"
