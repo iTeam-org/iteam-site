@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-10-28 19:45:49
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-28 19:54:28
+# @Last Modified time: 2014-10-29 12:36:19
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -28,10 +28,10 @@ from iTeam.stats.models import Log
 
 class LogAdmin(admin.ModelAdmin):
     # fields for ALL publications
-    list_display = ('ip', 'date', 'url', 'method', 'referer')
+    list_display = ('ip', 'date', 'url', 'method', 'referer', 'useragent')
 
-    list_filter = ['ip', 'date', 'url', 'method', 'referer']
-    search_fields = ['ip', 'date', 'url', 'method', 'referer']
+    list_filter = ['ip', 'date', 'method', 'referer', 'useragent']
+    search_fields = ['ip', 'date', 'url', 'method', 'referer', 'useragent']
 
 
 admin.site.register(Log, LogAdmin)

@@ -80,7 +80,7 @@ A lire :
 * munin http://sametmax.com/monitorez-vos-serveurs-avec-munin-et-notifications-par-email/
 * django cache https://docs.djangoproject.com/en/dev/topics/cache/
 * nginx + static + gzip : http://sametmax.com/servir-des-fichiers-statiques-avec-nginx/
-
+* migrate http://www.djangopro.com/2011/01/django-database-migration-tool-south-explained/
 
 
 

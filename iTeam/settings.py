@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-28 19:46:39
+# @Last Modified time: 2014-10-29 13:09:07
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'email_obfuscator',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (

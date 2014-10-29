@@ -11,7 +11,6 @@ todo long run
 - flake8 compliant (pep8 + other stuff)
 
 to do now
-- log : for each page, log : ip, date, page ??
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - previsualisation des posts
 - news / tuto / articles : export pdf (pandoc)

@@ -20,8 +20,7 @@ sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled
 sudo service nginx reload
 
 # Retrieve prod branch
-git branch prod origin/prod
-git checkout prod
+git branch prod origin/prod  # usefull ?
 # Delete old branch if exists
 git branch -D $1
 # Switch to new tag (Server has git < 1.9, git fetch --tags doesn't retrieve commits...)
@@ -39,7 +38,7 @@ python manage.py collectstatic --noinput
 # Update application data
 source ../bin/activate
 pip install --upgrade -r requirements.txt
-#python manage.py migrate
+python manage.py migrate
 deactivate
 
 # Restart iteam
@@ -58,6 +57,6 @@ HEAD_HASH=$(git rev-parse HEAD)
 echo "$DEPLOYED_TAG" > git_version.txt
 
 echo "Commit deployé :"
-echo "tag    $DEPLOYED_TAG"
-echo "hash   $DEPLOYED_HASH"
-echo "head   $HEAD_HASH"
+echo "tag  - $DEPLOYED_TAG"
+echo "hash - $DEPLOYED_HASH"
+echo "head - $HEAD_HASH"
