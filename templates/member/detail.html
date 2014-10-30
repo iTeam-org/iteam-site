@@ -47,24 +47,6 @@
                                     </a>
                                 </div>
                             </div>
-                            {% if profile_detail.is_publisher %}
-                                <div class="row">
-                                    <div class="large-12 columns">
-                                        <ul class="button-group right">
-                                            <li>
-                                                <a href="{% url 'member:publications' %}" class="button-admin">
-                                                    Mes publications
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{% url 'member:events' %}" class="button-admin">
-                                                    Mes événements
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            {% endif %}
                         {% else %}
                             {% if profile_request.is_admin %}
                                 <div class="row">
@@ -122,57 +104,20 @@
                     {% if profile_detail.promo %}<li>Promotion : {{ profile_detail.promo }}</li>{% endif %}
                     <li>Date d'inscription : {{ profile_detail.user.date_joined|date:'d-m-Y' }}</li>
                     <li>Dernière connexion : {{ profile_detail.user.last_login|date:'d-m-Y' }}</li>
+
+                    <li>
+                        <a href="{% url 'publications:by_author' profile_detail.user.get_username %}">
+                            Publications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'events:by_author' profile_detail.user.get_username %}">
+                            Événements
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-
-        {% if profile_detail.is_publisher %}
-            <div class="row">
-                <h3>Écrits publiés :</h3>
-                <div class="large-6 columns">
-                    {% for publication in publications_list %}
-                        {% if forloop.counter <= 5 %}
-                            <div class="row collapse">
-                                <div class="small-3 columns" style="text-align: center;">
-                                    <a href="{% url 'publications:detail' publication.pk %}">
-                                        <img src="{{ publication.image_url }}" alt="" style="width: 50px;" />
-                                    </a>
-                                </div>
-                                <div class="small-9 columns">
-                                    <p>
-                                        <a href="{% url 'publications:detail' publication.pk %}">{{ publication.title }}</a>
-                                        <br />
-                                        {{ publication.subtitle }}
-                                    </p>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% empty %}
-                        <p>Aucunes publications trouvées.</p>
-                    {% endfor %}
-                </div>
-                <div class="large-6 columns">
-                    {% for publication in publications_list %}
-                        {% if forloop.counter > 5 %}
-                            <div class="row collapse">
-                                <div class="small-3 columns" style="text-align: center;">
-                                    <a href="{% url 'publications:detail' publication.pk %}">
-                                        <img src="{{ publication.image_url }}" alt="" style="width: 50px;" />
-                                    </a>
-                                </div>
-                                <div class="small-9 columns">
-                                    <p>
-                                        <a href="{% url 'publications:detail' publication.pk %}">{{ publication.title }}</a>
-                                        <br />
-                                        {{ publication.subtitle }}
-                                    </p>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
     </div>
 </div>
 

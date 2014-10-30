@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-27 17:53:48
+# @Last Modified time: 2014-10-30 23:13:30
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -31,10 +31,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
+from iTeam.member.models import Profile
 from iTeam.events.models import Event
 from iTeam.events.forms import EventForm
 
@@ -194,6 +196,28 @@ def detail(request, event_id, event_slug):
         # logged user -> 403
         else:
             raise PermissionDenied
+
+
+def by_author(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
+
+    profileRequest = None
+    if request.user.is_authenticated():
+        profileRequest = get_object_or_404(Profile, user=request.user)
+
+    events_all = Event.objects.all().filter(author=user).order_by('-date_start')
+    events_list = events_all.filter(is_draft=False)
+    events_drafts = events_all.filter(is_draft=True)
+
+    c = {
+        'profile_detail': profile,
+        'profile_request': profileRequest,
+        'events_list': events_list,
+        'events_draft_list': events_drafts,
+    }
+
+    return render(request, 'events/by_author.html', c)
 
 
 @login_required

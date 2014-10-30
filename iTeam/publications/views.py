@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-28 19:53:32
+# @Last Modified time: 2014-10-30 22:34:41
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -29,10 +29,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
+from iTeam.member.models import Profile
 from iTeam.publications.models import Publication
 from iTeam.publications.forms import PublicationForm
 
@@ -99,6 +101,28 @@ def detail(request, publication_id, publication_slug):
         # logged user -> 403
         else:
             raise PermissionDenied
+
+
+def by_author(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
+
+    profileRequest = None
+    if request.user.is_authenticated():
+        profileRequest = get_object_or_404(Profile, user=request.user)
+
+    publications_all = Publication.objects.all().filter(author=user).order_by('-pub_date')
+    publications_list = publications_all.filter(is_draft=False)
+    publications_drafts = publications_all.filter(is_draft=True)
+
+    c = {
+        'profile_detail': profile,
+        'profile_request': profileRequest,
+        'publications_list': publications_list,
+        'publications_draft_list': publications_drafts,
+    }
+
+    return render(request, 'publications/by_author.html', c)
 
 
 @login_required

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 15:20:34
+# @Last Modified time: 2014-10-30 22:14:22
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -86,20 +86,9 @@ def detail(request, user_name):
             if need_redirect:
                 redirect(reverse('member:detail', args=[user_name]))
 
-    # template var
-    publications_all = Publication.objects.all().order_by('-pub_date')
-    publications_list = publications_all.filter(author=user, is_draft=False)
-    publications_drafts = publications_all.filter(author=user, is_draft=True)
-
-    is_admin = request.user.is_authenticated() and request.user.profile.is_admin
-    show_draft = (request.user == user) or is_admin
-
     c = {
         'profile_detail': profile,
         'profile_request': profileRequest,
-        'publications_list': publications_list,
-        'publications_draft_list': publications_drafts,
-        'show_draft': show_draft,
     }
 
     return render(request, 'member/detail.html', c)

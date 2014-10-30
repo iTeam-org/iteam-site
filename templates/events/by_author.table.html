@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="large-12 columns member_event_table">
+
+        <table width="100%">
+            <thead>
+                <tr>
+                    {% if profile_detail.user == profile_request.user or profile_request.is_admin %}
+                        <th width="30%">Titre</th>
+                        <th width="40%">Type d'événement, lieu et date</th>
+                        <th width="30%">Actions</th>
+                    {% else %}
+                        <th width="50%">Titre</th>
+                        <th width="50%">Type d'événement, lieu et date</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                    <tr>
+                        <td>
+                            <div class="row" width="100%">
+                                <div class="large-3 hide-for-small columns">
+                                    <img src="{{ data.image_url }}" alt="" width="50" />
+                                </div>
+                                <div class="large-9 small-12 columns">
+                                    <p>
+                                        <a href="{{ data.get_absolute_url }}">
+                                            {{ data.title }}
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <p>
+                                {{ data.get_type_display }} - {{ data.place }} - {{ data.date_start }}
+                            </p>
+                        </td>
+
+                        {% if profile_detail.user == profile_request.user or profile_request.is_admin %}
+                            <td>
+                                <div class="button-group ">
+                                    <a href="{% url 'events:edit' data.pk %}" class="button-admin">
+                                        Éditer
+                                    </a>
+                                    {% if data.is_draft %}
+                                        <form action="{{ data.get_absolute_url }}" method="post">
+                                            {% csrf_token %}
+                                            <button name="toggle_draft" class="button-admin">
+                                                Publier
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

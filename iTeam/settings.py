@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-29 13:09:07
+# @Last Modified time: 2014-10-30 22:10:59
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -204,7 +204,7 @@ DATABASES = {
 
 NB_PUBLICATIONS_PER_PAGE = 10
 NB_EVENTS_PER_PAGE = 10
-NB_MEMBERS_PER_PAGE = 10
+NB_MEMBERS_PER_PAGE = 8*10
 
 SIZE_MAX_IMG = 5*1024*1024      # 5 Mo
 SIZE_MAX_FILE = 50*1024*1024    # 50 Mo

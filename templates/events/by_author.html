@@ -1,0 +1,62 @@
+{% extends "events/base.html" %}
+
+{% block title_page %}
+    {% if user.is_authenticated and profile_detail.user == user %}
+        Mes événements &#183;
+    {% else %}
+        Événements de {{ profile_detail.user.get_username }} &#183;
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumb_page %}
+    <li class="current"><a href="#">{{ profile_detail.user.get_username }}</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        {# title #}
+        <div class="home-app-title">
+            <div class="row">
+                <div class="large-8 columns">
+                    <h1>
+                        {% if user.is_authenticated and profile_detail.user == user %}
+                            Mes événements
+                        {% else %}
+                            Événements de {{ profile_detail.user.get_username }}
+                        {% endif %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        {# content #}
+        <div class="row">
+            <div class="large-12 columns">
+                <h3>Événements publiés :</h3>
+                {% if events_list %}
+                    {% with data_list=events_list %}
+                        {% include "events/by_author.table.html" %}
+                    {% endwith %}
+                {% else %}
+                    <p>Aucuns événements trouvés.</p>
+                {% endif %}
+
+                {% if profile_detail.user == profile_request.user or profile_request.is_admin %}
+                    <h3>Brouillons :</h3>
+                    {% if events_draft_list %}
+                        {% with data_list=events_draft_list %}
+                            {% include "events/by_author.table.html" %}
+                        {% endwith %}
+                    {% else %}
+                        <p>Aucuns brouillons trouvés.</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

@@ -18,21 +18,20 @@
                 Liste des membres
                 <br />
                 <small>
-                    {{ members_count }} membres trouvés : qui sont ces <em>geek</em> de l'iTeam ?
+                    {{ members_count }} membres trouvés : qui sont les <em>geek</em> de l'iTeam ?
                 </small>
             </h1>
         </div>
         {# content #}
         <div class="row">
-            <div class="large-8 columns large-offset-2">
-                <ul class="left inline-list">
+            <div class="large-12 columns">
+                <ul class="large-block-grid-8 small-block-grid-4">
                     {% for member_one in data %}
-                        <li>
+                        <li style="text-align: center;">
                             <a href="{% url 'member:detail' member_one.username %}">
                                 <img src="{{ member_one.profile.get_avatar_url }}" alt="avatar" width="75px" />
-                            </a>
-                            <a href="{% url 'member:detail' member_one.username %}" style="text-align:center;">
-                                {{ member_one.username }}
+                                <br>
+                                {{ member_one.username|truncatechars:12 }}
                             </a>
                         </li>
                     {% empty %}
@@ -49,7 +48,7 @@
             <ul class="pagination">
                 {% for i in data.paginator.page_range %}
                     <li class="{% if data.number == i %}current{% endif %}">
-                        <a href="?page={{ i }}&type={{ cur_type }}">{{ i }}</a>
+                        <a href="?page={{ i }}">{{ i }}</a>
                     </li>
                 {% endfor %}
             </ul>

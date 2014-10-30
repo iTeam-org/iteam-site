@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 17:38:33
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-10-30 22:55:17
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,8 +32,6 @@ urlpatterns = patterns(
 
     url(r'^voir/(?P<user_name>.+)/$', views.detail, name='detail'),
     url(r'^parametres/$', views.settings_view, name='settings_view'),
-    url(r'^publications/$', views.publications, name='publications'),
-    url(r'^events/$', views.events, name='events'),
 
     url(r'^inscription/$', views.register_view, name='register_view'),
     url(r'^connexion/$', views.login_view, name='login_view'),
