@@ -40,6 +40,32 @@
     * `python manage.py clearsessions`
     * solr ?
 
+```python
+    publications = Publication.objects.all()
+
+    from __future__ import unicode_literals
+    from os import system
+    import sys
+
+    for p in publications:
+        # write to file
+        tmp_html = open('tmp.html', 'w')
+        text_html = p.text.encode('utf8')
+        tmp_html.write(text_html)
+        tmp_html.flush()
+
+        # call pandoc
+        system('pandoc tmp.html -o tmp.md')
+
+        # load from file
+        tmp_md = open('tmp.md', 'r')
+        text_md = tmp_md.read().decode('utf8')
+        p.text = '\n\n'.join((p.text, '```text', text_md, '```'))
+        p.save()
+
+        system('rm tmp.html tmp.md')
+```
+
 **Resumé des technos utilisées :**
 
 | Paramètre       | Valeur   |

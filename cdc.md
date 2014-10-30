@@ -10,11 +10,18 @@ todo long run
 - button radius
 - flake8 compliant (pep8 + other stuff)
 
+#########################################################
+#                                                       #
+# << Premature optimization is the root of all evil. >> #
+#                                                       #
+#########################################################
+
 to do now
-- https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
+- var|date:'d F Y à H\hi'
 - previsualisation des posts
-- news / tuto / articles : export pdf (pandoc)
+- https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
+- news / tuto / articles : export pdf (pandoc)
 
 to do maybe
 - noscript : menu, (logout ok)

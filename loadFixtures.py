@@ -1,12 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from os import system
 
-fixtures = (
+fixtures = ()
+"""
     'auth.yaml',
     'member.yaml',
     'publications.yaml',
     'events.yaml',
 )
+"""
 
 ###########
 # CLEAN
@@ -32,7 +36,7 @@ print '=> Done'
 print '=> Creating super user ...'
 system(
     'echo "from django.contrib.auth.models import User; User.objects.create_superuser('
-    '\'Nodraak\', \'nodraak@mail.fr\', \'mdp\')" | ./manage.py shell'
+    '\'Nodraak\', \'chardond@ece.fr\', \'mdp\')" | ./manage.py shell'
 )
 print '=> Done'
 
@@ -42,3 +46,12 @@ for fixture in fixtures:
     print '=> %s :' % fixture
     system('python manage.py loaddata %s' % fixture)
 print '=> Done'
+
+print '=> Loading prod stuf (migrate + data from old website'
+system('./manage.py migrate')
+system('./manage.py loaddata prod/f_auth.yaml')
+system('./manage.py loaddata prod/f_member.yaml')
+system('./manage.py loaddata prod/f_pub.yaml')
+print '=> Done'
+
+print '#####\n# TODO : Creer un profil pour Nodraak\n#####'
