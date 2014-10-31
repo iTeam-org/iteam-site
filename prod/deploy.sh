@@ -19,8 +19,8 @@ sudo rm /etc/nginx/sites-enabled/iteam
 sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam-maintenance
 sudo service nginx reload
 
-# Retrieve prod branch
-git branch prod origin/prod  # usefull ?
+# switch to another branch to delete
+git checkout prod
 # Delete old branch if exists
 git branch -D $1
 # Switch to new tag (Server has git < 1.9, git fetch --tags doesn't retrieve commits...)

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:54:29
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-07 22:56:59
+# @Last Modified time: 2014-10-31 19:34:22
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -47,10 +47,11 @@ class EventForm(forms.Form):
     )
     date_start = forms.DateTimeField(
         label='Date de debut',
-        widget=forms.TextInput(
+        widget=forms.DateTimeInput(
             attrs={
-                'placeholder': 'Date de début aaaa-mm-jj hh:mm'
-            }
+                'placeholder': 'Date de début : jj/mm/aaaa hh:mm'
+            },
+            format='%d/%m/%Y %Hh%m',
         )
     )
     image = forms.ImageField(

@@ -17,7 +17,8 @@
     * apt-get install
     * Conf file :
         * `cp prod/nginx.conf /etc/nginx/sites-available/iteam` + maintenance
-        * `vim /etc/nginx/sites-available/iteam` -> static/ media/ and robots.txt
+        * `vim /etc/nginx/sites-available/iteam` -> static/ + media/ path
+        * cp favicon robots.txt + check conf file
         * `ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam`
     * check nginx conf : `nginx -t`
 * Gunicorn

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:35:58
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:13:35
+# @Last Modified time: 2014-10-31 13:26:35
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -30,8 +30,8 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    promo = models.IntegerField(null=True)
-    avatar_url = models.CharField(max_length=256, null=True, default='')
+    promo = models.IntegerField(blank=True)
+    avatar_url = models.CharField(max_length=256, blank=True, default='')
 
     is_publisher = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)

@@ -92,7 +92,7 @@
                     <p>
                         <a href="{{ event.get_absolute_url }}">{{ event.title }}</a>
                         <br />
-                        Le {{ event.date_start }}.
+                        Le {{ event.date_start|date:'d F Y à H\hi' }}.
                     </p>
                 </div>
             </div>
