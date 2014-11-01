@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:20:08
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:27:03
+# @Last Modified time: 2014-11-01 14:18:01
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -93,14 +93,6 @@ class MemberIntegrationTests(TestCase):
 
     def test_settings_view(self):
         resp = self.client.get(reverse('member:settings_view'))
-        self.assertEqual(resp.status_code, 302)
-
-    def test_publications_view(self):
-        resp = self.client.get(reverse('member:publications'))
-        self.assertEqual(resp.status_code, 302)
-
-    def test_events_view(self):
-        resp = self.client.get(reverse('member:events'))
         self.assertEqual(resp.status_code, 302)
 
     def test_register_view(self):
@@ -262,14 +254,6 @@ class AuthenticatedMemberIntegrationTests(TestCase):
         resp = self.client.get(reverse('member:settings_view'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_publications_view(self):
-        resp = self.client.get(reverse('member:publications'))
-        self.assertEqual(resp.status_code, 403)
-
-    def test_events_view(self):
-        resp = self.client.get(reverse('member:events'))
-        self.assertEqual(resp.status_code, 403)
-
     def test_register_view(self):
         resp = self.client.get(reverse('member:register_view'))
         self.assertEquals(resp.status_code, 200)
@@ -353,14 +337,6 @@ class PublisherMemberIntegrationTests(TestCase):
         resp = self.client.get(reverse('member:settings_view'))
         self.assertEqual(resp.status_code, 200)
 
-    def test_publications_view(self):
-        resp = self.client.get(reverse('member:publications'))
-        self.assertEqual(resp.status_code, 200)
-
-    def test_events_view(self):
-        resp = self.client.get(reverse('member:events'))
-        self.assertEqual(resp.status_code, 200)
-
     def test_register_view(self):
         resp = self.client.get(reverse('member:register_view'))
         self.assertEquals(resp.status_code, 200)
@@ -390,14 +366,6 @@ class AdminMemberIntegrationTests(TestCase):
 
     def test_settings_view(self):
         resp = self.client.get(reverse('member:settings_view'))
-        self.assertEqual(resp.status_code, 200)
-
-    def test_publications_view(self):
-        resp = self.client.get(reverse('member:publications'))
-        self.assertEqual(resp.status_code, 200)
-
-    def test_events_view(self):
-        resp = self.client.get(reverse('member:events'))
         self.assertEqual(resp.status_code, 200)
 
     def test_register_view(self):

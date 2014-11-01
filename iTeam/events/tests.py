@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:50:12
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-27 19:18:26
+# @Last Modified time: 2014-11-01 14:17:14
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -169,6 +169,10 @@ class EventsIntegrationTests(TestCase):
         url = e.get_absolute_url()[::-1][2:][::-1]  # truncate the end of the slug
         resp = self.client.get(url)
         self.assertEqual(resp.status_code, 301)
+
+    def test_by_author_view(self):
+        resp = self.client.get(reverse('events:by_author', args=['publisher1']))
+        self.assertEqual(resp.status_code, 200)
 
 
 class AuthenticatedEventsIntegrationTests(TestCase):
