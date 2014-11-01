@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 17:04:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 11:44:55
+# @Last Modified time: 2014-11-01 15:42:30
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,5 +32,6 @@ register = template.Library()
 
 @register.filter
 def iteam_markdown(value):
+    value = unicode(value)
     html = markdown.markdown(value, safe_mode='escape', extensions=['codehilite(linenums=True)', 'extra'])
     return mark_safe(html)

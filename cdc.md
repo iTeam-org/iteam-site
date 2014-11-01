@@ -17,7 +17,6 @@ todo long run
 #########################################################
 
 to do now
-- var|date:'d F Y à H\hi'
 - previsualisation des posts
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
