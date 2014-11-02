@@ -38,7 +38,7 @@
 
         {% if not user.is_authenticated %}
         <div class="row">
-            <div class="large-8 large-offset-2 columns">
+            <div class="large-12 columns">
                 <form method="post" action="{% url 'member:login_view' %}{% if next %}?next={{ next }}{% endif %}">
                     {% csrf_token %}
 
@@ -48,10 +48,10 @@
 
                     {% for field in form %}
                         <div class="row">
-                            <div class="large-5 columns">
+                            <div class="large-3 large-offset-3 columns">
                                 {{ field.label_tag }}
                             </div>
-                            <div class="large-7 columns">
+                            <div class="large-3 end columns">
                                 {{ field }}
                                 {% for error in field.errors %}
                                     <small class="error">{{ error }}</small>
@@ -61,13 +61,10 @@
                     {% endfor %}
 
                     <div class="row">
-                        <div class="large-8 large-offset-2 columns">
+                        <div class="large-12 columns" style="text-align: center;">
                             <button type="submit" class="button radius">
                                 Se connecter
                             </button>
-                            <a href="/" class="button radius secondary">
-                                Annuler
-                            </a>
                         </div>
                     </div>
                 </form>

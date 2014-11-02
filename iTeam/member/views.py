@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:14:22
+# @Last Modified time: 2014-11-02 18:56:36
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -195,41 +195,3 @@ def settings_view(request):
         form = SettingsForm(request.user)
 
     return render(request, 'member/settings_account.html', {'form': form})
-
-
-@login_required
-def publications(request):
-    profile = request.user.profile  # login_required
-
-    if not profile.is_publisher:
-        raise PermissionDenied
-
-    publications_all = Publication.objects.all().filter(author=request.user).order_by('-pub_date')
-    publications_list = publications_all.filter(is_draft=False)
-    drafts_list = publications_all.filter(is_draft=True)
-
-    c = {
-        'publications_list': publications_list,
-        'drafts_list': drafts_list,
-    }
-
-    return render(request, 'member/publications.html', c)
-
-
-@login_required
-def events(request):
-    profile = request.user.profile  # login_required
-
-    if not profile.is_publisher:
-        raise PermissionDenied
-
-    events_all = Event.objects.all().filter(author=request.user).order_by('-date_start')
-    events_list = events_all.filter(is_draft=False)
-    drafts_list = events_all.filter(is_draft=True)
-
-    c = {
-        'events_list': events_list,
-        'drafts_list': drafts_list,
-    }
-
-    return render(request, 'member/events.html', c)
