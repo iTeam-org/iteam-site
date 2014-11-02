@@ -18,5 +18,5 @@ exec ../bin/gunicorn iTeam.wsgi:application \
 --name=iTeam \
 --user=$USER \
 --group=$GROUP \
---log-level=debug \
+--log-level=info \
 --log-file=$LOGFILE 2>>$ERRFILE

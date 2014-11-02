@@ -16,10 +16,10 @@
 * Nginx
     * apt-get install
     * Conf file :
-        * `cp prod/nginx.conf /etc/nginx/sites-available/iteam` + maintenance
+        * `cp prod/nginx-global.conf /etc/nginx/sites-available/iteam-global` + `cp prod/nginx-prod.conf /etc/nginx/sites-available/iteam-prod` + `cp prod/nginx-maintenance.conf /etc/nginx/sites-available/iteam-maintenance`
         * `vim /etc/nginx/sites-available/iteam` -> static/ + media/ path
         * cp favicon robots.txt + check conf file
-        * `ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam`
+        * `ln -s /etc/nginx/sites-available/iteam-prod /etc/nginx/sites-enabled/iteam`
     * check nginx conf : `nginx -t`
 * Gunicorn
     * `pip install gunicorn`
@@ -108,7 +108,7 @@ A lire :
 * django cache https://docs.djangoproject.com/en/dev/topics/cache/
 * nginx + static + gzip : http://sametmax.com/servir-des-fichiers-statiques-avec-nginx/
 * migrate http://www.djangopro.com/2011/01/django-database-migration-tool-south-explained/
-
+* nginx : root vs alias : http://nginx.org/en/docs/http/ngx_http_core_module.html#alias + http://nginx.org/en/docs/http/ngx_http_core_module.html#root
 
 
 # Django settings : `settings_prod.py`

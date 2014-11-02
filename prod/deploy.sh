@@ -16,7 +16,7 @@ cd /opt/iteam-env/iteam-site/
 
 # Maintenance mode
 sudo rm /etc/nginx/sites-enabled/iteam
-sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam-maintenance
+sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam
 sudo service nginx reload
 
 # save database if something fail
@@ -48,8 +48,8 @@ deactivate
 sudo supervisorctl restart iteam
 
 # Exit maintenance mode
-sudo rm /etc/nginx/sites-enabled/iteam-maintenance
-sudo ln -s /etc/nginx/sites-available/iteam /etc/nginx/sites-enabled/iteam
+sudo rm /etc/nginx/sites-enabled/iteam
+sudo ln -s /etc/nginx/sites-available/iteam-prod /etc/nginx/sites-enabled/iteam
 sudo service nginx reload
 
 # Display current branch and commit
