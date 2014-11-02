@@ -9,6 +9,7 @@ todo long run
 - <img> : alt
 - button radius
 - flake8 compliant (pep8 + other stuff)
+- `git tag -a v1.4 -m 'my version 1.4'` + `git push origin --tags`
 
 #########################################################
 #                                                       #
@@ -17,7 +18,6 @@ todo long run
 #########################################################
 
 to do now
-- previsualisation des posts
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
 - news / tuto / articles : export pdf (pandoc)

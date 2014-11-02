@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 23:13:30
+# @Last Modified time: 2014-11-02 12:11:45
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -224,8 +224,16 @@ def by_author(request, username):
 def create(request):
     profile = request.user.profile  # login_required
 
-    if not profile.is_publisher:
+    if (not profile.is_publisher) and (not profile.is_admin):
         raise PermissionDenied
+
+    # preview ?
+    if (request.method == 'POST') and ('preview' in request.POST):
+        c = {
+            'form': EventForm(request.POST, request.FILES),
+        }
+
+        return render(request, 'events/create.html', c)
 
     event = Event()
     event.date_start = timezone.now()
@@ -241,6 +249,18 @@ def edit(request, event_id):
         raise PermissionDenied
 
     editing_as_admin = (event.author != request.user) and profile.is_admin
+
+    # preview ?
+    if (request.method == 'POST') and ('preview' in request.POST):
+        form = EventForm(request.POST, request.FILES)
+
+        c = {
+            'form': form,
+            'editing_as_admin': editing_as_admin,
+            'event_pk': event.pk,
+        }
+
+        return render(request, 'events/edit.html', c)
 
     return save_event(request, 'events/edit.html', event, editing_as_admin=editing_as_admin)
 

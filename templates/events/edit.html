@@ -1,5 +1,7 @@
 {% extends "events/base.html" %}
 
+{% load publications_tags %}
+
 {% block title_page %}
     Éditer un événement &#183;
 {% endblock %}
@@ -48,6 +50,16 @@
                 <form action="{% url 'events:edit' event_pk %}" method="post" enctype="multipart/form-data">
                     {% include "events/form.part.html" %}
                 </form>
+            </div>
+        </div>
+
+        {# Prévisualization #}
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="panel">
+                    <h4>Prévisualisation de votre événement :</h4>
+                    {{ form.text.value|iteam_markdown }}
+                </div>
             </div>
         </div>
     </div>

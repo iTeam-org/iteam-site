@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:54:29
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-31 19:34:22
+# @Last Modified time: 2014-11-02 12:10:43
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -51,7 +51,7 @@ class EventForm(forms.Form):
             attrs={
                 'placeholder': 'Date de début : jj/mm/aaaa hh:mm'
             },
-            format='%d/%m/%Y %Hh%m',
+            format='%d/%m/%Y %H:%m',
         )
     )
     image = forms.ImageField(

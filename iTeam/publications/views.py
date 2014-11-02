@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:34:41
+# @Last Modified time: 2014-11-02 12:06:21
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -131,6 +131,14 @@ def create(request):
     if (not profile.is_publisher) and (not profile.is_admin):
         raise PermissionDenied
 
+    # preview ?
+    if (request.method == 'POST') and ('preview' in request.POST):
+        c = {
+            'form': PublicationForm(request.POST, request.FILES),
+        }
+
+        return render(request, 'publications/create.html', c)
+
     publication = Publication()
     return save_publication(request, 'publications/create.html', publication)
 
@@ -143,10 +151,19 @@ def edit(request, publication_id):
     if ((not profile.is_publisher) or publication.author != request.user) and not profile.is_admin:
         raise PermissionDenied
 
-    if (publication.author != request.user) and profile.is_admin:
-        editing_as_admin = True
-    else:
-        editing_as_admin = False
+    editing_as_admin = (publication.author != request.user) and profile.is_admin
+
+    # preview ?
+    if (request.method == 'POST') and ('preview' in request.POST):
+        form = PublicationForm(request.POST, request.FILES)
+
+        c = {
+            'form': form,
+            'editing_as_admin': editing_as_admin,
+            'publication_pk': publication.pk,
+        }
+
+        return render(request, 'publications/edit.html', c)
 
     return save_publication(request, 'publications/edit.html', publication, editing_as_admin=editing_as_admin)
 
