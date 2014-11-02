@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-07-13 18:51:48
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-08-22 17:02:41
+# @Last Modified time: 2014-11-02 17:54:01
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -24,10 +24,16 @@
 
 from django.contrib import admin
 
-from iTeam.member.models import Profile
+from iTeam.member.models import Profile, ForgotPasswordToken
 
 
 class ProfileAdmin(admin.ModelAdmin):
     search_fields = ['user__username']
 
 admin.site.register(Profile, ProfileAdmin)
+
+
+class ForgotPasswordTokenAdmin(admin.ModelAdmin):
+    search_fields = ['user__username']
+
+admin.site.register(ForgotPasswordToken, ForgotPasswordTokenAdmin)

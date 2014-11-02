@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:10:59
+# @Last Modified time: 2014-11-02 17:17:31
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -38,6 +38,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
 
 ################################
 # Internationalization
@@ -247,6 +248,8 @@ START_HOUR_UTC = 4
 END_HOUR_UTC = 21
 
 LOGIN_URL = '/membres/connexion/'
+
+FORGOT_PASSWORD_TOKEN_EXPIRES = datetime.timedelta(hours=2)
 
 # python social auth
 """

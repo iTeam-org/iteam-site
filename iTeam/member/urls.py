@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 17:38:33
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:55:17
+# @Last Modified time: 2014-11-02 18:08:40
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -36,6 +36,9 @@ urlpatterns = patterns(
     url(r'^inscription/$', views.register_view, name='register_view'),
     url(r'^connexion/$', views.login_view, name='login_view'),
     url(r'^deconnexion/$', views.logout_view, name='logout_view'),
+
+    url(r'^oubli/$', views.password_reset_ask, name='password_reset_ask'),
+    url(r'^oubli/(?P<token>.+)/$', views.password_reset_confirm, name='password_reset_confirm'),
 )
 
 # Note : '_view' because of weird recursive function call ...

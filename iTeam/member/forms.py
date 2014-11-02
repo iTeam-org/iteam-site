@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:30
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:02:30
+# @Last Modified time: 2014-11-02 17:48:30
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -198,5 +198,30 @@ class SettingsForm(forms.Form):
 
             if 'password_confirm' in cleaned_data:
                 del cleaned_data['password_confirm']
+
+        return cleaned_data
+
+
+class LostPasswordForm(forms.Form):
+
+    username = forms.CharField(
+        label='Identifiant',
+        widget=forms.TextInput(
+            attrs={
+                'autofocus': '',
+                'placeholder': 'Identifiant'
+            }
+        )
+    )
+
+    def clean(self):
+        cleaned_data = super(LostPasswordForm, self).clean()
+
+        username = cleaned_data.get('username')
+
+        # Check if the user exist
+        if User.objects.filter(username=username).count() == 0:
+            msg = u"L'utilisateur %s n'a pas été trouvé." % username
+            self._errors['username'] = self.error_class([msg])
 
         return cleaned_data

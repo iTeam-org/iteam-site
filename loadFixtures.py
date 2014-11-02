@@ -25,8 +25,9 @@ print '=> Done'
 ###########
 
 # sync db
-print '=> Sync db ...'
+print '=> Sync db + migrate'
 system('python manage.py syncdb --noinput')
+system('./manage.py migrate')
 print '=> Done'
 
 ###########
@@ -34,10 +35,11 @@ print '=> Done'
 ###########
 # create super user
 print '=> Creating super user ...'
-system(
-    'echo "from django.contrib.auth.models import User; User.objects.create_superuser('
-    '\'Nodraak\', \'chardond@ece.fr\', \'mdp\')" | ./manage.py shell'
+code = (
+    "from django.contrib.auth.models import User",
+    "user = User.objects.create_superuser('Nodraak', 'chardond@ece.fr', 'mdp')",
 )
+system('echo "%s" | ./manage.py shell' % '\n'.join(code))
 print '=> Done'
 
 # load data
@@ -47,8 +49,7 @@ for fixture in fixtures:
     system('python manage.py loaddata %s' % fixture)
 print '=> Done'
 
-print '=> Loading prod stuf (migrate + data from old website'
-system('./manage.py migrate')
+print '=> Loading data from old website'
 system('./manage.py loaddata prod/f_auth.yaml')
 system('./manage.py loaddata prod/f_member.yaml')
 system('./manage.py loaddata prod/f_pub.yaml')

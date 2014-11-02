@@ -19,6 +19,9 @@ sudo rm /etc/nginx/sites-enabled/iteam
 sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled/iteam-maintenance
 sudo service nginx reload
 
+# save database if something fail
+cp ../db.sqlite3 ../db.sqlite3_save
+
 # switch to another branch to delete
 git checkout prod
 # Delete old branch if exists

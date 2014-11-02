@@ -10,6 +10,9 @@ todo long run
 - button radius
 - flake8 compliant (pep8 + other stuff)
 - `git tag -a v1.4 -m 'my version 1.4'` + `git push origin --tags`
+- migrations
+    * ./manage.py schemamigration app_name --initial
+    * ./manage.py schemamigration app_name --auto 
 
 #########################################################
 #                                                       #
@@ -20,11 +23,11 @@ todo long run
 to do now
 - https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
+- media sociaux (syncro fb, twitter, google) -> https://github.com/foxmask/django-th
 - news / tuto / articles : export pdf (pandoc)
 
 to do maybe
 - noscript : menu, (logout ok)
-- media sociaux (syncro fb, twitter, google) -> https://github.com/foxmask/django-th
 - calendar : list (prochain, passés, ...)
 - publications : tags, multi-page
 - better member (mail, citation, bio, ... osef ?)

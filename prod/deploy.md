@@ -12,7 +12,7 @@
     * mkdir media + static + log (inside app or .. ?)
     * cp settings_prod.py iTeam/ : change infos + db (mysql / postgresql)
     * python manage.py collectstatic
-    * python manage.py syncdb (loadFixtures ?)
+    * python manage.py : syncdb + migrate + loaddata
 * Nginx
     * apt-get install
     * Conf file :

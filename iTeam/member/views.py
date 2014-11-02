@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 18:56:36
+# @Last Modified time: 2014-11-02 22:40:03
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -21,6 +21,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
+import uuid
+import string
+import random
 
 from django.conf import settings
 
@@ -33,11 +36,13 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+from django.http import HttpResponse
 from django.views.decorators.debug import sensitive_post_parameters
 from django.shortcuts import redirect, render, get_object_or_404
+from django.utils import timezone
 
-from iTeam.member.models import Profile
-from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm
+from iTeam.member.models import Profile, ForgotPasswordToken, send_templated_mail
+from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm, LostPasswordForm
 from iTeam.publications.models import Publication
 from iTeam.events.models import Event
 
@@ -170,13 +175,69 @@ def register_view(request):
             profile.save()
 
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-
             login(request, user)
 
             return render(request, 'member/register_success.html')
     else:  # method == GET
         form = RegisterForm()
     return render(request, 'member/register.html', {'form': form})
+
+
+def password_reset_ask(request):
+    if request.method == 'POST':
+        form = LostPasswordForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            user = get_object_or_404(User, username=username)
+
+            # Generate a new token
+            token = ForgotPasswordToken()
+            token.user = user
+            token.token = str(uuid.uuid4())
+            token.expires = timezone.now() + settings.FORGOT_PASSWORD_TOKEN_EXPIRES
+            token.save()
+
+            # send mail
+            subject = '[iteam.org] Réinitialisation du mot de passe'
+            context = {
+                'username': token.user.username,
+                'link': token.get_absolute_url(),
+            }
+            send_templated_mail(subject, 'mail/password_reset.txt', context, (token.user.email,))
+
+            return render(request, 'member/password_reset_confirm.html')
+    else:
+        form = LostPasswordForm()
+
+    return render(request, 'member/password_reset.html', {'form': form})
+
+
+def password_reset_confirm(request, token):
+    if not request.user.is_authenticated():
+        token = get_object_or_404(ForgotPasswordToken, token=token)
+
+        if token.expires > timezone.now():
+            user = token.user
+
+            # Set a new password
+            length = 10
+            chars = string.ascii_letters + string.digits
+            password = ''.join(random.choice(chars) for _ in range(length))
+            user.set_password(password)
+            user.save()
+
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
+
+            token.delete()
+
+            return render(request, 'member/password_reset_changed.html', {'new_password': password})
+        else:
+            token.delete()
+            return HttpResponse('Erreur : le token a expiré, merci de recommencer.')
+    else:
+        raise PermissionDenied
 
 
 @login_required
