@@ -30,9 +30,11 @@
                             <dl class="sub-nav right">
                                 <dt>Filtrer :</dt>
                                 <dd class="{{ type_all }}"><a href="?">Tout</a></dd>
-                                <dd class="{{ type_N }}"><a href="?type=N">News</a></dd>
-                                <dd class="{{ type_T }}"><a href="?type=T">Tutoriels</a></dd>
-                                <dd class="{{ type_P }}"><a href="?type=P">Autres</a></dd>
+                                {% for abr, type in types %}
+                                    <dd class="{% if cur_type == abr %}active{% endif %}">
+                                        <a href="?type={{ abr }}">{{ type }}</a>
+                                    </dd>
+                                {% endfor %}
                             </dl>
                         </div>
                     </div>

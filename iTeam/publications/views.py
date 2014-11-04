@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:22:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 12:06:21
+# @Last Modified time: 2014-11-04 19:32:21
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -62,12 +62,14 @@ def index(request):
         publications = paginator.page(paginator.num_pages)
 
     # build data for template
-    data = {"data": publications, "cur_type": type}
+    data = {
+        "data": publications,
+        "cur_type": type,
+        "types": settings.PUBLICATIONS_MODEL_TYPES,
+    }
 
-    # add active field to proper filter
-    if type in settings.PUBLICATIONS_TYPES:
-        data[''.join(("type_", type))] = "active"
-    else:
+    # add active field
+    if not (type in settings.PUBLICATIONS_TYPES):
         data['type_all'] = "active"
 
     return render(request, 'publications/index.html', data)

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 21:25:55
+# @Last Modified time: 2014-11-04 19:42:43
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -213,6 +213,7 @@ SIZE_MAX_FILE = 50*1024*1024    # 50 Mo
 SIZE_MAX_TITLE = 100
 
 PUBLICATIONS_MODEL_TYPES = (
+    ('A', u'Archive'),
     ('N', u'News'),
     ('T', u'Tutoriel'),
     ('P', u'Publication')  # default
