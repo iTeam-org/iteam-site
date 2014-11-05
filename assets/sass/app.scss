@@ -42,7 +42,7 @@ $iteam_base_darken: 7%;
 @import "foundation/components/forms"; // *requires components/buttons
 @import "foundation/components/custom-forms"; // *requires components/buttons, components/forms
 @import "foundation/components/button-groups"; // *requires components/buttons
-// @import "foundation/components/dropdown-buttons"; // *requires components/buttons
+@import "foundation/components/dropdown-buttons"; // *requires components/buttons
 @import "foundation/components/split-buttons"; // *requires components/buttons
 // @import "foundation/components/flex-video";
 @import "foundation/components/section";
@@ -67,7 +67,7 @@ $iteam_base_darken: 7%;
 @import "foundation/components/tables";
 @import "foundation/components/thumbs";
 // @import "foundation/components/tooltips";
-// @import "foundation/components/dropdown";
+@import "foundation/components/dropdown";
 
 
 //@import "compass";

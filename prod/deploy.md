@@ -13,6 +13,7 @@
     * cp settings_prod.py iTeam/ : change infos + db (mysql / postgresql)
     * python manage.py collectstatic
     * python manage.py : syncdb + migrate + loaddata
+    * admin : add profile for superuser + change site info
 * Nginx
     * apt-get install
     * Conf file :

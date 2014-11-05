@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:39:03
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:55:53
+# @Last Modified time: 2014-11-05 12:08:17
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -24,10 +24,13 @@
 
 from django.conf.urls import patterns, url
 
-from iTeam.events import views
+from iTeam.events import views, feeds
 
-urlpatterns = patterns(
-    '',
+
+urlpatterns = patterns('',
+    url(r'^feed/rss/$', feeds.LastEventsFeedRSS(), name='events_feed_rss'),
+    url(r'^feed/atom/$', feeds.LastEventsFeedATOM(), name='events_feed_atom'),
+
     url(r'^list/$', views.index_list, name='index_list'),
     url(r'^week/(?P<days_since_epoch>\d+)/$', views.index_week, name='index_week'),
     url(r'^month/(?P<year>\d+)/(?P<month>\d+)/$', views.index_month, name='index_month'),

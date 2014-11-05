@@ -64,10 +64,19 @@
             </div>
         {% endfor %}
         <div class="row">
-            <div class="home_go_to_button">
-                <a href="{% url 'publications:index' %}" class="button radius">
-                    Aller aux publications
-                </a>
+            <div class="large-12 columns">
+                <div class="button-group button-center">
+                    <a href="{% url 'publications:index' %}" class="button radius">
+                        Aller aux publications
+                    </a>
+                    <a href="#" class="button radius secondary dropdown" data-dropdown="publications-drop-feeds">
+                        S’abonner
+                    </a><br />
+                    <ul id="publications-drop-feeds" class="f-dropdown">
+                        <li><a href="{% url 'publications:publications_feed_rss' %}">Nouveaux tutoriels (RSS)</a></li>
+                        <li><a href="{% url 'publications:publications_feed_atom' %}">Nouveaux tutoriels (ATOM)</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -104,10 +113,19 @@
             </div>
         {% endfor %}
         <div class="row">
-            <div class="home_go_to_button">
-                <a href="{% url 'events:index_list' %}" class="button radius">
-                    Aller aux events
-                </a>
+            <div class="large-12 columns">
+                <div class="button-group button-center">
+                    <a href="{% url 'events:index_list' %}" class="button radius">
+                        Aller aux events
+                    </a>
+                    <a href="#" class="button radius secondary dropdown" data-dropdown="events-drop-feeds">
+                        S’abonner
+                    </a><br />
+                    <ul id="events-drop-feeds" class="f-dropdown">
+                        <li><a href="{% url 'events:events_feed_rss' %}">Nouveaux évémements (RSS)</a></li>
+                        <li><a href="{% url 'events:events_feed_atom' %}">Nouveaux évémements (ATOM)</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

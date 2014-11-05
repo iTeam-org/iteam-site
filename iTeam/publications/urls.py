@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-07-10 11:43:53
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-30 22:06:14
+# @Last Modified time: 2014-11-05 12:04:16
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -24,10 +24,13 @@
 
 from django.conf.urls import patterns, url
 
-from iTeam.publications import views
+from iTeam.publications import views, feeds
 
-urlpatterns = patterns(
-    '',
+
+urlpatterns = patterns('',
+    url(r'^feed/rss/$', feeds.LastPublicationsFeedRSS(), name='publications_feed_rss'),
+    url(r'^feed/atom/$', feeds.LastPublicationsFeedATOM(), name='publications_feed_atom'),
+
     url(r'^$', views.index, name='index'),
     url(r'^create/$', views.create, name='create'),
     url(r'^view/(?P<publication_id>\d+)/(?P<publication_slug>.+)/$', views.detail, name='detail'),
