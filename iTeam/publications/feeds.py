@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-11-05 10:54:20
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-05 11:06:41
+# @Last Modified time: 2014-11-05 13:50:50
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -34,7 +34,7 @@ class LastPublicationsFeedRSS(Feed):
     description = "Les dernières publications de l'iTeam"
 
     def items(self):
-        return Publication.objects.order_by('-pub_date')[:5]
+        return Publication.objects.filter(is_draft=False).order_by('-pub_date')[:5]
 
     def item_title(self, item):
         return item.title

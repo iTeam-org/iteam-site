@@ -17,8 +17,8 @@
 * Nginx
     * apt-get install
     * Conf file :
-        * `cp prod/nginx-global.conf /etc/nginx/sites-available/iteam-global` + `cp prod/nginx-prod.conf /etc/nginx/sites-available/iteam-prod` + `cp prod/nginx-maintenance.conf /etc/nginx/sites-available/iteam-maintenance`
-        * `vim /etc/nginx/sites-available/iteam` -> static/ + media/ path
+        * `cp prod/nginx-prod.conf /etc/nginx/sites-available/iteam-prod` + `cp prod/nginx-maintenance.conf /etc/nginx/sites-available/iteam-maintenance`
+        * `vim /etc/nginx/sites-available/iteam-*` -> static/ + media/ path
         * cp favicon robots.txt + check conf file
         * `ln -s /etc/nginx/sites-available/iteam-prod /etc/nginx/sites-enabled/iteam`
     * check nginx conf : `nginx -t`
@@ -31,7 +31,7 @@
     * `cp prod/supervisor.conf /etc/supervisor/conf.d/iteam.conf`
     * `vim /etc/supervisor/conf.d/iteam.conf`
     * Mise a jour de la conf de supervisor : `supervisorctl reread` puis `supervisorctl reload`
-    * démarrer et arréter le serveur : `supervisorctl start zds` et `supervisorctl stop zds`
+    * démarrer et arréter le serveur : `supervisorctl start iteam` et `supervisorctl stop iteam`
 * Bobonuxnux
     * django : log + disable django admin ??
     * backup : db.sqlite3 + media/

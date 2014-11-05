@@ -22,8 +22,6 @@ sudo service nginx reload
 # save database if something fail
 cp ../db.sqlite3 ../db.sqlite3_save
 
-# switch to another branch to delete
-git checkout prod
 # Delete old branch if exists
 git branch -D $1
 # Switch to new tag (Server has git < 1.9, git fetch --tags doesn't retrieve commits...)
@@ -31,16 +29,14 @@ git fetch --tags
 git fetch
 # Checkout the tag
 git checkout $1
-# Create a branch with the same name - required to have version data in footer
-git checkout -b $1
 
 # compute front stuff
 compass compile assets/
-python manage.py collectstatic --noinput
 
 # Update application data
 source ../bin/activate
 pip install --upgrade -r requirements.txt
+python manage.py collectstatic --noinput
 python manage.py migrate
 deactivate
 
