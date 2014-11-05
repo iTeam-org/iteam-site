@@ -22,7 +22,6 @@ todo long run
 
 to do now
 - member:settings : promo + avatar form
-- https://docs.djangoproject.com/en/dev/ref/contrib/sitemaps/
 - syndication (rss + atom) : https://docs.djangoproject.com/en/dev/ref/contrib/syndication/
 - media sociaux (syncro fb, twitter, google) -> https://github.com/foxmask/django-th
 - news / tuto / articles : export pdf (pandoc)
