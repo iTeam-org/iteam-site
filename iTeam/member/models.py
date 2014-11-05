@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:35:58
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-05 09:43:01
+# @Last Modified time: 2014-11-05 10:33:59
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -33,7 +33,7 @@ from django.template.loader import render_to_string
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    promo = models.IntegerField(blank=True, null=True)
+    show_email = models.BooleanField(default=False)
     avatar_url = models.CharField(max_length=256, blank=True, default='')
 
     is_publisher = models.BooleanField(default=False)

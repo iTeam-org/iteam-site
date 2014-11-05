@@ -12,30 +12,35 @@
     <div class="row">
         <div class="large-12 columns">
             <div class="home-app-title">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h1>
-                        Paramètres du compte
-                    </h1>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <h1>
+                            Paramètres du compte
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="large-12 columns">
+                {% if msg %}
+                    <div data-alert class="alert-box success round">
+                        {{ msg }}
+                        <a href="#" class="close">&times;</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Form password #}
+            <div class="large-6 columns">
                 <form action="{% url 'member:settings_view' %}" method="post">
                     {% csrf_token %}
-
-                    {% if msg %}
-                        <div data-alert class="alert-box success round">
-                            {{ msg }}
-                            <a href="#" class="close">&times;</a>
-                        </div>
-                    {% endif %}
+                    <input type="hidden" name="form" value="password">
 
                     <fieldset>
                         <legend>Modification du mot de passe</legend>
 
-                        {% for field in form %}
+                        {% for field in formPassword %}
                             {{ field.label_tag }}
                             {{ field }}
                             {% for error in field.errors %}
@@ -45,13 +50,37 @@
 
                     </fieldset>
 
-                    <div class="small-8 small-offset-2 large-4 large-offset-4" >
-                        <input type="submit" value="Modifier mon mot de passe" class="button expand" />
+                    <div class="small-8 small-offset-2 large-8 large-offset-2" >
+                        <input type="submit" value="Modifier mon mot de passe" class="button radius expand" />
                     </div>
-
                 </form>
             </div>
-        </div>
+
+            {# Form promo + avatar #}
+            <div class="large-6 columns">
+                <form action="{% url 'member:settings_view' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="form" value="other">
+
+                    <fieldset>
+                        <legend>Paramètres du compte</legend>
+
+                        {% for field in formOther %}
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <small class="error">{{ error }}</small>
+                            {% endfor %}
+                        {% endfor %}
+
+                    </fieldset>
+
+                    <div class="small-8 small-offset-2 large-8 large-offset-2" >
+                        <input type="submit" value="Enregistrer" class="button radius expand" />
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 {% endblock %}

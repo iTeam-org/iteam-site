@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 18:26:44
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 22:40:03
+# @Last Modified time: 2014-11-05 10:44:35
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -42,7 +42,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
 from iTeam.member.models import Profile, ForgotPasswordToken, send_templated_mail
-from iTeam.member.forms import LoginForm, RegisterForm, SettingsForm, LostPasswordForm
+from iTeam.member.forms import LoginForm, RegisterForm, SettingsPasswordForm, SettingsOtherForm, LostPasswordForm
 from iTeam.publications.models import Publication
 from iTeam.events.models import Event
 
@@ -243,16 +243,37 @@ def password_reset_confirm(request, token):
 @login_required
 @sensitive_post_parameters('password_old', 'password_new', 'password_confirm')
 def settings_view(request):
-    if request.method == 'POST':
-        form = SettingsForm(request.user, request.POST)
+    p = get_object_or_404(Profile, user=request.user)
 
-        if form.is_valid():
-            request.user.set_password(form.cleaned_data['password_new'])
-            request.user.save()
+    formPassword = SettingsPasswordForm(request.user)
+    formOther = SettingsOtherForm({'avatar_url':p.avatar_url, 'show_email': p.show_email })
+    msg = ''
 
-            data = {'form': form, 'msg': u'Le mot de passe a bien été modifié.'}
-            return render(request, 'member/settings_account.html', data)
-    else:
-        form = SettingsForm(request.user)
+    if request.method == 'POST' and 'form' in request.POST:
+        if 'password' == request.POST['form']:
+            formPassword = SettingsPasswordForm(request.user, request.POST)
 
-    return render(request, 'member/settings_account.html', {'form': form})
+            if formPassword.is_valid():
+                request.user.set_password(formPassword.cleaned_data['password_new'])
+                request.user.save()
+
+                msg = u'Le mot de passe a bien été modifié.'
+        elif 'other' == request.POST['form']:
+            formOther = SettingsOtherForm(request.POST)
+
+            if formOther.is_valid():
+                data = formOther.cleaned_data
+                if 'avatar_url' in data:
+                    p.avatar_url = data['avatar_url']
+                p.show_email = data['show_email']
+                p.save()
+
+                msg = u'Le compte a bien été modifié.'
+
+    c = {
+        'formPassword': formPassword,
+        'formOther': formOther,
+        'msg': msg,
+    }
+
+    return render(request, 'member/settings_account.html', c)

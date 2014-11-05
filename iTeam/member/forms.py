@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:30
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 17:48:30
+# @Last Modified time: 2014-11-05 10:39:26
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -141,7 +141,7 @@ class RegisterForm(forms.Form):
         return cleaned_data
 
 
-class SettingsForm(forms.Form):
+class SettingsPasswordForm(forms.Form):
 
     password_old = forms.CharField(
         label='Ancien mot de passe',
@@ -169,11 +169,11 @@ class SettingsForm(forms.Form):
     )
 
     def __init__(self, user, *args, **kwargs):
-        super(SettingsForm, self).__init__(*args, **kwargs)
+        super(SettingsPasswordForm, self).__init__(*args, **kwargs)
         self.user = user
 
     def clean(self):
-        cleaned_data = super(SettingsForm, self).clean()
+        cleaned_data = super(SettingsPasswordForm, self).clean()
 
         password_old = cleaned_data.get('password_old')
         password_new = cleaned_data.get('password_new')
@@ -200,6 +200,23 @@ class SettingsForm(forms.Form):
                 del cleaned_data['password_confirm']
 
         return cleaned_data
+
+
+class SettingsOtherForm(forms.Form):
+
+    avatar_url = forms.CharField(
+        label='Avatar',
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Ne pas oublier http:// ou https:// devant.'
+            }
+        )
+    )
+    show_email = forms.BooleanField(
+        required=False,
+        label='Afficher l\'email publiquement',
+    )
 
 
 class LostPasswordForm(forms.Form):

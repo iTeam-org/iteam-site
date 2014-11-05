@@ -100,8 +100,9 @@
             </div>
             <div class="large-10 columns">
                 <ul>
-                    {% if profile_detail.user.email %}<li>Email : {{ profile_detail.user.email|obfuscate }}</li>{% endif %}
-                    {% if profile_detail.promo %}<li>Promotion : {{ profile_detail.promo }}</li>{% endif %}
+                    {% if profile_detail.show_email %}
+                        <li>Email : {{ profile_detail.user.email|obfuscate }}</li>
+                    {% endif %}
                     <li>Date d'inscription : {{ profile_detail.user.date_joined|date:'d-m-Y' }}</li>
                     <li>Dernière connexion : {{ profile_detail.user.last_login|date:'d-m-Y' }}</li>
 
