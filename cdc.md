@@ -24,6 +24,13 @@ to do now
 - media sociaux (syncro fb, twitter, google) -> https://github.com/foxmask/django-th
 - news / tuto / articles : export pdf (pandoc)
 
+pandoc -f markdown -t latex -o foo.pdf --template=assets/tex/template.tex foo.md
+
+pandoc --latex-engine=xelatex --template=assets/tex/template.tex -s -S -N --toc -V documentclass=scrbook -V lang=francais -V monofont="Andale Mono" -V fontsize=12pt -V geometry:margin=1in foo.md -o foo.pdf
+
+-V mainfont=Merriweather
+
+
 to do maybe
 - noscript : menu, (logout ok)
 - calendar : list (prochain, passés, ...)
