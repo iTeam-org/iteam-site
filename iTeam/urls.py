@@ -18,7 +18,6 @@ urlpatterns = patterns(
     url(r'^publications/', include('iTeam.publications.urls', namespace="publications")),
     url(r'^membres/', include('iTeam.member.urls', namespace="member")),
     url(r'^pages/', include('iTeam.pages.urls', namespace="pages")),
-    url(r'^medias/', include('iTeam.medias.urls', namespace="medias")),
     url(r'^events/', include('iTeam.events.urls', namespace="events")),
 
     url(r'^$', views.home),

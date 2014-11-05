@@ -8,7 +8,6 @@ omit =
     manage.py
     loadFixtures.py
     iTeam/wsgi.py
-    iTeam/medias/*
 timid = True
 
 [report]

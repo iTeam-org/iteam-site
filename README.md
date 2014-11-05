@@ -92,7 +92,7 @@ coverage html && open htmlcov/index.html
 
 * code checking (pep8) :
 ```shell
-flake8 . --max-line-length=120 --exclude=medias
+flake8 . --max-line-length=120
 ```
 
 ## prod todo

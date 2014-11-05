@@ -14,7 +14,6 @@ assets/stylesheets
 media
 .sass-cache
 assets/.sass-cache
-img_ignore
 htmlcov
 .coverage
 

@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 14:35:58
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 22:35:10
+# @Last Modified time: 2014-11-05 09:43:01
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -81,8 +81,8 @@ def send_templated_mail(subject, template, context, recipients):
     message = render_to_string(template, context)
 
     return send_mail(
-        recipient_list = recipients,
-        subject = subject,
-        message = message,
-        from_email = None,  # use default one from settings_prod.py
+        recipient_list=recipients,
+        subject=subject,
+        message=message,
+        from_email=None,  # use default one from settings_prod.py
     )

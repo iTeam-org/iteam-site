@@ -6,12 +6,9 @@ pytz==2013d
 PyYAML==3.11
 south==1.0
 
-facebook
-
 # dev
 flake8==2.2.3
 coverage==3.7.1
 
 # touchy requirements
 pillow                          # fail with mac osx
-python-social-auth              # fail with ubuntu 14

@@ -71,8 +71,10 @@ MANAGERS = ADMINS
 # Whether to send broken-link emails. Deprecated, must be removed in 1.8.
 SEND_BROKEN_LINK_EMAILS = False
 
-#IGNORABLE_404_URLS = (
-#        re.compile(r'^/apple-touch-icon.*\.png$'),
-#        re.compile(r'^/favicon.ico$'),
-#        re.compile(r'^/robots.txt$'),
-#    )
+"""
+IGNORABLE_404_URLS = (
+        re.compile(r'^/apple-touch-icon.*\.png$'),
+        re.compile(r'^/favicon.ico$'),
+        re.compile(r'^/robots.txt$'),
+    )
+"""

@@ -42,11 +42,11 @@
     * solr ?
 
 ```python
-    publications = Publication.objects.all()
-
     from __future__ import unicode_literals
     from os import system
     import sys
+    
+    publications = Publication.objects.all()
 
     for p in publications:
         # write to file
@@ -61,7 +61,7 @@
         # load from file
         tmp_md = open('tmp.md', 'r')
         text_md = tmp_md.read().decode('utf8')
-        p.text = '\n\n'.join((p.text, '```text', text_md, '```'))
+        p.text = text_md
         p.save()
 
         system('rm tmp.html tmp.md')

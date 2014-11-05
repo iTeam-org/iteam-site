@@ -62,6 +62,7 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+SITE_ID = 1
 
 ##################################
 # Files location
@@ -140,7 +141,6 @@ INSTALLED_APPS = (
     'iTeam.pages',
     'iTeam.member',
     'iTeam.publications',
-    'iTeam.medias',
     'iTeam.events',
     'iTeam.stats',
 
@@ -253,108 +253,12 @@ LOGIN_URL = '/membres/connexion/'
 
 FORGOT_PASSWORD_TOKEN_EXPIRES = datetime.timedelta(hours=2)
 
-# python social auth
-"""
-SOCIAL_AUTH_LOGIN_URL = LOGIN_URL
-
-SOCIAL_AUTH_FACEBOOK_KEY = '530267980453281'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'bf2b79d49d208386a125c18474c92f6b'
-
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'publish_actions']
-
-#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'ru_RU'}
-
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:8000/login_success/'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/login_fail/'
-SOCIAL_AUTH_LOGIN_URL = '/login/'
-
-SOCIAL_AUTH_USER_MODEL = 'auth.User'
-
-SOCIAL_AUTH_SESSION_EXPIRATION = True
-
-SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
-"""
-
 #############################################
-#
 # LOGGING
-#
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-#
-# Levels :
-# DEBUG: Low level system information for debugging purposes
-# INFO: General system information
-# WARNING: Information describing a minor problem that has occurred.
-# ERROR: Information describing a major problem that has occurred.
-# CRITICAL: Information describing a critical problem that has occurred.
-##############################################
+# http://docs.djangoproject.com/en/dev/topics/logging
+#############################################
 
-"""
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-
-    'formatters': {
-        'default': {
-            'format': '\tDefault : %(levelname)s %(asctime)s %(message)s'
-        },
-        'request': {
-            'format': '\tRequest : %(levelname)s %(status_code)d %(message)s'
-        },
-        'backends_simple': {
-            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)f'
-        },
-        'backends_verbose': {
-            'format': '\tBackends : %(levelname)s %(asctime)s %(duration)f %(sql)s'
-        },
-    },
-
-    'handlers': {
-        'default':{
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'default'
-        },
-        'request':{
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'request'
-        },
-        'backends':{
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'backends_verbose'
-        },
-        #'db':{
-        #    'level': 'INFO',
-        #    'class': 'iTeam.utils.MyDbLogHandler',
-        #    'formatter': 'verbose'
-        #}
-    },
-
-    'loggers': {
-        'django': {
-            'handlers': ['default'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.request': {
-            'handlers': ['request'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.db.backends': {
-            'handlers': ['backends'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    }
-}
-"""
+# TODO
 
 ######################################
 # Production settings
