@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-21 18:57:25
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-02 12:11:45
+# @Last Modified time: 2014-11-10 23:14:12
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -376,7 +376,7 @@ class ViewMonth(HTMLCalendar):
                     if day in self.workouts:
                         tmp_events = []
                         for workout in self.workouts[day]:
-                            tmp_events.append({'title': workout.title, 'pk': workout.pk})
+                            tmp_events.append(get_object_or_404(Event, pk=workout.pk))
                         tmp_day['data'] = tmp_events
                     # default : day in current month, no events
                     else:
@@ -434,7 +434,7 @@ class ViewWeek(HTMLCalendar):
                     if key in self.workouts:
                         tmp_events = []
                         for workout in self.workouts[key]:
-                            tmp_events.append({'title': workout.title, 'pk': workout.pk})
+                            tmp_events.append(get_object_or_404(Event, pk=workout.pk))
                         tmp_hour_cell['data'] = tmp_events
 
                 tmp_hour_row.append(tmp_hour_cell)

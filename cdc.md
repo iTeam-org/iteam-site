@@ -31,7 +31,7 @@ to do maybe
 - better member (mail, citation, bio, ... osef ?)
 
 to do later
-- ancien iteam.org a lire / parser
+- ancien iteam.org a lire / parser -> done
 - compte Flickr
 - nas de Marine Mathieu (là en 2007)
 - forum.iteam.org

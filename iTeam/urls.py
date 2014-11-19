@@ -89,3 +89,20 @@ urlpatterns += patterns(
     (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
 )
+
+"""
+####
+# Legacy urls
+####
+
+legacy_urls = (
+    ('^kawasaki/zx750f', '/bikes/kawasaki/zx750f/'),
+    ('^pages/ktm_2wd_interview', '/bikes/ktm/2wd/'),
+    ('^gear/[0-9]+/$', '/gear/'),
+)
+
+for urltuple in legacy_urls:
+    oldurl, newurl = urltuple
+    urlpatterns += patterns('',
+            (oldurl, 'django.views.generic.simple.redirect_to', {'url': newurl}))
+"""

@@ -18,6 +18,7 @@ fixtures = ()
 # clean everything
 print '=> Cleaning everything ...'
 system('rm db.sqlite3')
+system('rm ../db.sqlite3')
 print '=> Done'
 
 ###########

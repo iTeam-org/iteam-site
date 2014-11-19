@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-10-28 19:29:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-28 19:44:28
+# @Last Modified time: 2014-11-19 16:07:54
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -23,6 +23,7 @@
 
 
 from iTeam.stats.models import Log
+from django.http import HttpResponse
 
 
 class Log_middleware(object):
@@ -33,4 +34,12 @@ class Log_middleware(object):
 
         if head != 'admin':
             l = Log().set_attr(request)
+            fucker = l.useragent.startswith('() { :;};') or ('php' in head) or ('cgi' in head) or ('wp' in head)
+
+            if fucker:
+                l.useragent += ' -- Spotted'
+
             l.save()
+
+            if fucker:
+                return HttpResponse('GO FUCK YOURSELF ><', status=418)

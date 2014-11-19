@@ -20,7 +20,7 @@ sudo ln -s /etc/nginx/sites-available/iteam-maintenance /etc/nginx/sites-enabled
 sudo service nginx reload
 
 # save database if something fail
-cp ../db.sqlite3 ../db.sqlite3_save
+cp ../db.sqlite3 ../db.sqlite3_$(date +"%F_%R:%S")
 
 # Delete old branch if exists
 git branch -D $1

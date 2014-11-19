@@ -26,7 +26,7 @@
                         <small>
                             {{ publication.subtitle }}
                             <br />
-                            {{ publication.get_type_display }} rédigé{% if publication.type != 'T' %}e{% endif %} avec amour par
+                            {{ publication.get_type_display }} rédigé{% if publication.type != 'T' %}e{% endif %} par
                             <a href="{% url 'member:detail' user_name=publication.author %}">{{ publication.author }}</a>
                             le {{ publication.pub_date|date:"d F Y" }}
                         </small>
