@@ -32,9 +32,9 @@ class Log_middleware(object):
         url = request.get_full_path()
         head = url.split('/')[1]
 
-        if head != 'admin':
+        if head != 'a':
             l = Log().set_attr(request)
-            fucker = l.useragent.startswith('() { :;};') or ('php' in head) or ('cgi' in head) or ('wp' in head)
+            fucker = l.useragent.startswith('() { :;};') or ('php' in head) or ('cgi' in head) or ('wp' in head) or ('admin' in head)
 
             if fucker:
                 l.useragent += ' -- Spotted'

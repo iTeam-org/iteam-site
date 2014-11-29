@@ -5,7 +5,6 @@ WORKINGDIR=/opt/iteam-env/iteam-site/
 
 LOGFILE=$WORKINGDIR/../log/gunicorn.log
 ERRFILE=$WORKINGDIR/../log/gunicorn_err.log
-LOGDIR=$(dirname $LOGFILE)
 NUM_WORKERS=3 # how many worker processes : should be nb_cpu*2+1
 USER=iteam
 GROUP=iteam
@@ -18,5 +17,5 @@ exec ../bin/gunicorn iTeam.wsgi:application \
 --name=iTeam \
 --user=$USER \
 --group=$GROUP \
---log-level=info \
+--log-level=debug \
 --log-file=$LOGFILE 2>>$ERRFILE

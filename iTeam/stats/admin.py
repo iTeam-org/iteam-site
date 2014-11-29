@@ -28,9 +28,9 @@ from iTeam.stats.models import Log
 
 class LogAdmin(admin.ModelAdmin):
     # fields for ALL publications
-    list_display = ('ip', 'date', 'url', 'method', 'referer', 'useragent')
+    list_display = ('ip', 'date', 'method', 'useragent', 'url', 'referer')
 
-    list_filter = ['ip', 'date', 'method', 'referer', 'useragent']
+    list_filter = ['date', 'method']
     search_fields = ['ip', 'date', 'url', 'method', 'referer', 'useragent']
 
 

@@ -36,8 +36,8 @@ def index(request):
 def home(request):
     publications_list = Publication.objects.all().filter(pub_date__lte=timezone.now(), is_draft=False). \
         order_by('-pub_date')[:5]
-    events_list = Event.objects.all().filter(date_start__gt=timezone.now(), is_draft=False). \
-        order_by('date_start')[:5]
+    events_list = Event.objects.all().filter(is_draft=False). \
+        order_by('-date_start')[:5]
 
     return render(request, 'home.html', {"publications_list": publications_list, 'events_list': events_list})
 

@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
-from django.core.urlresolvers import reverse
 from django.contrib.sitemaps import Sitemap
 from django.contrib import admin
 admin.autodiscover()
@@ -13,28 +12,6 @@ from iTeam.events.models import Event
 ##########
 # SiteMap
 ##########
-
-class HomeViewSitemap(Sitemap):
-    priority = 0.5
-    changefreq = 'weekly'
-
-    def items(self):
-        return ['index']
-
-    def location(self, item):
-        return reverse('pages:' + item)
-
-
-class StaticViewSitemap(Sitemap):
-    priority = 0.25
-    changefreq = 'yearly'
-
-    def items(self):
-        return ['apropos', 'cookies']
-
-    def location(self, item):
-        return reverse('pages:' + item)
-
 
 class PublicationsSitemap(Sitemap):
     changefreq = "monthly"
@@ -62,8 +39,6 @@ class EventsSitemap(Sitemap):
 
 
 sitemaps = {
-    'home': HomeViewSitemap,
-    'static': StaticViewSitemap,
     'publications': PublicationsSitemap,
     'events': EventsSitemap,
 }
@@ -74,7 +49,7 @@ sitemaps = {
 ##########
 
 urlpatterns = patterns('',
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^a/', include(admin.site.urls)),
 
     url(r'^publications/', include('iTeam.publications.urls', namespace="publications")),
     url(r'^membres/', include('iTeam.member.urls', namespace="member")),
