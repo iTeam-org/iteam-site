@@ -34,12 +34,15 @@ class Log_middleware(object):
 
         if head != 'a':
             l = Log().set_attr(request)
-            fucker = l.useragent.startswith('() { :;};') or ('php' in head) or ('cgi' in head) or ('wp' in head) or ('admin' in head)
 
-            if fucker:
-                l.useragent += ' -- Spotted'
+            if 'bot' not in l.useragent.lower():
+                fucker = l.useragent.startswith('() { :;};') \
+                    or ('php' in head) or ('cgi' in head) or ('wp' in head) or ('admin' in head)
 
-            l.save()
+                if fucker:
+                    l.useragent += ' -- Spotted'
 
-            if fucker:
-                return HttpResponse('GO FUCK YOURSELF ><', status=418)
+                l.save()
+
+                if fucker:
+                    return HttpResponse('GO FUCK YOURSELF ><', status=418)

@@ -106,16 +106,18 @@
                     <li>Date d'inscription : {{ profile_detail.user.date_joined|date:'d-m-Y' }}</li>
                     <li>Dernière connexion : {{ profile_detail.user.last_login|date:'d-m-Y' }}</li>
 
-                    <li>
-                        <a href="{% url 'publications:by_author' profile_detail.user.get_username %}">
-                            Publications
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'events:by_author' profile_detail.user.get_username %}">
-                            Événements
-                        </a>
-                    </li>
+                    {% if has_published %}
+                        <li>
+                            <a href="{% url 'publications:by_author' profile_detail.user.get_username %}">
+                                Publications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'events:by_author' profile_detail.user.get_username %}">
+                                Événements
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

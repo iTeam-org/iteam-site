@@ -71,6 +71,9 @@ def detail(request, user_name):
     profile = get_object_or_404(Profile, user=user)
     profileRequest = None
 
+    has_published = (Publication.objects.filter(author=user).count() != 0) \
+        or (Event.objects.filter(author=user).count() != 0)
+
     # admin actions
     if request.user.is_authenticated():
         profileRequest = get_object_or_404(Profile, user=request.user)
@@ -94,6 +97,7 @@ def detail(request, user_name):
     c = {
         'profile_detail': profile,
         'profile_request': profileRequest,
+        'has_published': has_published,
     }
 
     return render(request, 'member/detail.html', c)
@@ -246,7 +250,7 @@ def settings_view(request):
     p = get_object_or_404(Profile, user=request.user)
 
     formPassword = SettingsPasswordForm(request.user)
-    formOther = SettingsOtherForm({'avatar_url':p.avatar_url, 'show_email': p.show_email })
+    formOther = SettingsOtherForm({'avatar_url': p.avatar_url, 'show_email': p.show_email})
     msg = ''
 
     if request.method == 'POST' and 'form' in request.POST:
