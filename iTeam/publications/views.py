@@ -30,6 +30,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -114,6 +115,8 @@ def by_author(request, username):
         profileRequest = get_object_or_404(Profile, user=request.user)
 
     publications_all = Publication.objects.all().filter(author=user).order_by('-pub_date')
+    if publications_all.count() == 0:
+        raise Http404
     publications_list = publications_all.filter(is_draft=False)
     publications_drafts = publications_all.filter(is_draft=True)
 

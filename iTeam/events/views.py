@@ -32,6 +32,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -207,6 +208,8 @@ def by_author(request, username):
         profileRequest = get_object_or_404(Profile, user=request.user)
 
     events_all = Event.objects.all().filter(author=user).order_by('-date_start')
+    if events_all.count() == 0:
+        raise Http404
     events_list = events_all.filter(is_draft=False)
     events_drafts = events_all.filter(is_draft=True)
 
