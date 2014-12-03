@@ -12,6 +12,12 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+if [ "$(git status -s -uno)" != "" ];
+then
+    echo "Error, files have been changed. git will fail.";
+    exit 1
+fi
+
 cd /opt/iteam-env/iteam-site/
 
 # Maintenance mode
