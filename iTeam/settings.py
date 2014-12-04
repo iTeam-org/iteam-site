@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-09-02 12:01:06
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-05 09:39:31
+# @Last Modified time: 2014-12-04 19:33:47
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -254,6 +254,14 @@ END_HOUR_UTC = 21
 LOGIN_URL = '/membres/connexion/'
 
 FORGOT_PASSWORD_TOKEN_EXPIRES = datetime.timedelta(hours=2)
+
+FORBIDDEN_WORDS = (
+    'php',
+    'cgi',
+    'admin',
+    'wp',
+    'trackback',
+)
 
 #############################################
 # LOGGING

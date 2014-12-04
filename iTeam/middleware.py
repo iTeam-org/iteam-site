@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-10-28 19:29:36
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-11-19 16:07:54
+# @Last Modified time: 2014-12-04 19:37:15
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -21,9 +21,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf import settings
+from django.http import HttpResponse
 
 from iTeam.stats.models import Log
-from django.http import HttpResponse
 
 
 class Log_middleware(object):
@@ -34,15 +35,14 @@ class Log_middleware(object):
 
         if head != 'a':
             l = Log().set_attr(request)
+            l.save()
 
             if 'bot' not in l.useragent.lower():
-                fucker = l.useragent.startswith('() { :;};') \
-                    or ('php' in head) or ('cgi' in head) or ('wp' in head) or ('admin' in head)
+                fucker = l.useragent.startswith('() { :;};')
+                for word in settings.FORBIDDEN_WORDS:
+                    fucker = fucker or (word in url)
 
                 if fucker:
                     l.useragent += ' -- Spotted'
-
-                l.save()
-
-                if fucker:
-                    return HttpResponse('GO FUCK YOURSELF ><', status=418)
+                    l.save()
+                    return HttpResponse('Il semblerait que vous soyez mal intentionné, merci de ne pas recommencer ><', status=418)

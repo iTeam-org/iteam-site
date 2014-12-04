@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-20 19:01:23
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-09-02 14:58:36
+# @Last Modified time: 2014-12-04 19:41:10
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -88,5 +88,14 @@ class PublicationForm(forms.Form):
 
             if 'image' in cleaned_data:
                 del cleaned_data['image']
+
+        bad_word = False
+        title = cleaned_data.get('title')
+        for word in settings.FORBIDDEN_WORDS:
+                bad_word = bad_word or (word in title)
+
+        if bad_word:
+            msg = ('Erreur, un mot interdit a été utilisé. Regardez les sources ou contacter le dev.')
+            self._errors['title'] = self.error_class([msg])
 
         return cleaned_data
