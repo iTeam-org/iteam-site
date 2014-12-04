@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 18:35:38
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-26 16:28:12
+# @Last Modified time: 2014-12-04 16:35:31
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -52,3 +52,6 @@ def hallOfFame(request):
 
 def cookies(request):
     return render(request, 'pages/cookies.html')
+
+def links(request):
+    return render(request, 'pages/links.html')

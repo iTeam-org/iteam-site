@@ -3,7 +3,7 @@
 # @Author: Adrien Chardon
 # @Date:   2014-08-19 18:35:27
 # @Last Modified by:   Adrien Chardon
-# @Last Modified time: 2014-10-26 16:24:58
+# @Last Modified time: 2014-12-04 15:43:05
 
 # This file is part of iTeam.org.
 # Copyright (C) 2014 Adrien Chardon (Nodraak).
@@ -32,4 +32,5 @@ urlpatterns = patterns(
     url(r'^apropos/$', views.apropos, name='apropos'),
     url(r'^hallOfFame/$', views.hallOfFame, name='hallOfFame'),
     url(r'^cookies/$', views.cookies, name='cookies'),
+    url(r'^links/$', views.links, name='links'),
 )

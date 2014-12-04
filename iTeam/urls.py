@@ -5,7 +5,8 @@ from django.contrib.sitemaps import Sitemap
 from django.contrib import admin
 admin.autodiscover()
 
-from iTeam.pages import views
+from iTeam.pages import views as pages_views
+from iTeam.publications import views as publications_views
 from iTeam.publications.models import Publication
 from iTeam.events.models import Event
 
@@ -56,7 +57,7 @@ urlpatterns = patterns('',
     url(r'^pages/', include('iTeam.pages.urls', namespace="pages")),
     url(r'^events/', include('iTeam.events.urls', namespace="events")),
 
-    url(r'^$', views.home),
+    url(r'^$', pages_views.home),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += patterns(
@@ -65,19 +66,13 @@ urlpatterns += patterns(
     (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
 )
 
-"""
+
 ####
 # Legacy urls
 ####
 
-legacy_urls = (
-    ('^kawasaki/zx750f', '/bikes/kawasaki/zx750f/'),
-    ('^pages/ktm_2wd_interview', '/bikes/ktm/2wd/'),
-    ('^gear/[0-9]+/$', '/gear/'),
+urlpatterns += patterns('',
+    url(r'^links/', pages_views.links),
+    url(r'^trombinoscope/', publications_views.index),
 )
 
-for urltuple in legacy_urls:
-    oldurl, newurl = urltuple
-    urlpatterns += patterns('',
-            (oldurl, 'django.views.generic.simple.redirect_to', {'url': newurl}))
-"""
