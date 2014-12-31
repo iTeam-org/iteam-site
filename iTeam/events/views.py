@@ -118,7 +118,7 @@ def index_week(request, days_since_epoch):
         'month_cur_str': settings.MONTH_STR[month],
         'year_cur': year,
         'week_of_month': week_of_month+1,
-        'days_since_epoch_prev': int(days_since_epoch)+nb_days_prev-wanted_date.weekday(),
+        'days_since_epoch_prev': int(days_since_epoch)+nb_days_prev-wanted_date.weekday(),  # TODO : check > 0, else 500 error in template when building url : event/week/-1
         'days_since_epoch_next': int(days_since_epoch)+nb_days_next-wanted_date.weekday(),
     }
 
