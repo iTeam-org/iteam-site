@@ -91,8 +91,9 @@ class PublicationForm(forms.Form):
 
         bad_word = False
         title = cleaned_data.get('title')
-        for word in settings.FORBIDDEN_WORDS:
-                bad_word = bad_word or (word in title)
+        if title:
+            for word in settings.FORBIDDEN_WORDS:
+                    bad_word = bad_word or (word in title)
 
         if bad_word:
             msg = ('Erreur, un mot interdit a été utilisé. Regardez les sources ou contacter le dev.')
