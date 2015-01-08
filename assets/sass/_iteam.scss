@@ -11,7 +11,7 @@
 header
 {
     background-image: url('../images/header_background.png');
-    background-color: darken($topbar-bg-color, 10%);
+    background-color: $header_bg_color;
     color: white;
 
     h1
@@ -161,7 +161,7 @@ $custom_table_color: rgb(255, 255, 255);
 
     .today
     {
-        /*background-color: darken($iteam_base_color, 10%);*/
+        /*background-color: darken($primary-color, 10%);*/
     }
 
     .noday

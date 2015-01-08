@@ -1,17 +1,11 @@
 
-$iteam_base_color: rgb(50, 170, 40); /* green */
-
-/*$iteam_base_color: rgb(64, 64, 192); /* blue night darkest */
-/*$iteam_base_color: rgb(50, 120, 200); /* blue darker ++ */
-/*$iteam_base_color: rgb(90, 90, 240); /* blue lighter -- */
-/*$iteam_base_color: rgb(180, 215, 255); /* blue sky -- */
-
-/*$iteam_base_color: rgb(0, 180, 180); /* cyan ++ */
-
-/*$iteam_base_color: rgb(220, 180, 60); /* orange */
-
+$blue: #0074d9;
+$navy: #001f3f;
 $iteam_base_darken: 7%;
 
+$main_color: $blue;
+$topbar_main_color: lighten($navy, 8%);
+$header_bg_color: lighten($navy, 8%);
 
 // Global Foundation Settings
 @import "settings";
