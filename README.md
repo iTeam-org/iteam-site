@@ -38,7 +38,7 @@ Be carrefull with the versions :
 * Foundation 4
 
 ```shell
-apt-get install ruby
+apt-get install ruby1.8 rubygems
 gem install compass zurb-foundation
 
 # if it dont work, try :
