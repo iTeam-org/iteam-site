@@ -43,7 +43,7 @@ gem install compass zurb-foundation
 
 # if it dont work, try :
 # apt-get install ruby-compass
-# gem uninstall sass && gem install sass --version 3.4.5
+# gem uninstall sass && sudo gem install sass --version 3.4.5
 ```
 
 ## Setting up the stuff and run the server
