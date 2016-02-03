@@ -52,7 +52,7 @@ cette partie permet aux utilisateurs de consulter les news du site web, posté p
 
 -> markdown
 
-1 page accessible à tout le monde affichant les dernières news de la plus récente à la plus vieille. Laissez au choix l'utilisateur de pouvoir avoir 5,10 ou 20 news par page. Accessibilité des news antérieurs en allant sur les pages suivantes (un peu comme tout système de blog, exemple : l'utilisateur a choisi 5 articles par page, donc la page affiche les 5 plus récents, la page 2 les 5 suivants etc)
+1 page accessible à tout le monde affichant les dernières news de la plus récente à la plus vieille. Laissez le choix à l'utilisateur de pouvoir avoir 5,10 ou 20 news par page. Accessibilité des news antérieurs en allant sur les pages suivantes (un peu comme tout système de blog, exemple : l'utilisateur a choisi 5 articles par page, donc la page affiche les 5 plus récents, la page 2 les 5 suivants etc)
 1 page pour les administrateur permettant de créer/éditer/supprimer des news. Le contenu d'une news n'est pas du simple texte, un minimum de formatage CSS doit être possible, ainsi qu'ajouter des images. Le JavaScript et le PHP cependant doivent être bloqués pour des questions de sécurité. 
 
 
