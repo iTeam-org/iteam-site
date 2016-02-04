@@ -23,6 +23,9 @@
 
 
 import markdown
+from markdown.extensions.codehilite import CodeHiliteExtension
+from markdown.extensions.extra import ExtraExtension
+from markdown.extensions.toc import TocExtension
 
 from django import template
 from django.utils.safestring import mark_safe
@@ -32,6 +35,11 @@ register = template.Library()
 
 @register.filter
 def iteam_markdown(value):
+    extensions = (
+        CodeHiliteExtension(linenums=True),
+        ExtraExtension(),
+        TocExtension(),
+    )
     value = unicode(value)
-    html = markdown.markdown(value, safe_mode='escape', extensions=['codehilite(linenums=True)', 'extra'])
+    html = markdown.markdown(value, safe_mode='escape', extensions=extensions)
     return mark_safe(html)

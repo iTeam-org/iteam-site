@@ -29,7 +29,7 @@ from iTeam.events.models import Event
 
 
 class LastEventsFeedRSS(Feed):
-    title = "Événements"
+    title = "iTeam - Événements"
     link = "/events/list/"
     description = "Les derniers événements de l'iTeam"
 

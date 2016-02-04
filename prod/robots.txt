@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /admin/
-Sitemap: http://iteam.org/sitemap.xml
+Sitemap: https://iteam.org/sitemap.xml

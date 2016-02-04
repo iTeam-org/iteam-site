@@ -29,7 +29,7 @@ from iTeam.publications.models import Publication
 
 
 class LastPublicationsFeedRSS(Feed):
-    title = "Publications"
+    title = "iTeam - Publications"
     link = "/publications/"
     description = "Les dernières publications de l'iTeam"
 

@@ -36,7 +36,7 @@
                     {% if user == publication.author or user.profile.is_admin %}
                         <div class="row">
                             <div class="large-12 columns">
-                                <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin right">
+                                <a href="{% url 'publications:edit' publication_id=publication.pk %}" class="button-admin button small right">
                                     Éditer
                                 </a>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="large-12 columns">
                                 <form action="{{ publication.get_absolute_url }}" method="post">
                                     {% csrf_token %}
-                                    <button name="toggle_draft" class="button-admin right">
+                                    <button name="toggle_draft" class="button-admin button small right">
                                         Publier
                                     </button>
                                 </form>

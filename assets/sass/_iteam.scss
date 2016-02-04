@@ -48,19 +48,20 @@ footer div
 /* warning box (for edit publication) */
 .warning
 {
-  @include alert(
-    $bg: rgb(240, 138, 36)
-  );
+    @include alert(
+        $bg: rgb(240, 138, 36)
+    );
 }
 
 /* button for all admin and publisher actions */
 .button-admin
 {
-  @include button(
-    $bg: rgb(240, 138, 36),
-    $radius: true
+    @include button(
+        $bg: rgb(240, 138, 36),
+        $radius: true
+    );
 
-  );
+    margin: 5px;
 }
 
 /* breadcrumbs */

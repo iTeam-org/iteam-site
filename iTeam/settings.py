@@ -83,7 +83,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-# STATIC_ROOT = os.path.join(SITE_ROOT, 'static') # dont uncomment, the css are not found anymore
+STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -102,13 +102,27 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
+# django pipeline
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'pipeline.finders.PipelineFinder',
 )
+
+PIPELINE_JS = {
+    'all': {
+        'source_filenames': (
+            'javascripts/vendor/custom.modernizr.js',
+            'javascripts/foundation/foundation.js',
+            'javascripts/foundation/foundation.topbar.js',
+            'javascripts/foundation/foundation.alerts.js',
+            'javascripts/foundation/foundation.dropdown.js',
+            'javascripts/editor_pdp.js',
+        ),
+        'output_filename': 'javascripts/all.min.js',
+    }
+}
 
 
 ###############################
@@ -155,6 +169,7 @@ INSTALLED_APPS = (
 
     'email_obfuscator',
     'south',
+    'pipeline',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -165,8 +180,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'iTeam.middleware.Log_middleware',
 )
 
 ROOT_URLCONF = 'iTeam.urls'
@@ -185,6 +198,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 
     # Custom context processors
+    'iTeam.context_processors.piwik_url',
     'iTeam.context_processors.git_version',
 )
 

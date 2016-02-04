@@ -11,6 +11,8 @@ git_version.txt
 *.pyc
 db.sqlite3
 assets/stylesheets
+assets/admin
+static
 media
 .sass-cache
 assets/.sass-cache

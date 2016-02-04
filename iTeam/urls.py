@@ -1,14 +1,19 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib.sitemaps import Sitemap
 from django.contrib import admin
-admin.autodiscover()
 
 from iTeam.pages import views as pages_views
-from iTeam.publications import views as publications_views
 from iTeam.publications.models import Publication
 from iTeam.events.models import Event
+
+
+admin.autodiscover()
+
 
 ##########
 # SiteMap
@@ -41,7 +46,7 @@ class EventsSitemap(Sitemap):
 
 sitemaps = {
     'publications': PublicationsSitemap,
-    'events': EventsSitemap,
+    'evenements': EventsSitemap,
 }
 
 
@@ -49,7 +54,8 @@ sitemaps = {
 # Url
 ##########
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^a/', include(admin.site.urls)),
 
     url(r'^publications/', include('iTeam.publications.urls', namespace="publications")),
@@ -65,14 +71,3 @@ urlpatterns += patterns(
     (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
 )
-
-
-####
-# Legacy urls
-####
-
-urlpatterns += patterns('',
-    url(r'^links/', pages_views.links),
-    url(r'^trombinoscope/', publications_views.index),
-)
-

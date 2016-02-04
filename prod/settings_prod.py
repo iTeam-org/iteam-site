@@ -32,7 +32,10 @@ STATICFILES_DIRS = (
     ('stylesheets', os.path.join(SITE_ROOT, 'assets', 'stylesheets')),
     ('javascripts', os.path.join(SITE_ROOT, 'assets', 'javascripts')),
     ('images', os.path.join(SITE_ROOT, 'assets', 'images')),
+    ('fonts', os.path.join(SITE_ROOT, 'assets', 'fonts')),
 )
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 ################################
 # Database
@@ -48,6 +51,8 @@ DATABASES = {
 ################################
 # Email and errors report
 ################################
+
+USE_X_FORWARDED_HOST = True
 
 EMAIL_HOST = 'mail.mailoo.org'
 EMAIL_HOST_USER = '**********'

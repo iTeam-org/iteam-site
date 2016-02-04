@@ -59,11 +59,26 @@
             fonctionneront tout simplement pas !
         </p>
         <ul>
-            <li>sessionid : Ce cookie est un identifiant unique qui permet de faire le lien entre votre session de navigation et les différentes pages que vous visitez. Il permet en particulier de vous connecter à iteam.org. Il ne contient qu'une chaîne de caractères aléatoires.</li>
-            <li>csrftoken : Ce cookie contient une chaîne de caractères aléatoires qui permet de se prémunir des attaques <a href="http://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery">CSRF</a>. Composant indispensable de la sécurité du site, vous ne pourrez rien poster sans ce cookie.</li>
+            <li>sessionid : ce cookie est un identifiant unique qui permet de faire le lien entre votre session de navigation et les différentes pages que vous visitez. Il permet en particulier de vous connecter à iteam.org. Il ne contient qu'une chaîne de caractères aléatoires.</li>
+            <li>csrftoken : ce cookie contient une chaîne de caractères aléatoires qui permet de se prémunir des attaques <a href="http://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery">CSRF</a>. Composant indispensable de la sécurité du site, vous ne pourrez rien poster sans ce cookie.</li>
         </ul>
 
+        <h4>Cookies d'analyse d'audience</h4>
+        <p>
+            Le logiciel utilisé à des fin de mesure d'audience est <a href="https://piwik.org/">Piwik</a>.
+            <br />
+            Conformément aux recommendations de la CNIL, les adresses IP sont anonymisées (seuls les deux premiers
+            octets sont conservés). Nous respectons également l'option <a href="http://donottrack.us/">"Do not track"
+            </a>.
+            <br />
+            La liste des cookies créés par Piwik est détaillée sur <a href="http://piwik.org/faq/general/#faq_146">cette page</a>.
+        </p>
+
         <h3>Comment refuser les cookies tiers</h3>
+
+        <h4>Activer l'option "Do not track" de votre navigateur ou demander gentiment à piwik</h4>
+
+        <iframe style="border:1px solid gray; width:100%;" src="//{{ piwik_url }}/index.php?module=CoreAdminHome&action=optOut&language=fr"></iframe>
 
         <h4>Refus pur et simple des cookies tiers dans le navigateur</h4>
         <p>

@@ -1,6 +1,8 @@
-# Iteam.org
+# iTeam.org website
 
-[ITeam](http://iteam.org) is a french association for promoting free softwares from the french engineering school [ECE](http://ece.fr).
+*See the running instance [here](https://iteam.org).*
+
+iTeam is a french association for promoting free softwares at the french engineering school [ECE](http://ece.fr).
 
 Notes :
 
@@ -9,7 +11,7 @@ Notes :
 
 ## Dependencies
 
-* *Python 2.x*, its framework *Django*, the python package installer *pip* and some dependencies :
+### *Python 2.x*, its framework *Django*, the python package installer *pip* and some dependencies :
 ```shell
 apt-get install python2.7 python2.7-dev sqlite3
 apt-get install python-pip
@@ -29,7 +31,7 @@ export CPPFLAGS=""
 pip install pillow
 ```
 
-* *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
+### *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
 
 Be carrefull with the versions :
 
@@ -44,6 +46,12 @@ gem install compass zurb-foundation
 # if it dont work, try :
 # apt-get install ruby-compass
 # gem uninstall sass && sudo gem install sass --version 3.4.5
+```
+
+### *Yuglify* (use by django-pipeline, to minify the js)
+
+```shell
+npm -g install yuglify
 ```
 
 ## Setting up the stuff and run the server
@@ -95,13 +103,12 @@ coverage html && open htmlcov/index.html
 flake8 . --max-line-length=120
 ```
 
-## prod todo
+* Do not forget to:
 
-https://docs.djangoproject.com/en/1.6/topics/security/
-
-python manage.py clearsessions
-
-apt-get install Apache2 Django
-apt-get install libapache2-mod-wsgi
-
-configure apache2 -> cf tuto zds
+- add tests if needed
+- use object.pk instead of object.id
+- write css style in css files instead of html template
+- not leave the alt attribute of <img> empty
+- write pep8 compliant code
+- do the migrations (with south because django 1.6): `python manage.py schemamigration app_name --initial` and `python manage.py schemamigration app_name --auto`
+- add a tag before deploy in production: `git tag -a v1.4 -m 'my version 1.4'` and `git push origin --tags`

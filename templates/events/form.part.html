@@ -52,8 +52,7 @@
 
     <fieldset>
         <legend>Texte :</legend>
-
-        {{ form.text.label_tag }}
+        {% include 'form.action.part.html' %}
         {{ form.text }}
         {% for error in form.text.errors %}
             <small class="error">{{ error }}</small>

@@ -53,5 +53,10 @@ def hallOfFame(request):
 def cookies(request):
     return render(request, 'pages/cookies.html')
 
+
 def links(request):
     return render(request, 'pages/links.html')
+
+
+def md(request):
+    return render(request, 'pages/md.html')

@@ -118,5 +118,4 @@ class EventForm(forms.Form):
             msg = ('Erreur, un mot interdit a été utilisé. Regardez les sources ou contacter le dev.')
             self._errors['title'] = self.error_class([msg])
 
-
         return cleaned_data

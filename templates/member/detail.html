@@ -53,7 +53,7 @@
                                     <div class="large-12 columns">
                                         <form action="{% url 'member:detail' user_name=profile_detail.user.username %}" method="post">
                                             {% csrf_token %}
-                                            <button name="toggle_is_publisher" class="button-admin right">
+                                            <button name="toggle_is_publisher" class="button-admin button small right">
                                                 {% if not profile_detail.is_publisher %}
                                                     Nommer publisher
                                                 {% else %}
@@ -67,7 +67,7 @@
                                     <div class="large-12 columns">
                                         <form action="{% url 'member:detail' user_name=profile_detail.user.username %}" method="post">
                                             {% csrf_token %}
-                                            <button name="toggle_is_admin" class="button-admin right">
+                                            <button name="toggle_is_admin" class="button-admin button small right">
                                                 {% if not profile_detail.is_admin %}
                                                     Nommer admin
                                                 {% else %}

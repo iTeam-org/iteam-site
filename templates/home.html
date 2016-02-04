@@ -47,12 +47,16 @@
                     </a>
                 </div>
                 <div class="small-9 columns">
-                    <p>
+                    <p style="margin-bottom:0;">
                         <a href="{{ publication.get_absolute_url }}">{{ publication.title }}</a>
                         écrit par
                         <a href="{% url 'member:detail' publication.author %}">{{ publication.author }}</a>.
                         <br />
-                        {{ publication.subtitle }}
+                        {% if publication.subtitle %}
+                           {{ publication.subtitle }}
+                        {% else %}
+                           &nbsp;
+                        {% endif %}
                     </p>
                 </div>
             </div>
