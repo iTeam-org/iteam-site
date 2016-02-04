@@ -42,14 +42,14 @@
 
                         {% if profile_detail.user == profile_request.user or profile_request.is_admin %}
                             <td>
-                                <div class="button-group ">
-                                    <a href="{% url 'publications:edit' data.pk %}" class="button-admin">
+                                <div class="button-group">
+                                    <a href="{% url 'publications:edit' data.pk %}" class="button-admin button small">
                                         Éditer
                                     </a>
                                     {% if data.is_draft %}
                                         <form action="{{ data.get_absolute_url }}" method="post">
                                             {% csrf_token %}
-                                            <button name="toggle_draft" class="button-admin">
+                                            <button name="toggle_draft" class="button-admin button small">
                                                 Publier
                                             </button>
                                         </form>

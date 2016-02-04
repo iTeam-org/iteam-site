@@ -20,7 +20,7 @@
         {# title #}
         <div class="home-app-title">
             <div class="row">
-                <div class="large-8 columns">
+                <div class="large-9 columns">
                     <h1>
                         {% if user.is_authenticated and profile_detail.user == user %}
                             Mes publications
@@ -29,6 +29,13 @@
                         {% endif %}
                     </h1>
                 </div>
+                {% if user.is_authenticated and user.profile.is_publisher %}
+                    <div class="large-3 columns">
+                        <a href="{% url 'publications:create' %}" class="button-admin button small right">
+                            Rédigez une publication
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         {# content #}
