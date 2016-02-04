@@ -35,6 +35,8 @@ STATICFILES_DIRS = (
     ('fonts', os.path.join(SITE_ROOT, 'assets', 'fonts')),
 )
 
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
 ################################
 # Database
 ################################
