@@ -183,6 +183,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 
     # Custom context processors
+    'iTeam.context_processors.piwik_url',
     'iTeam.context_processors.git_version',
 )
 

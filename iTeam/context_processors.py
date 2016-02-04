@@ -22,6 +22,13 @@
 # along with iTeam.org. If not, see <http://www.gnu.org/licenses/>.
 
 
+def piwik_url(request):
+    """
+        Return the root url of piwik.
+    """
+    return {'piwik_url': 'analytics.iteam.org'}
+
+
 def git_version(request):
     """
         Return the current deployed git version.
