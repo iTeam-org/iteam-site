@@ -49,6 +49,8 @@ DATABASES = {
 # Email and errors report
 ################################
 
+USE_X_FORWARDED_HOST = True
+
 EMAIL_HOST = 'mail.mailoo.org'
 EMAIL_HOST_USER = '**********'
 EMAIL_HOST_PASSWORD = '*********'
