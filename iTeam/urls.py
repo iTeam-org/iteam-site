@@ -41,7 +41,7 @@ class EventsSitemap(Sitemap):
 
 sitemaps = {
     'publications': PublicationsSitemap,
-    'events': EventsSitemap,
+    'evenements': EventsSitemap,
 }
 
 
