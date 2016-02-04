@@ -18,3 +18,7 @@ htmlcov
 .coverage
 
 .idea
+
+# project files
+*.sublime_project
+*.sublime_workspace
