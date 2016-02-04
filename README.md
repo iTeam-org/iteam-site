@@ -102,3 +102,13 @@ coverage html && open htmlcov/index.html
 ```shell
 flake8 . --max-line-length=120
 ```
+
+* Do not forget to:
+
+- add tests if needed
+- use object.pk instead of object.id
+- write css style in css files instead of html template
+- not leave the alt attribute of <img> empty
+- write pep8 compliant code
+- do the migrations (with south because django 1.6): `python manage.py schemamigration app_name --initial` and `python manage.py schemamigration app_name --auto`
+- add a tag before deploy in production: `git tag -a v1.4 -m 'my version 1.4'` and `git push origin --tags`
