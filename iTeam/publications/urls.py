@@ -27,7 +27,8 @@ from django.conf.urls import patterns, url
 from iTeam.publications import views, feeds
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^feed/rss/$', feeds.LastPublicationsFeedRSS(), name='publications_feed_rss'),
     url(r'^feed/atom/$', feeds.LastPublicationsFeedATOM(), name='publications_feed_atom'),
 

@@ -109,6 +109,12 @@ def index_week(request, days_since_epoch):
         days_since_epoch_next += timedelta(days=1)
         nb_days_next += 1
 
+    # previous ann next week
+    days_since_epoch_prev = int(days_since_epoch)+nb_days_prev-wanted_date.weekday()
+    if days_since_epoch_prev < 0:  # prevent error 500
+        days_since_epoch_prev = 0
+    days_since_epoch_next = int(days_since_epoch)+nb_days_next-wanted_date.weekday()
+
     # data for template
     data = {
         'view': 'week',
@@ -118,8 +124,8 @@ def index_week(request, days_since_epoch):
         'month_cur_str': settings.MONTH_STR[month],
         'year_cur': year,
         'week_of_month': week_of_month+1,
-        'days_since_epoch_prev': int(days_since_epoch)+nb_days_prev-wanted_date.weekday(),  # TODO : check > 0, else 500 error in template when building url : event/week/-1
-        'days_since_epoch_next': int(days_since_epoch)+nb_days_next-wanted_date.weekday(),
+        'days_since_epoch_prev': days_since_epoch_prev,
+        'days_since_epoch_next': days_since_epoch_next,
     }
 
     return render(request, 'events/index.html', data)
