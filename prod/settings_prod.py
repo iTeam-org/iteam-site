@@ -32,6 +32,7 @@ STATICFILES_DIRS = (
     ('stylesheets', os.path.join(SITE_ROOT, 'assets', 'stylesheets')),
     ('javascripts', os.path.join(SITE_ROOT, 'assets', 'javascripts')),
     ('images', os.path.join(SITE_ROOT, 'assets', 'images')),
+    ('fonts', os.path.join(SITE_ROOT, 'assets', 'fonts')),
 )
 
 ################################
