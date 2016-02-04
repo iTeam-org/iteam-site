@@ -307,7 +307,7 @@ function quote(textAreaId) {
         author = author.trim();
         if (author.length != 0) {
             shiftRightAndSurroundSelection(textAreaId, indenter,
-                    '\n**' + author + ' a écrit :**\n', '\n');
+                    '\n', '\n>\n> *— ' + author + '*\n');
             return;
         }
     }
