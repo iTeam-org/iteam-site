@@ -52,7 +52,11 @@
                         écrit par
                         <a href="{% url 'member:detail' publication.author %}">{{ publication.author }}</a>.
                         <br />
-                        {{ publication.subtitle }}
+                        {% if publication.subtitle %}
+                           {{ publication.subtitle }}
+                        {% else %}
+                           &nbsp;
+                        {% endif %}
                     </p>
                 </div>
             </div>
