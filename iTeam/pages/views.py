@@ -55,3 +55,6 @@ def cookies(request):
 
 def links(request):
     return render(request, 'pages/links.html')
+
+def md(request):
+    return render(request, 'pages/md.html')

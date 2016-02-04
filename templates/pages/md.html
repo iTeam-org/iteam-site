@@ -1,0 +1,249 @@
+{% extends "pages/base.html" %}
+
+{% load i18n %}
+
+{% block title_page %}
+    Markdown &#183;
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-10 large-centered columns">
+        <p>
+            Voici un petit aide-mémoire permettant de vous souvenir des différents éléments disponibles à l’aide de la syntaxe Markdown utilisée sur ce site.
+            <br />
+            La documentation complète du Markdown est <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">ici (en)</a>.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-10 large-centered columns">
+        <h2>
+            Mise en forme basique
+        </h2>
+
+        <h3>
+            Titres, paragraphes et sauts de ligne
+        </h3>
+
+        <p>
+            Les titres sont définis par le caractère <code>#</code>.
+            <br />
+            Les paragraphes sont séparés par une (ou plusieurs) lignes vides. S'il n'y a pas de ligne vide (donc un simple retour à la ligne), le texte ne marquera pas ce retour à la ligne. Pour insérer un retour à la ligne sans faire de nouveau paragraphe, il suffit de terminer la ligne qui précède avec deux espaces.
+        </p>
+
+        <table style="width:100%">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Vous tapez</th>
+                    <th>Vous voyez</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Titre 1</td>
+                    <td><code>## text</code></td>
+                    <td><h2>text</h2></td>
+                </tr><tr>
+                    <td>Titre 2</td>
+                    <td><code>### text</code></td>
+                    <td><h3>text</h3></td>
+                </tr><tr>
+                    <td>Deux paragraphes</td>
+                    <td>
+<pre>Ligne 1.
+Ligne 2.
+
+Ligne 3.</pre>
+                    </td><td>
+                        <p>Ligne 1. Ligne 2.</p>
+                        <p>Ligne 3.</p>
+                    </td>
+                </tr><tr>
+                    <td>Saut de ligne</td>
+                    <td>
+<pre>Ligne 1.␣␣
+Ligne 2.</pre>
+                    </td><td>
+                        <p>
+                                Ligne 1.<br />
+                                Ligne 2.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Blocs de mise en forme
+        </h3>
+
+        <table style="width:100%">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Vous tapez</th>
+                    <th>Vous voyez</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Italique</td>
+                    <td><code>*texte*</code> / <code>_texte_</code></td>
+                    <td><i>texte</i></td>
+                </tr><tr>
+                    <td>Gras</td>
+                    <td><code>*texte*</code> / <code>_texte_</code></td>
+                    <td><b>texte</b></td>
+                </tr><tr>
+                    <td>Lien brut</td>
+                    <td><code>&lt;http://iteam.org/&gt;</code></td>
+                    <td><a href="http://iteam.org/">http://iteam.org/</a></td>
+                </tr><tr>
+                    <td>Lien enrichi</td>
+                    <td><code>[Ce site est génial !" %}](http://iteam.org/)</code></td>
+                    <td><a href="http://iteam.org/">Ce site est génial !</a></td>
+                </tr><tr>
+                    <td>Citation</td>
+                    <td>
+<pre>
+&gt; Texte cité.
+</pre>
+                    </td>
+                    <td>
+                        <blockquote><p>Texte cité.</p></blockquote>
+                    </td>
+                </tr><tr>
+                    <td>Image</td>
+                    <td><code>![Texte alternatif](http://placehold.it/64x64)</code></td>
+                    <td><img alt="Texte alternatif" src="http://placehold.it/64x64" /></td>
+                </tr><tr>
+                    <td>Abréviation</td>
+                    <td>
+<pre>Ce site utilise HTML et CSS.
+
+*[HTML]: Hyper Text Markup Language
+*[CSS]: Cascading Style Sheets</pre>
+                    </td>
+                    <td>
+                        <p>Ce site utilise <abbr title="Hyper Text Markup Language">HTML</abbr> et <abbr title="Cascading Style Sheets">CSS</abbr>.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>
+            Mise en forme avancée
+        </h2>
+
+        <h3>
+            Notes de bas de page et listes
+        </h3>
+
+        <table style="width:100%">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Vous tapez</th>
+                    <th>Vous voyez</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{% trans "Bottom page notes" %}</td>
+                    <td>
+{% blocktrans %}
+<pre>This is[^1] some text[^2] with bottom page notes[^2].
+
+[^1]: Verb
+[^2]: Common name</pre>
+{% endblocktrans %}
+                    </td><td>
+                    <p>{% trans "This is" %}<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> {% trans "some text" %}<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> {% trans "with bottom page notes." %}</p>
+        <div class="footnote">
+        <hr>
+        <ol>
+        <li id="fn:1">
+        <p>{% trans "Verb" %} <a class="footnote-backref" title="Jump back to footnote 1 in the text" href="#fnref:1">↩</a></p>
+        </li>
+        <li id="fn:2">
+        <p>{% trans "Common name" %} <a class="footnote-backref" title="Jump back to footnote 2 in the text" href="#fnref:2">↩</a></p>
+        </li>
+        </ol>
+        </div>
+                    </td>
+                </tr><tr>
+                    <td>{% trans "Lists" %}</td>
+                    <td>
+<pre>* {% trans "Item" %} 1
+␣␣␣␣* {% trans "Item" %} 1.1
+␣␣␣␣* {% trans "Item" %} 1.2
+* {% trans "Item" %} 2
+␣␣␣␣* {% trans "Item" %} 2.1
+␣␣␣␣* {% trans "Item" %} 2.2</pre>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{% trans "Item" %} 1
+                                <ul>
+                                    <li>{% trans "Item" %} 1.1</li>
+                                    <li>{% trans "Item" %} 1.2</li>
+                                </ul>
+                            </li>
+                            <li>{% trans "Item" %} 2
+                                <ul>
+                                    <li>{% trans "Item" %} 2.1</li>
+                                    <li>{% trans "Item" %} 2.2</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            {% trans "Tables" %}
+        </h3>
+
+        <p>
+            {% trans "Input" %} :
+        </p>
+
+<pre>
+<code>
+| {% trans "Column" %} 1 | {% trans "Column" %} 2 |
+|----------|----------|
+| {% trans "Data" %} a | {% trans "Data" %} b |
+| {% trans "Data" %} c | {% trans "Data" %} d |
+</code>
+</pre>
+
+        <p>
+            {% trans "Output" %} :
+        </p>
+
+        <table style="width:100%">
+            <thead>
+                <tr>
+                    <th>{% trans "Column" %} 1</th>
+                    <th>{% trans "Column" %} 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{% trans "Data" %} a</td>
+                    <td>{% trans "Data" %} b</td>
+                </tr><tr>
+                    <td>{% trans "Data" %} c</td>
+                    <td>{% trans "Data" %} d</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

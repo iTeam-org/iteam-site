@@ -1,5 +1,6 @@
 {% extends "publications/base.html" %}
 
+{% load static %}
 {% load publications_tags %}
 
 {% block title_page %}
@@ -62,4 +63,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "javascripts/editor_pdp.js" %}"></script>
 {% endblock %}

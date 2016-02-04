@@ -167,11 +167,12 @@ FYI : You just lost the Game ! <3
     {% endif %}
 
     {# js #}
-    <script src="{% static "javascripts/vendor/jquery.js" %}"></script>
+    <script src="{% static "javascripts/vendor/jquery-1.10.2.min.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.alerts.js" %}"></script>
     <script src="{% static "javascripts/foundation/foundation.dropdown.js" %}"></script>
+    {% block extra_js %}{% endblock %}
 
     <script>
         $(document).foundation();

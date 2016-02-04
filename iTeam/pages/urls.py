@@ -33,4 +33,5 @@ urlpatterns = patterns(
     url(r'^hallOfFame/$', views.hallOfFame, name='hallOfFame'),
     url(r'^cookies/$', views.cookies, name='cookies'),
     url(r'^links/$', views.links, name='links'),
+    url(r'^md/$', views.md, name='md'),
 )
