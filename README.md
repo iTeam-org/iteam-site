@@ -1,6 +1,8 @@
-# Iteam.org
+# iTeam.org website
 
-[ITeam](http://iteam.org) is a french association for promoting free softwares from the french engineering school [ECE](http://ece.fr).
+*See the running instance [here](https://iteam.org).*
+
+iTeam is a french association for promoting free softwares at the french engineering school [ECE](http://ece.fr).
 
 Notes :
 
@@ -94,14 +96,3 @@ coverage html && open htmlcov/index.html
 ```shell
 flake8 . --max-line-length=120
 ```
-
-## prod todo
-
-https://docs.djangoproject.com/en/1.6/topics/security/
-
-python manage.py clearsessions
-
-apt-get install Apache2 Django
-apt-get install libapache2-mod-wsgi
-
-configure apache2 -> cf tuto zds
