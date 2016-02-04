@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="fr" class="no-js">
@@ -33,9 +34,6 @@
 
     {# css #}
     <link href="{% static "stylesheets/app.css" %}" media="all" rel="stylesheet" type="text/css" />
-
-    {# js #}
-    <script src="{% static "javascripts/vendor/custom.modernizr.js" %}"></script>
 
     {# icon #}
     <link rel="shortcut icon" type="image/png" href="{% static "images/favicon.ico" %}" />
@@ -169,10 +167,7 @@ FYI : You just lost the Game ! <3
 
     {# js #}
     <script src="{% static "javascripts/vendor/jquery-1.10.2.min.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.topbar.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.alerts.js" %}"></script>
-    <script src="{% static "javascripts/foundation/foundation.dropdown.js" %}"></script>
+    {% javascript 'all' %}
     {% block extra_js %}{% endblock %}
 
     <script>

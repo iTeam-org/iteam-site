@@ -65,14 +65,3 @@ urlpatterns += patterns(
     (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
 )
-
-
-####
-# Legacy urls
-####
-
-urlpatterns += patterns('',
-    url(r'^links/', pages_views.links),
-    url(r'^trombinoscope/', publications_views.index),
-)
-

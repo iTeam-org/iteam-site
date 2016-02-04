@@ -11,7 +11,7 @@ Notes :
 
 ## Dependencies
 
-* *Python 2.x*, its framework *Django*, the python package installer *pip* and some dependencies :
+### *Python 2.x*, its framework *Django*, the python package installer *pip* and some dependencies :
 ```shell
 apt-get install python2.7 python2.7-dev sqlite3
 apt-get install python-pip
@@ -31,7 +31,7 @@ export CPPFLAGS=""
 pip install pillow
 ```
 
-* *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
+### *Ruby*, *compass* (compile the sass/scss to css) and *zurb-foundation* (css responsive framework) :
 
 Be carrefull with the versions :
 
@@ -46,6 +46,12 @@ gem install compass zurb-foundation
 # if it dont work, try :
 # apt-get install ruby-compass
 # gem uninstall sass && sudo gem install sass --version 3.4.5
+```
+
+### *Yuglify* (use by django-pipeline, to minify the js)
+
+```shell
+npm -g install yuglify
 ```
 
 ## Setting up the stuff and run the server
